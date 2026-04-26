@@ -1,100 +1,110 @@
 import pandas as pd
-import yfinance as yf
-import time
-import random
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 class TechnicalAI:
 
-    def __init__(self):
-        self.cache = {}
-
-    def get_data(self, code):
-
-        if code in self.cache:
-            return self.cache[code]
-
-        for _ in range(2):
-            try:
-                df = yf.download(
-                    code,
-                    period="3mo",
-                    progress=False,
-                    threads=False
-                )
-                if df is not None and not df.empty:
-                    self.cache[code] = df
-                    return df
-            except:
-                pass
-
-            time.sleep(1)
-
-        return None
-
-    def calc_score(self, df):
-
-        score = 0
-        close = df["Close"]
-        vol = df["Volume"]
-
-        try:
-            ma5 = close.rolling(5).mean()
-            ma25 = close.rolling(25).mean()
-
-            if ma5.iloc[-1] > ma25.iloc[-1]:
-                score += 20
-
-            if close.iloc[-1] > close.iloc[-5]:
-                score += 20
-
-            if close.iloc[-1] >= close.max():
-                score += 30
-
-            if vol.iloc[-1] > vol.rolling(10).mean().iloc[-1]:
-                score += 30
-
-        except:
-            pass
-
-        return score
-
-    # 並列1タスク
-    def worker(self, s):
-        code = s["code"]
-
-        df = self.get_data(code)
-        if df is None:
-            return None
-
-        score = self.calc_score(df)
-        s["T"] = score
-
-        print(f"{code} → {score}")
-        return s
-
-    def process(self, stocks):
+    def process(self, market_data):
 
         results = []
 
-        CHUNK = 100  # 分割
-        MAX_WORKERS = 5  # 並列数（多すぎるとBAN）
+        for r in market_data:
 
-        for start in range(0, len(stocks), CHUNK):
+            try:
+                df = r["df"].copy()
 
-            batch = stocks[start:start+CHUNK]
-            print(f"\n=== BATCH {start} → {start+len(batch)} ===")
+                # =========================
+                # データ前処理
+                # =========================
+                df = df.dropna()
 
-            with ThreadPoolExecutor(max_workers=MAX_WORKERS) as exe:
-                futures = [exe.submit(self.worker, s) for s in batch]
+                if len(df) < 80:
+                    continue
 
-                for f in as_completed(futures):
-                    r = f.result()
-                    if r:
-                        results.append(r)
+                close = pd.to_numeric(df["Close"], errors="coerce")
+                volume = pd.to_numeric(df["Volume"], errors="coerce")
 
-            # バッチ休憩（重要）
-            time.sleep(10 + random.uniform(0, 5))
+                price = float(close.iloc[-1])
+
+                ma5 = close.rolling(5).mean()
+                ma25 = close.rolling(25).mean()
+                ma75 = close.rolling(75).mean()
+
+                score = 0
+
+                # =========================
+                # トレンド（強化）
+                # =========================
+                if price > ma25.iloc[-1]:
+                    score += 20
+
+                if price > ma75.iloc[-1]:
+                    score += 30
+
+                if ma25.iloc[-1] > ma75.iloc[-1]:
+                    score += 20  # 上昇トレンド確定
+
+                # =========================
+                # モメンタム（強化）
+                # =========================
+                ret5 = close.pct_change(5).iloc[-1]
+                ret20 = close.pct_change(20).iloc[-1]
+
+                if ret5 > 0.03:
+                    score += 15
+
+                if ret20 > 0.10:
+                    score += 25
+
+                # =========================
+                # ブレイクアウト
+                # =========================
+                high20 = close.shift(1).rolling(20).max().iloc[-1]
+
+                if price > high20:
+                    score += 40
+
+                # =========================
+                # 🔥 出来高初動（最重要）
+                # =========================
+                v_now = volume.iloc[-1]
+                v_avg = volume.rolling(20).mean().iloc[-1]
+
+                if v_avg > 0:
+                    ratio = v_now / v_avg
+
+                    if ratio > 3:
+                        score += 100
+                    elif ratio > 2:
+                        score += 60
+                    elif ratio > 1.5:
+                        score += 30
+
+                # =========================
+                # フィルタ（重要）
+                # =========================
+                if score < 40:
+                    continue
+
+                # =========================
+                # 出力
+                # =========================
+                results.append({
+                    "code": r["code"],
+                    "name": r.get("name", ""),
+                    "df": df,
+                    "market_score": r.get("market_score", 0),
+                    "technical_score": int(score),
+                    "market_cap": r.get("market_cap", 0),
+                    "price": price
+                })
+
+            except Exception as e:
+                print(f"TECH ERROR: {r.get('code', 'UNKNOWN')} {e}")
+                continue
+
+        # =========================
+        # スコア順にソート
+        # =========================
+        results = sorted(results, key=lambda x: x["technical_score"], reverse=True)
 
         return results

@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import yfinance as yf
+import os
 from datetime import datetime
 
 from market_scan.pipeline_controller import PipelineController
@@ -9,29 +10,84 @@ from Future_prediction.predict_ai import PredictAI
 
 
 # =========================
+# 設定
+# =========================
+USE_OFFLINE = True  # ← ★ここ切り替え
+SAVE_CSV = True
+INTERVAL_SEC = 10   # API叩く間隔
+
+
+# =========================
 # 市場時間チェック（日本）
 # =========================
 def is_market_open():
     now = datetime.now()
 
-    # 土日除外
     if now.weekday() >= 5:
         return False
 
     hour = now.hour
     minute = now.minute
 
-    # 9:00〜11:30
     if (9 <= hour < 11) or (hour == 11 and minute <= 30):
         return True
 
-    # 12:30〜15:00
     if (12 <= hour < 15):
         return True
 
     return False
 
 
+# =========================
+# オフラインデータ取得
+# =========================
+def load_offline_data(code):
+    try:
+        file = f"offline_data/{code}.csv"
+        if os.path.exists(file):
+            df = pd.read_csv(file)
+            return df
+    except:
+        pass
+    return None
+
+
+# =========================
+# データ取得（安全版）
+# =========================
+def safe_download(code):
+
+    # ★ オフライン優先
+    if USE_OFFLINE:
+        df = load_offline_data(code)
+        if df is not None:
+            return df
+
+    # ★ API（低頻度）
+    try:
+        df = yf.download(
+            code,
+            period="5d",
+            interval="15m",
+            progress=False,
+            threads=False
+        )
+
+        time.sleep(5)  # ★ 超重要（制限回避）
+
+        if df is None or df.empty:
+            return None
+
+        return df
+
+    except Exception as e:
+        print("DL ERROR:", code, e)
+        return None
+
+
+# =========================
+# メインAI
+# =========================
 class MonitorAI:
 
     def __init__(self):
@@ -42,39 +98,34 @@ class MonitorAI:
 
         print("=== SMART MONITOR START ===")
 
-        # =========================
-        # 銘柄取得
-        # =========================
         pipeline = PipelineController()
         stocks = pipeline.run()
 
         watch_list = [r["code"] for r in stocks[:10]]
         print("WATCH:", watch_list)
 
-        # =========================
-        # 監視ループ
-        # =========================
         while True:
 
-            if is_market_open():
+            # ★ オフラインなら常時実行
+            if USE_OFFLINE or is_market_open():
 
                 results = []
 
                 for code in watch_list:
 
                     try:
-                        df = yf.download(code, period="1d", interval="1m", progress=False)
+                        df = safe_download(code)
 
                         if df is None or df.empty:
                             continue
 
-                        price = float(df["Close"].iloc[-1].item())
-                        volume = float(df["Volume"].iloc[-1].item())
-                        change = float(df["Close"].pct_change().iloc[-1].item())
+                        price = float(df["Close"].iloc[-1])
+                        volume = float(df["Volume"].iloc[-1])
+                        change = float(df["Close"].pct_change().iloc[-1])
 
                         news = self.news_ai.analyze(code, code)
 
-                        # ★ AI予測
+                        # AI予測
                         try:
                             prob = self.predict_ai.predict(
                                 price,
@@ -83,7 +134,7 @@ class MonitorAI:
                                 news["score"]
                             )
                         except:
-                            prob = 0
+                            prob = 0.5
 
                         results.append({
                             "Time": pd.Timestamp.now(),
@@ -91,24 +142,25 @@ class MonitorAI:
                             "Price": price,
                             "Volume": volume,
                             "Change": change,
-                            "News": news["score"]
+                            "News": news["score"],
+                            "AI_Prob": prob
                         })
 
                         print(f"{code} | {price:.2f} | AI:{prob:.2f}")
-
-                        time.sleep(2)
 
                     except Exception as e:
                         print("ERROR:", code, e)
 
                 # =========================
-                # 保存（月ごと）
+                # 保存
                 # =========================
-                if len(results) > 0:
+                if SAVE_CSV and len(results) > 0:
 
                     df_save = pd.DataFrame(results)
 
-                    file = f"learning_{datetime.now().strftime('%Y_%m')}.csv"
+                    os.makedirs("learning_data", exist_ok=True)
+
+                    file = f"learning_data/learning_{datetime.now().strftime('%Y_%m')}.csv"
 
                     try:
                         old = pd.read_csv(file)
@@ -118,14 +170,17 @@ class MonitorAI:
 
                     df_save.to_csv(file, index=False)
 
-                print("---- MARKET CYCLE ----")
+                print("---- CYCLE ----")
 
-                time.sleep(60)
+                time.sleep(INTERVAL_SEC)
 
             else:
                 print("市場外 → 休止")
-                time.sleep(600)
+                time.sleep(60)
 
 
+# =========================
+# 実行
+# =========================
 if __name__ == "__main__":
     MonitorAI().run()

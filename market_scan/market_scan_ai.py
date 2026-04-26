@@ -7,7 +7,7 @@ import time
 class MarketScanAI:
 
     def __init__(self):
-        self.max_workers = 6
+        self.max_workers = 2
 
         # 時価総額（2〜4倍ゾーン）
         self.MIN_CAP = 5e9

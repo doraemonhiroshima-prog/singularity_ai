@@ -12,7 +12,7 @@ class TrainAI:
     def load_data(self):
 
         try:
-            df = pd.read_csv("learning_2026_04.csv")  # ←自動化OK
+            df = pd.read_csv("learning_history.csv")  # ←自動化OK
 
             # 必要列だけ
             df = df[["Price", "Volume", "Change", "News"]]

@@ -1,123 +1,76 @@
-from make_stock_list import create_stock_list
-from market_scan.market_scan_ai import MarketScanAI
-from technical.technical_runner import TechnicalAI
-from news.news_ai import NewsAI
-from institution.institution_ai import InstitutionAI
-import numpy as np
+from investment.portfolio import Portfolio
+from investment.portfolio_ai import PortfolioAI
+from investment.executor import Executor
+from investment.sell_ai import sell_signal
+import investment.config as config
 
+# 既存importはそのまま
 
 class PipelineController:
 
     def __init__(self):
-
-        # ★ 銘柄更新（週1だけTrue）
-        self.UPDATE_STOCK_LIST = False
 
         self.market_ai = MarketScanAI()
         self.technical_ai = TechnicalAI()
         self.news_ai = NewsAI()
         self.inst_ai = InstitutionAI()
 
+        # ★ 追加
+        self.portfolio = Portfolio(config.INITIAL_CASH)
+        self.portfolio_ai = PortfolioAI(config)
+        self.executor = Executor(self.portfolio)
+
     def run(self):
 
-        print("=== PIPELINE START ===")
-
-        # =========================
-        # 銘柄更新
-        # =========================
-        if self.UPDATE_STOCK_LIST:
-            print("銘柄リスト更新中...")
-            create_stock_list()
-
-        # =========================
-        # Market
-        # =========================
         market_data = self.market_ai.process()
-        print("[Market]", len(market_data))
-
-        # =========================
-        # Technical
-        # =========================
         tech_data = self.technical_ai.process(market_data)
-        print("[Technical]", len(tech_data))
 
-        # =========================
-        # 統合
-        # =========================
-        results = []
+        candidates = []
+
+        data_map = {}
 
         for r in tech_data:
 
-            try:
-                news = self.news_ai.analyze(r["code"], r["name"])
-                inst = self.inst_ai.analyze(r["df"])
+            news = self.news_ai.analyze(r["code"], r["name"])
+            inst = self.inst_ai.analyze(r["df"])
 
-                total = (
-                    r["market_score"] +
-                    r["technical_score"] +
-                    news["score"] +
-                    inst
-                )
-
-                results.append({
-                    "code": r["code"],
-                    "name": r["name"],
-                    "total": total,
-                    "M": r["market_score"],
-                    "T": r["technical_score"],
-                    "N": news["score"],
-                    "I": inst,
-                    "cap": r.get("market_cap", 0)
-                })
-
-            except:
-                continue
-
-        # =========================
-        # データなし対策
-        # =========================
-        if len(results) == 0:
-            print("データなし")
-            return []
-
-        # =========================
-        # スコア分析
-        # =========================
-        scores = [r["total"] for r in results]
-
-        avg = np.mean(scores)
-        std = np.std(scores)
-
-        threshold = avg + std * 0.3
-
-        print(f"AVG: {avg:.2f} STD: {std:.2f}")
-        print(f"THRESHOLD: {threshold:.2f}")
-
-        # =========================
-        # フィルタ
-        # =========================
-        final = [r for r in results if r["total"] >= threshold]
-
-        if len(final) < 10:
-            final = sorted(results, key=lambda x: x["total"], reverse=True)[:20]
-
-        final = sorted(final, key=lambda x: x["total"], reverse=True)
-
-        # =========================
-        # 出力
-        # =========================
-        print("\n=== FINAL RANKING ===")
-
-        for i, r in enumerate(final[:10]):
-            print(
-                f"{i+1}: {r['code']} | {r['name']} | "
-                f"TOTAL:{r['total']:.1f} | "
-                f"M:{r['M']} T:{r['T']} N:{r['N']} I:{r['I']} | "
-                f"CAP:{r['cap']/1e8:.0f}億"
+            total = (
+                r["market_score"] +
+                r["technical_score"] +
+                news["score"] +
+                inst
             )
 
-        return final
+            candidates.append({
+                "code": r["code"],
+                "price": float(r["df"]["Close"].iloc[-1]),
+                "score": total
+            })
 
+            data_map[r["code"]] = r["df"]
 
-if __name__ == "__main__":
-    PipelineController().run()
+        # =========================
+        # SELL
+        # =========================
+        sell_decisions = self.portfolio_ai.decide_sell(
+            self.portfolio,
+            data_map,
+            sell_signal
+        )
+
+        self.executor.execute(sell_decisions, data_map)
+
+        # =========================
+        # BUY
+        # =========================
+        buy_decisions = self.portfolio_ai.decide_buy(
+            candidates,
+            self.portfolio
+        )
+
+        self.executor.execute(buy_decisions, data_map)
+
+        print("CASH:", self.portfolio.cash)
+        print("POSITIONS:", list(self.portfolio.positions.keys()))
+
+        return candidates

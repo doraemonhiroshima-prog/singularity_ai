@@ -16,7 +16,7 @@ def fetch_data(codes):
 
             data[code] = df
 
-            time.sleep(0.5)  # ★制限対策（超重要）
+            time.sleep(1.5)  # ★制限対策（超重要）
 
         except Exception as e:
             print("DL ERROR:", code, e)
