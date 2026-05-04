@@ -1,4 +1,4 @@
-from investment.portfolio import Portfolio
+from ai.investment.portfolio import Portfolio
 
 p = Portfolio(3000000)
 

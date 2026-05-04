@@ -1,127 +1,213 @@
+import os
+import glob
 import pandas as pd
+import json
+import sys
 
-from strategy.signals import SignalGenerator
-from strategy.strategy import Strategy
-from Future_prediction.predict_ai import PredictAI
+from core.strategy.strategy import StrategyAI
+from core.portfolio.portfolio_ai import PortfolioAI
+from core.signal.signals import SignalGenerator
+
+from ai.technical.technical_runner import TechnicalRunner
+from ai.institution.institution_ai import InstitutionAI
+
+from data_pipeline.data_cleaner import clean_df
 
 
-signal_gen = SignalGenerator()
-strategy = Strategy()
-predict_ai = PredictAI()
+START_CASH = 3000000
 
 
-def run():
+def run_backtest(start_year=None, end_year=None):
 
-    df = pd.read_csv("data_7203.csv", index_col=0)
+    # =========================
+    # config
+    # =========================
+    try:
+        with open("config.json", "r") as f:
+            config = json.load(f)
+    except:
+        config = {}
 
-    cash = 3_000_000
-    position = 0
-    entry_price = 0
+    # =========================
+    # AI初期化
+    # =========================
+    strategy_ai = StrategyAI()
+    signal_ai = SignalGenerator()
+    portfolio = PortfolioAI(START_CASH)
 
-    history = []
+    tech_ai = TechnicalRunner()
+    inst_ai = InstitutionAI()
 
-    last_trade_index = -100  # クールダウン用
+    # =========================
+    # データ読み込み
+    # =========================
+    files = glob.glob("data/*.csv")
 
-    for i in range(50, len(df)):
+    data_map = {}
 
-        window = df.iloc[:i]
-
-        price = float(df["Close"].iloc[i])
-        volume = float(df["Volume"].iloc[i])
-        change = float(df["Close"].pct_change(fill_method=None).iloc[i])
-
-        # =========================
-        # トレンドフィルター（重要）
-        # =========================
-        ma25 = window["Close"].rolling(25).mean().iloc[-1]
-        ma75 = window["Close"].rolling(75).mean().iloc[-1]
-
-        trend_ok = (price > ma25) and (ma25 > ma75)
-
-        # =========================
-        # AI
-        # =========================
+    for f in files:
         try:
-            prob = predict_ai.predict(price, volume, change, 0)
-            future = prob * 100
+            code = os.path.basename(f).replace(".csv", "")
+            df = pd.read_csv(f)
+            df = clean_df(df)
+
+            if "Date" in df.columns:
+                df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+
+                if start_year:
+                    df = df[df["Date"].dt.year >= start_year]
+                if end_year:
+                    df = df[df["Date"].dt.year <= end_year]
+
+            if len(df) < 120:
+                continue
+
+            if "Close" not in df.columns:
+                print("❌ 欠損列:", code)
+                continue
+
+            data_map[code] = df.reset_index(drop=True)
+
         except:
-            future = 50
+            continue
 
-        signal_data = {
-            "T": 60,
-            "I": 50,
-            "N": 50,
-            "F": future
-        }
+    print("銘柄数:", len(data_map))
 
-        sig = signal_gen.generate(signal_data)
-        decision = strategy.decide(sig, price)
+    if len(data_map) == 0:
+        print("❌ データ無し")
+        return 0
 
-        action = decision.get("action", "HOLD")
+    # =========================
+    # バックテスト
+    # =========================
+    max_days = min([len(df) for df in data_map.values()])
+
+    total_signals = 0
+    total_trades = 0
+
+    for day in range(100, max_days - 1):
+
+        signals = []
+
+        for code, df in data_map.items():
+
+            if day >= len(df):
+                continue
+
+            past = df.iloc[:day]
+            price = df.iloc[day]["Close"]
+
+            # ===== AIスコア =====
+            tech = tech_ai.analyze(past) if hasattr(tech_ai, "analyze") else 50
+            inst = inst_ai.analyze(past) if hasattr(inst_ai, "analyze") else 50
+
+            news = 50
+            growth = 50
+
+            # ===== future =====
+            ma5 = past["Close"].rolling(5).mean().iloc[-1]
+            ma20 = past["Close"].rolling(20).mean().iloc[-1]
+
+            if ma20 == 0 or pd.isna(ma20):
+                continue
+
+            diff = (ma5 - ma20) / ma20
+
+            fw = config.get("future_weight", 800)
+
+            future = 50 + (diff * fw)
+            future = max(0, min(100, future))
+
+            data = {
+                "tech": tech,
+                "inst": inst,
+                "news": news,
+                "future": future,
+                "growth": growth
+            }
+
+            sig = signal_ai.generate(data)
+
+            # 🔥 強制デバッグ（シグナル確認）
+            if sig["signal"] == "BUY":
+                signals.append({
+                    "code": code,
+                    "price": price,
+                    "confidence": sig["confidence"]
+                })
+
+        # 🔥 シグナル数確認
+        print(f"DAY {day} SIGNALS:", len(signals))
+        total_signals += len(signals)
 
         # =========================
-        # クールダウン（過剰売買防止）
+        # 強制トレードON（デバッグ用）
         # =========================
-        if i - last_trade_index < 5:
-            action = "HOLD"
-
-        # =========================
-        # BUY条件強化
-        # =========================
-        if action == "BUY" and position == 0 and trend_ok:
-
-            size = 0.3  # ★ここ重要（30%だけ）
-            invest = cash * size
-
-            position = invest / price
-            entry_price = price
-            cash -= invest
-
-            last_trade_index = i
+        selected = signals[:5]  # ← strategy無効化
 
         # =========================
-        # SELL
+        # 売買
         # =========================
-        elif action == "SELL" and position > 0:
+        for s in selected:
+            portfolio.buy(s)
+            total_trades += 1
 
-            cash += position * price
-            position = 0
-            entry_price = 0
+        portfolio.update(data_map, day)
 
-            last_trade_index = i
-
-        # =========================
-        # 強制損切り・利確
-        # =========================
-        elif position > 0:
-
-            stop_loss = entry_price * 0.95   # -5%
-            take_profit = entry_price * 1.15 # +15%
-
-            if price <= stop_loss or price >= take_profit:
-                cash += position * price
-                position = 0
-                entry_price = 0
-
-                last_trade_index = i
-
-        total = cash + position * price
-        history.append(total)
+    print("総シグナル:", total_signals)
+    print("総トレード:", total_trades)
 
     # =========================
     # 結果
     # =========================
-    result = pd.Series(history)
+    final = portfolio.total_value(data_map, day)
 
-    final = result.iloc[-1]
-    peak = result.cummax()
-    dd = (result - peak) / peak
-    max_dd = dd.min()
+    total = len(portfolio.trade_log)
+    profits = [t["pl"] for t in portfolio.trade_log]
 
-    print("\n===== SAFE RESULT =====")
-    print(f"FINAL: {int(final):,}円")
-    print(f"MAX DD: {max_dd:.2%}")
+    if total > 0:
+        win = len([p for p in profits if p > 0]) / total
+    else:
+        win = 0
+
+    # DD
+    equity = [t["equity"] for t in portfolio.trade_log]
+
+    peak = 0
+    dd = 0
+
+    for v in equity:
+        if v > peak:
+            peak = v
+        if peak > 0:
+            dd = max(dd, (peak - v) / peak)
+
+    score = (final / START_CASH) + win - dd
+
+    print("\n=== RESULT ===")
+    print("開始:", START_CASH)
+    print("終了:", int(final))
+    print("倍率:", round(final / START_CASH, 4))
+    print("勝率:", round(win, 3))
+    print("DD:", round(dd, 3))
+    print("SCORE:", round(score, 3))
+
+    return score
 
 
+# =========================
+# CLI
+# =========================
 if __name__ == "__main__":
-    run()
+
+    if len(sys.argv) == 3:
+        s = int(sys.argv[1])
+        e = int(sys.argv[2])
+        run_backtest(s, e)
+
+    elif len(sys.argv) == 2:
+        s = int(sys.argv[1])
+        run_backtest(s, None)
+
+    else:
+        run_backtest()

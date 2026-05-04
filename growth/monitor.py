@@ -4,9 +4,9 @@ import yfinance as yf
 import os
 from datetime import datetime
 
-from market_scan.pipeline_controller import PipelineController
+from ai.market_scan.pipeline_controller import PipelineController
 from news.news_ai import NewsAI
-from Future_prediction.predict_ai import PredictAI
+from ai.Future_prediction.predict_ai import PredictAI
 
 
 # =========================

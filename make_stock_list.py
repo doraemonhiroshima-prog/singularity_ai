@@ -1,5 +1,7 @@
 import pandas as pd
 import requests
+import os
+
 
 def create_stock_list():
 
@@ -10,10 +12,13 @@ def create_stock_list():
 
         res = requests.get(url)
 
-        with open("data.xls", "wb") as f:
+        os.makedirs("data", exist_ok=True)
+
+        with open("data/jpx.xls", "wb") as f:
             f.write(res.content)
 
-        df = pd.read_excel("data.xls", engine="xlrd")
+        # ★ engine削除（自動判定）
+        df = pd.read_excel("data/jpx.xls")
 
         # =========================
         # RENAME
@@ -32,7 +37,7 @@ def create_stock_list():
         df["Code"] = df["Code"].astype(int).astype(str).str.zfill(4)
 
         # =========================
-        # ★ 完全除外（重要）
+        # 除外（ETFなど）
         # =========================
         exclude_keywords = [
             "ETF", "ETN", "REIT", "投資法人",
@@ -41,23 +46,22 @@ def create_stock_list():
 
         pattern = "|".join(exclude_keywords)
 
-        df = df[~df["Name"].str.contains(pattern, na=False)]
+        df = df[~df["Name"].astype(str).str.contains(pattern, na=False)]
 
         # =========================
         # 市場フィルター
         # =========================
         df = df[
-    df["Market"].astype(str).str.contains("プライム|スタンダード|グロース|Prime|Standard|Growth", na=False)
-]
-
-        
+            df["Market"].astype(str).str.contains(
+                "プライム|スタンダード|グロース|Prime|Standard|Growth",
+                na=False
+            )
+        ]
 
         # =========================
         # コード制限
         # =========================
-        df = df[
-            df["Code"].str.match(r"^[1-9][0-9]{3}$")
-        ]
+        df = df[df["Code"].str.match(r"^[1-9][0-9]{3}$")]
 
         # =========================
         # FINAL
@@ -67,10 +71,10 @@ def create_stock_list():
 
         df["code"] = df["code"] + ".T"
 
-        df.to_csv("stock_list.csv", index=False, encoding="utf-8-sig")
+        # ★ 保存先修正（ここ重要）
+        df.to_csv("data/stock_list.csv", index=False, encoding="utf-8-sig")
 
-
-        print(f"Saved stock_list.csv ({len(df)} stocks)")
+        print(f"✅ 完了: {len(df)} 銘柄")
 
     except Exception as e:
         print("ERROR:", e)
@@ -78,4 +82,3 @@ def create_stock_list():
 
 if __name__ == "__main__":
     create_stock_list()
-

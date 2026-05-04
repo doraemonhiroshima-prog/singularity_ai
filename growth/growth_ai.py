@@ -1,59 +1,50 @@
-import yfinance as yf
-import time
+import json
+import random
 
 
 class GrowthAI:
 
-    def analyze(self, code):
+    def __init__(self, config_file):
+        self.config_file = config_file
+        self.config = self.load()
 
-        try:
-            time.sleep(0.2)
+    def load(self):
+        with open(self.config_file, "r") as f:
+            return json.load(f)
 
-            ticker = yf.Ticker(code)
-            info = ticker.info
+    def save(self):
+        with open(self.config_file, "w") as f:
+            json.dump(self.config, f, indent=4)
 
-            score = 0
+    def evolve(self, score):
 
-            # =========================
-            # EPS成長（最重要）
-            # =========================
-            eps_growth = info.get("earningsQuarterlyGrowth", None)
+        print("現在スコア:", score)
 
-            if eps_growth is not None:
+        # =========================
+        # 改善ロジック
+        # =========================
+        if score < 1.0:
+            print("❌ 負け → 攻め方変更")
 
-                if eps_growth > 0.3:
-                    score += 80
+            self.config["tech_weight"] += random.uniform(-0.05, 0.05)
+            self.config["inst_weight"] += random.uniform(-0.05, 0.05)
+            self.config["flow_weight"] += random.uniform(-0.05, 0.05)
 
-                elif eps_growth > 0.15:
-                    score += 50
+            self.config["entry_threshold"] += random.uniform(0.01, 0.05)
 
-                elif eps_growth > 0:
-                    score += 20
+        else:
+            print("✅ 勝ち → 微調整")
 
-                else:
-                    score -= 50
+            self.config["take_profit"] += random.uniform(-0.01, 0.01)
+            self.config["stop_loss"] += random.uniform(-0.01, 0.01)
 
-            # =========================
-            # 売上成長
-            # =========================
-            rev_growth = info.get("revenueGrowth", None)
+        # =========================
+        # 制限
+        # =========================
+        for k in self.config:
+            if isinstance(self.config[k], float):
+                self.config[k] = max(min(self.config[k], 1), -1)
 
-            if rev_growth is not None:
+        self.save()
 
-                if rev_growth > 0.3:
-                    score += 60
-
-                elif rev_growth > 0.15:
-                    score += 40
-
-                elif rev_growth > 0:
-                    score += 20
-
-                else:
-                    score -= 30
-
-            return score
-
-        except Exception as e:
-            print("Growth ERROR:", code, e)
-            return 0
+        print("新パラメータ:", self.config)

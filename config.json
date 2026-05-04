@@ -1,0 +1,9 @@
+{
+  "score_threshold": 65,
+  "take_profit": 1.15,
+  "stop_loss": 0.95,
+  "trailing_stop": 0.02,
+  "future_weight": 1800,
+  "max_positions": 2,
+  "risk_per_trade": 0.03
+}

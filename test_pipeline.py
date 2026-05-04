@@ -1,9 +1,9 @@
 import pandas as pd
 
-from technical.technical_runner import TechnicalAI
+from ai.technical.technical_runner import TechnicalAI
 from news.news_ai import NewsAI
-from institution.institution_ai import InstitutionAI
-from Future_prediction.predict_ai import PredictAI
+from ai.institution.institution_ai import InstitutionAI
+from ai.Future_prediction.predict_ai import PredictAI
 
 
 # =========================
