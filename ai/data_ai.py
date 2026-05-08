@@ -1,5 +1,3 @@
-# ai/data_ai.py
-
 import glob
 import os
 import pandas as pd
@@ -9,10 +7,7 @@ from core.data_pipeline.data_cleaner import clean_df
 
 class DataAI:
 
-    def __init__(self):
-        pass
-
-    def load_all(self):
+    def load(self):
 
         files = glob.glob("data/*.csv")
 
@@ -23,10 +18,16 @@ class DataAI:
         for f in files:
 
             try:
+
                 name = os.path.basename(f)
 
-                if "stock_list" in name:
+                if (
+                    "stock_list" in name or
+                    "training_data" in name
+                ):
                     continue
+
+                code = name.replace(".csv", "")
 
                 df = pd.read_csv(f)
 
@@ -35,11 +36,10 @@ class DataAI:
                 if len(df) < 100:
                     continue
 
-                code = name.replace(".csv", "")
-
                 data_map[code] = df.reset_index(drop=True)
 
             except Exception as e:
+
                 print("LOAD ERROR:", f, e)
 
         print("DATA:", len(data_map))

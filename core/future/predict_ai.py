@@ -1,35 +1,26 @@
-from core.future.predict_ai import PredictAI
-from core.future.crash_detector import CrashDetector
+class PredictAI:
 
-
-class FuturePredictionAI:
-
-    def __init__(self):
-
-        self.predict_ai = PredictAI()
-        self.crash = CrashDetector()
-
-    def run(self, df):
+    def predict(self, df):
 
         try:
 
-            future_score = self.predict_ai.predict(df)
+            if len(df) < 25:
+                return 50
+
+            ma5 = df["Close"].rolling(5).mean().iloc[-1]
+            ma25 = df["Close"].rolling(25).mean().iloc[-1]
+
+            if ma25 == 0:
+                return 50
+
+            diff = (ma5 - ma25) / ma25
+
+            score = 50 + diff * 500
+
+            score = max(0, min(100, score))
+
+            return score
 
         except:
 
-            future_score = 50
-
-        try:
-
-            crash = self.crash.detect(df)
-
-        except:
-
-            crash = 0
-
-        future_score = max(future_score - crash, 0)
-
-        return {
-            "score": future_score,
-            "crash": crash
-        }
+            return 50

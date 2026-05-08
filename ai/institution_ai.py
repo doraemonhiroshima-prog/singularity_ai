@@ -1,9 +1,27 @@
-from core.institution.institution_core import InstitutionCore
-
 class InstitutionAI:
 
-    def __init__(self):
-        self.core = InstitutionCore()
-
     def run(self, df):
-        return self.core.analyze(df)
+
+        try:
+
+            vol = df["Volume"]
+
+            recent = vol.iloc[-5:].mean()
+
+            old = vol.iloc[-30:-5].mean()
+
+            if old == 0:
+                return 50
+
+            ratio = recent / old
+
+            score = ratio * 50
+
+            return max(
+                min(score, 100),
+                0
+            )
+
+        except:
+
+            return 50

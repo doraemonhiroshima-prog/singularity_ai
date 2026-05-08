@@ -1,108 +1,130 @@
-import json
-
+from core.portfolio.entry_manager import EntryManager
+from core.portfolio.exit_manager import ExitManager
+from core.portfolio.position_manager import PositionManager
+from core.portfolio.capital_manager import CapitalManager
+from core.portfolio.rebalance import RebalanceManager
+from core.portfolio.execution_engine import ExecutionEngine
 
 class PortfolioAI:
 
     def __init__(self, cash):
-        self.cash = cash
-        self.positions = {}
 
-        try:
-            with open("config.json", "r") as f:
-                self.config = json.load(f)
-        except:
-            self.config = {}
+        self.initial_cash = cash
 
-    def buy(self, signal):
+        self.entry = EntryManager()
 
-        code = signal["code"]
-        price = signal["price"]
+        self.exit = ExitManager()
 
-        if code in self.positions:
-            return
+        self.position = PositionManager()
 
-        max_pos = self.config.get("max_positions", 5)
+        self.capital = CapitalManager()
 
-        if len(self.positions) >= max_pos:
-            return
+        self.rebalance = RebalanceManager()
 
-        risk = self.config.get("risk_per_trade", 0.05)
-        size = self.cash * risk
+    # =========================
+    # BUY
+    # =========================
+    def buy(
+        self,
+        cash,
+        holdings,
+        code,
+        price,
+        confidence,
+        regime
+    ):
 
-        qty = int(size / price)
+        max_positions = (
+            self.capital.max_positions(
+                regime
+            )
+        )
 
-        if qty <= 0:
-            return
+        allowed = self.entry.allow_entry(
+            holdings,
+            code,
+            max_positions
+        )
 
-        self.cash -= qty * price
+        if not allowed:
 
-        self.positions[code] = {
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "bought": False
+            }
+
+        budget = self.entry.position_size(
+            cash,
+            confidence,
+            regime
+        )
+
+        shares = int(budget / price / 100) * 100
+
+        if shares <= 100:
+
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "bought": False
+            }
+
+        cost = shares * price
+
+        if cost > cash:
+
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "bought": False
+            }
+
+        style = self.position.style(
+            regime,
+            confidence
+        )
+
+        holdings[code] = {
+            "shares": shares,
             "price": price,
-            "qty": qty,
-            "max_price": price
+            "style": style,
+            "profit": 0
         }
 
-    def update(self, data_map, day):
+        cash -= cost
 
-        tp = self.config.get("take_profit", 1.1)
-        sl = self.config.get("stop_loss", 0.93)
-        ts = self.config.get("trailing_stop", 0.03)
+        holdings = self.rebalance.rebalance(
+            holdings,
+            max_positions
+        )
 
-        for code, pos in list(self.positions.items()):
+        return {
+            "cash": cash,
+            "holdings": holdings,
+            "bought": True
+        }
 
-            if code not in data_map:
-                continue
+    # =========================
+    # SELL
+    # =========================
+    def sell_check(
+        self,
+        holdings,
+        code,
+        df
+    ):
 
-            df = data_map[code]
+        if code not in holdings:
 
-            if day >= len(df):
-                continue
+            return False, ""
 
-            price = df.iloc[day]["Close"]
+        entry = holdings[code]["price"]
 
-            if price > pos["max_price"]:
-                pos["max_price"] = price
+        current = df["Close"].iloc[-1]
 
-            entry = pos["price"]
-
-            if price >= entry * tp:
-                self.sell(code, price)
-                continue
-
-            if price <= entry * sl:
-                self.sell(code, price)
-                continue
-
-            drop = (pos["max_price"] - price) / pos["max_price"]
-
-            if drop >= ts:
-                self.sell(code, price)
-                continue
-
-    def sell(self, code, price):
-
-        pos = self.positions[code]
-
-        qty = pos["qty"]
-        self.cash += qty * price
-
-        del self.positions[code]
-
-    def total_value(self, data_map, day):
-
-        total = self.cash
-
-        for code, pos in self.positions.items():
-
-            if code not in data_map:
-                continue
-
-            df = data_map[code]
-
-            if day >= len(df):
-                continue
-
-            price = df.iloc[day]["Close"]
-            total += price * pos["qty"]
-
-        return total
+        return self.exit.should_exit(
+            df,
+            entry,
+            current
+        )
