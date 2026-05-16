@@ -10,13 +10,12 @@ from ai.institution_ai import InstitutionAI
 
 from ai.signal_ai import SignalAI
 from ai.strategy_ai import StrategyAI
+
 import ai.portfolio_ai as p
 
 PortfolioAI = p.PortfolioAI
+
 print("USING:", p.__file__)
-
-
-
 
 
 def run():
@@ -85,14 +84,70 @@ def run():
 
         hold_count = len(holdings)
 
-        # 軽量化
+        # =========================
+        # RANDOM SCAN
+        # =========================
         codes = list(data_map.keys())
 
         random.shuffle(codes)
 
-        # ★ まずは10銘柄だけ
-        scan_codes = codes[:10]
+        # 高速化
+        scan_codes = codes[:50]
 
+        # =========================
+        # SELL CHECK
+        # =========================
+        sell_codes = []
+
+        for code, pos in list(holdings.items()):
+
+            try:
+
+                df = (
+                    data_map[code]
+                    .iloc[:day]
+                    .copy()
+                )
+
+                should_sell, reason = (
+                    portfolio_ai.sell_check(
+                        holdings,
+                        code,
+                        df
+                    )
+                )
+
+                if should_sell:
+
+                    current_price = float(
+                        df["Close"].iloc[-1]
+                    )
+
+                    result = (
+                        portfolio_ai.execute_sell(
+                            cash,
+                            holdings,
+                            code,
+                            current_price
+                        )
+                    )
+
+                    cash = result["cash"]
+
+                    holdings = result["holdings"]
+
+                    if result["sold"]:
+
+                        print(
+                            f"SELL: {code} ({reason})"
+                        )
+
+            except:
+                continue
+
+        # =========================
+        # BUY LOOP
+        # =========================
         for code in scan_codes:
 
             try:
@@ -113,15 +168,16 @@ def run():
 
                 tech = tech_ai.run(df)
 
+                # 高速化
                 news = 0
-
 
                 inst = inst_ai.run(df)
 
-                future = future_ai.run(df)
+                # 高速化
+                future = 0
 
                 # =========================
-                # 数値統一
+                # NORMALIZE
                 # =========================
                 def normalize_score(x):
 
@@ -131,22 +187,24 @@ def run():
                     if isinstance(x, dict):
 
                         if "score" in x:
-                           return float(x["score"])
+                            return float(x["score"])
 
                         return 0.0
 
                     try:
-                         return float(x)
+                        return float(x)
 
                     except:
                         return 0.0
 
-                        return float(x)
-
                 market = normalize_score(market)
+
                 tech = normalize_score(tech)
+
                 news = normalize_score(news)
+
                 inst = normalize_score(inst)
+
                 future = normalize_score(future)
 
                 # =========================
@@ -159,11 +217,6 @@ def run():
                 weights = strategy["weights"]
 
                 threshold = strategy["threshold"]
-
-                # =========================
-                # SCORE MONITOR
-                # =========================
-                
 
                 # =========================
                 # SIGNAL
@@ -180,13 +233,16 @@ def run():
                     threshold
                 )
 
-                print(
-                    f"SCORE={round(signal['confidence'],1)} "
-                    f"{signal['signal']}"
-                )
+                # =========================
+                # PRINT削減
+                # =========================
+                # print(
+                #     f"SCORE={round(signal['confidence'],1)} "
+                #     f"{signal['signal']}"
+                # )
 
                 # =========================
-                # BUY SIGNAL
+                # BUY ONLY
                 # =========================
                 if signal["signal"] != "BUY":
 
@@ -210,7 +266,8 @@ def run():
                     code,
                     price,
                     signal["confidence"],
-                    regime
+                    regime,
+                    signal["confidence"]
                 )
 
                 cash = result["cash"]
@@ -228,13 +285,13 @@ def run():
 
             except Exception as e:
 
-                 import traceback
+                print(
+                    f"\nERROR CODE: {code}"
+                )
 
-                 print(f"\nERROR CODE: {code}")
+                traceback.print_exc()
 
-                 traceback.print_exc()
-
-                 continue
+                continue
 
         # =========================
         # TOTAL

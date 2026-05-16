@@ -10,6 +10,16 @@ class ExecutionEngine:
 
         self.slippage = Slippage()
 
+        # =========================
+        # EXECUTION MEMORY
+        # =========================
+        self.execution_memory = {
+
+            "buy_success": 0,
+            "sell_success": 0,
+            "buy_fail": 0
+        }
+
     # =========================
     # BUY EXECUTE
     # =========================
@@ -17,11 +27,16 @@ class ExecutionEngine:
         self,
         cash,
         price,
-        shares
+        shares,
+        volatility=0
     ):
 
+        # =========================
+        # VOLATILITY SLIPPAGE
+        # =========================
         exec_price = self.slippage.buy_price(
-            price
+            price,
+            volatility
         )
 
         fee = self.cost.cost(
@@ -33,7 +48,14 @@ class ExecutionEngine:
             exec_price * shares
         ) + fee
 
+        # =========================
+        # CASH CHECK
+        # =========================
         if total > cash:
+
+            self.execution_memory[
+                "buy_fail"
+            ] += 1
 
             return {
                 "success": False
@@ -41,10 +63,18 @@ class ExecutionEngine:
 
         cash -= total
 
+        self.execution_memory[
+            "buy_success"
+        ] += 1
+
         return {
+
             "success": True,
+
             "cash": cash,
+
             "price": exec_price,
+
             "fee": fee
         }
 
@@ -55,11 +85,16 @@ class ExecutionEngine:
         self,
         cash,
         price,
-        shares
+        shares,
+        volatility=0
     ):
 
+        # =========================
+        # VOLATILITY SLIPPAGE
+        # =========================
         exec_price = self.slippage.sell_price(
-            price
+            price,
+            volatility
         )
 
         fee = self.cost.cost(
@@ -73,8 +108,22 @@ class ExecutionEngine:
 
         cash += total
 
+        self.execution_memory[
+            "sell_success"
+        ] += 1
+
         return {
+
             "cash": cash,
+
             "price": exec_price,
+
             "fee": fee
         }
+
+    # =========================
+    # EXECUTION STATS
+    # =========================
+    def stats(self):
+
+        return self.execution_memory

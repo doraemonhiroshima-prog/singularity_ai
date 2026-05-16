@@ -13,172 +13,518 @@ class PortfolioAI:
         self.initial_cash = cash
 
         self.entry = EntryManager()
+
         self.exit = ExitManager()
+
         self.position = PositionManager()
+
         self.capital = CapitalManager()
+
         self.rebalance = RebalanceManager()
+
         self.execution = ExecutionEngine()
 
-        # memory
+        # =========================
+        # PERFORMANCE MEMORY
+        # =========================
         self.memory = {}
 
-    # =========================
-    # EXIT（回転重視）
-    # =========================
-    def sell_check(self, holdings, code, df):
-
-        if code not in holdings:
-            return False, ""
-
-        entry = holdings[code]["price"]
-        current = float(df["Close"].iloc[-1])
-
-        pnl = (current - entry) / entry
-
-        # 利確（早め）
-        if pnl >= 0.04:
-            return True, "TAKE_PROFIT"
-
-        # 損切り
-        if pnl <= -0.04:
-            return True, "STOP_LOSS"
-
         # =========================
-        # 時間EXIT（超重要）
+        # GLOBAL STATS
         # =========================
-        try:
-            if len(df) > 10:
-                avg = df["Close"].iloc[-5:].mean()
-                if current < avg * 0.985:
-                    return True, "TIME_EXIT"
-        except:
-            pass
+        self.stats = {
 
-        return self.exit.should_exit(df, entry, current)
+            "wins": 0,
+            "losses": 0,
+            "total_trades": 0
+        }
 
     # =========================
-    # PRUNING（強制回転）
+    # UPDATE MEMORY
     # =========================
-    def loss_pruning(self, holdings, prices):
+    def update_memory(
+        self,
+        code,
+        pnl
+    ):
+
+        old = self.memory.get(
+            code,
+            0
+        )
+
+        new = (
+            old * 0.9 +
+            pnl * 0.1
+        )
+
+        self.memory[code] = new
+
+        # sub managers
+        self.entry.update_learning(
+            code,
+            pnl
+        )
+
+        self.exit.update_learning(
+            code,
+            pnl
+        )
+
+        self.position.update_learning(
+            code,
+            pnl
+        )
+
+        self.rebalance.update_learning(
+            code,
+            pnl
+        )
+
+    # =========================
+    # PRUNING
+    # =========================
+    def pruning(
+        self,
+        holdings,
+        prices
+    ):
 
         to_remove = []
 
         for code, pos in holdings.items():
 
             entry = pos["price"]
-            current = prices.get(code, entry)
 
-            pnl = (current - entry) / entry
+            current = prices.get(
+                code,
+                entry
+            )
 
-            self.memory[code] = pnl
+            pnl = (
+                current - entry
+            ) / entry
 
-            # 即カット
-            if pnl <= -0.05:
+            # memory update
+            self.update_memory(
+                code,
+                pnl
+            )
+
+            # =========================
+            # HARD LOSS CUT
+            # =========================
+            if pnl <= -0.10:
+
                 to_remove.append(code)
 
         # =========================
-        # 強制回転（重要）
+        # FORCE ROTATION
         # =========================
-        if len(holdings) > 8:
+        if len(holdings) > 12:
 
             sorted_pos = sorted(
+
                 holdings.items(),
-                key=lambda x: self.memory.get(x[0], 0)
+
+                key=lambda x:
+                self.memory.get(
+                    x[0],
+                    0
+                )
             )
 
-            remove_count = len(holdings) - 8
+            remove_count = (
+                len(holdings) - 12
+            )
 
             for i in range(remove_count):
-                to_remove.append(sorted_pos[i][0])
 
-        for c in set(to_remove):
-            if c in holdings:
-                del holdings[c]
+                to_remove.append(
+                    sorted_pos[i][0]
+                )
+
+        # =========================
+        # REMOVE
+        # =========================
+        for code in set(to_remove):
+
+            if code in holdings:
+
+                del holdings[code]
 
         return holdings
 
     # =========================
-    # MEMORY UPDATE
-    # =========================
-    def update_memory(self, holdings, prices):
-
-        for code, pos in holdings.items():
-
-            entry = pos["price"]
-            current = prices.get(code, entry)
-
-            pnl = (current - entry) / entry
-
-            self.memory[code] = pnl
-
-    # =========================
     # BUY
     # =========================
-    def buy(self, cash, holdings, code, price, confidence, regime, signal_score=0):
+    def buy(
+        self,
+        cash,
+        holdings,
+        code,
+        price,
+        confidence,
+        regime,
+        signal,
+        volatility=0
+    ):
 
-        max_positions = self.capital.max_positions(regime)
+        # =========================
+        # MAX POSITIONS
+        # =========================
+        max_positions = (
+            self.capital.max_positions(
+                regime,
+                confidence
+            )
+        )
 
+        # =========================
+        # ENTRY FILTER
+        # =========================
         allowed = self.entry.allow_entry(
+
             holdings,
+
             code,
+
             max_positions,
+
             confidence,
-            signal_score,
+
+            signal,
+
             self.memory
         )
 
         if not allowed:
-            return {"cash": cash, "holdings": holdings, "bought": False}
 
-        cash_ratio = self.capital.cash_ratio(regime)
-        usable_cash = cash * (1 - cash_ratio)
+            return {
 
-        penalty = 1 - max(0, -self.memory.get(code, 0))
+                "cash": cash,
 
-        budget = self.entry.position_size(
-            usable_cash * penalty,
-            confidence,
-            regime
+                "holdings": holdings,
+
+                "bought": False
+            }
+
+        # =========================
+        # CASH CONTROL
+        # =========================
+        cash_ratio = (
+            self.capital.cash_ratio(
+                regime,
+                volatility
+            )
         )
 
-        shares = int(budget / price / 100) * 100
+        usable_cash = (
+            cash * (1 - cash_ratio)
+        )
+
+        # =========================
+        # MEMORY BOOST
+        # =========================
+        memory = self.memory.get(
+            code,
+            0
+        )
+
+        if memory > 0:
+
+            boost = (
+                1 +
+                min(memory, 0.30)
+            )
+
+        else:
+
+            boost = (
+                1 -
+                min(abs(memory), 0.50)
+            )
+
+        # =========================
+        # POSITION SIZE
+        # =========================
+        budget = (
+            self.entry.position_size(
+
+                usable_cash * boost,
+
+                confidence,
+
+                regime,
+
+                memory,
+
+                volatility
+            )
+        )
+
+        # =========================
+        # POSITION WEIGHT
+        # =========================
+        weight = (
+            self.position.weight(
+                confidence,
+                memory
+            )
+        )
+
+        budget *= weight
+
+        # =========================
+        # SHARES
+        # =========================
+        shares = int(
+            budget / price / 100
+        ) * 100
 
         if shares <= 0:
-            return {"cash": cash, "holdings": holdings, "bought": False}
 
-        result = self.execution.buy(cash, price, shares)
+            return {
+
+                "cash": cash,
+
+                "holdings": holdings,
+
+                "bought": False
+            }
+
+        # =========================
+        # EXECUTION
+        # =========================
+        result = self.execution.buy(
+
+            cash,
+
+            price,
+
+            shares,
+
+            volatility
+        )
 
         if not result["success"]:
-            return {"cash": cash, "holdings": holdings, "bought": False}
 
+            return {
+
+                "cash": cash,
+
+                "holdings": holdings,
+
+                "bought": False
+            }
+
+        # =========================
+        # POSITION CREATE
+        # =========================
         holdings[code] = {
+
             "shares": shares,
+
             "price": result["price"],
-            "profit": 0
+
+            "profit": 0,
+
+            "confidence": confidence,
+
+            "regime": regime
         }
 
         return {
+
             "cash": result["cash"],
+
             "holdings": holdings,
+
             "bought": True
         }
 
     # =========================
-    # EXEC SELL
+    # SELL CHECK
     # =========================
-    def execute_sell(self, cash, holdings, code, price):
+    def sell_check(
+        self,
+        holdings,
+        code,
+        df
+    ):
 
         if code not in holdings:
-            return {"cash": cash, "holdings": holdings, "sold": False}
 
-        shares = holdings[code]["shares"]
+            return False, ""
 
-        result = self.execution.sell(cash, price, shares)
+        try:
 
-        del holdings[code]
+            entry = holdings[code]["price"]
 
-        return {
-            "cash": result["cash"],
-            "holdings": holdings,
-            "sold": True
-        }
+            current = float(
+                df["Close"].iloc[-1]
+            )
+
+            confidence = holdings[
+                code
+            ].get(
+                "confidence",
+                0
+            )
+
+            pnl = (
+                current - entry
+            ) / entry
+
+            # =========================
+            # MEMORY UPDATE
+            # =========================
+            self.update_memory(
+                code,
+                pnl
+            )
+
+            # =========================
+            # BIG WIN HOLD
+            # =========================
+            if pnl >= 1.20:
+
+                return False, ""
+
+            # =========================
+            # EXIT ENGINE
+            # =========================
+            return self.exit.should_exit(
+
+                df,
+
+                entry,
+
+                current,
+
+                code,
+
+                confidence
+            )
+
+        except:
+
+            return False, ""
+
+    # =========================
+    # EXECUTE SELL
+    # =========================
+    def execute_sell(
+        self,
+        cash,
+        holdings,
+        code,
+        current_price,
+        volatility=0
+    ):
+
+        if code not in holdings:
+
+            return {
+
+                "cash": cash,
+
+                "holdings": holdings,
+
+                "sold": False
+            }
+
+        try:
+
+            shares = holdings[
+                code
+            ]["shares"]
+
+            entry = holdings[
+                code
+            ]["price"]
+
+            pnl = (
+                current_price - entry
+            ) / entry
+
+            # =========================
+            # STATS
+            # =========================
+            self.stats[
+                "total_trades"
+            ] += 1
+
+            if pnl > 0:
+
+                self.stats[
+                    "wins"
+                ] += 1
+
+            else:
+
+                self.stats[
+                    "losses"
+                ] += 1
+
+            # =========================
+            # MEMORY UPDATE
+            # =========================
+            self.update_memory(
+                code,
+                pnl
+            )
+
+            # =========================
+            # EXECUTION
+            # =========================
+            result = self.execution.sell(
+
+                cash,
+
+                current_price,
+
+                shares,
+
+                volatility
+            )
+
+            del holdings[code]
+
+            return {
+
+                "cash": result["cash"],
+
+                "holdings": holdings,
+
+                "sold": True
+            }
+
+        except:
+
+            return {
+
+                "cash": cash,
+
+                "holdings": holdings,
+
+                "sold": False
+            }
+
+    # =========================
+    # WIN RATE
+    # =========================
+    def win_rate(self):
+
+        total = self.stats[
+            "total_trades"
+        ]
+
+        if total == 0:
+
+            return 0
+
+        return (
+            self.stats["wins"] /
+            total
+        )
