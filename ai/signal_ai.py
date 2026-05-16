@@ -7,7 +7,12 @@ class SignalAI:
 
         self.core = SignalGenerator()
 
-    def run(self, data, weights, threshold):
+    def run(
+        self,
+        data,
+        weights,
+        threshold
+    ):
 
         return self.core.generate(
             data,

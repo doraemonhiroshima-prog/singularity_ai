@@ -4,18 +4,33 @@ class InstitutionAI:
 
         try:
 
-            vol = df["Volume"]
-
-            recent = vol.iloc[-5:].mean()
-
-            old = vol.iloc[-30:-5].mean()
-
-            if old == 0:
+            if "Volume" not in df.columns:
                 return 50
 
-            ratio = recent / old
+            vol_now = df["Volume"].iloc[-1]
 
-            score = ratio * 50
+            vol_avg = (
+                df["Volume"]
+                .rolling(20)
+                .mean()
+                .iloc[-1]
+            )
+
+            if vol_avg <= 0:
+                return 50
+
+            ratio = vol_now / vol_avg
+
+            score = 50
+
+            if ratio > 2.0:
+                score += 40
+
+            elif ratio > 1.5:
+                score += 25
+
+            elif ratio > 1.2:
+                score += 10
 
             return max(
                 min(score, 100),

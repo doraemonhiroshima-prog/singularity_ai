@@ -1,8 +1,17 @@
+from core.strategy.market_regime import MarketRegime
+
+
 class MarketScanAI:
+
+    def __init__(self):
+
+        self.regime = MarketRegime()
 
     def run(self, df):
 
         try:
+
+            regime = self.regime.detect(df)
 
             close = df["Close"]
 
@@ -10,11 +19,22 @@ class MarketScanAI:
 
             current = close.iloc[-1]
 
-            diff = (
-                (current - ma25) / ma25
-            ) * 100
+            score = 50
 
-            score = 50 + diff * 5
+            # 上昇相場
+            if regime == "BULL":
+                score += 25
+
+            # 暴落
+            elif regime == "CRASH":
+                score -= 25
+
+            # MA上
+            if current > ma25:
+                score += 15
+
+            else:
+                score -= 15
 
             return max(
                 min(score, 100),

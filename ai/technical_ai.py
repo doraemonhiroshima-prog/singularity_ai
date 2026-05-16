@@ -1,27 +1,31 @@
-from core.technical.indicators import Indicators
-from core.technical.breakout_detector import BreakoutDetector
+from core.technical.technical_runner import TechnicalAI as CoreTechnical
 
 
 class TechnicalAI:
 
     def __init__(self):
 
-        self.indicator = Indicators()
-
-        self.breakout = BreakoutDetector()
+        self.core = CoreTechnical()
 
     def run(self, df):
 
-        score1 = self.indicator.calculate(df)
+        try:
 
-        score2 = self.breakout.detect(df)
+            result = self.core.run(df)
 
-        total = (
-            score1 * 0.6 +
-            score2 * 0.4
-        )
+            if isinstance(result, dict):
 
-        return max(
-            min(total, 100),
-            0
-        )
+                return float(
+                    result.get("score", 0)
+                )
+
+            return float(result)
+
+        except Exception as e:
+
+            print(
+                "TECH AI ERROR:",
+                e
+            )
+
+            return 0.0

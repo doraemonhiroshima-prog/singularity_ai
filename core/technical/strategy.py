@@ -6,4 +6,3 @@ def sell_signal(df):
         return "SELL"
 
     return "HOLD"
-

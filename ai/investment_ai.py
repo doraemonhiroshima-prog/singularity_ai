@@ -1,15 +1,37 @@
-from core.portfolio.portfolio_ai import PortfolioAI
+from core.investment.executor import Executor
+from core.investment.risk_manager import RiskManager
+from core.investment.capital_allocator import CapitalAllocator
+
 
 class InvestmentAI:
 
-    def __init__(self, cash):
-        self.core = PortfolioAI(cash)
+    def __init__(self, portfolio):
 
-    def buy(self, signal):
-        self.core.buy(signal)
+        self.portfolio = portfolio
 
-    def update(self, data_map, day):
-        self.core.update(data_map, day)
+        self.executor = Executor(portfolio)
 
-    def total_value(self, data_map, day):
-        return self.core.total_value(data_map, day)
+        self.risk_manager = RiskManager()
+
+        self.capital_allocator = CapitalAllocator()
+
+    def execute(self, decisions, data_map):
+
+        self.executor.execute(
+            decisions,
+            data_map
+        )
+
+    def allocate(self, cash, signals):
+
+        return self.capital_allocator.allocate(
+            cash,
+            signals
+        )
+
+    def check_risk(self, signal):
+
+        return self.risk_manager.check(
+            self.portfolio,
+            signal
+        )

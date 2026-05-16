@@ -1,23 +1,53 @@
 class SignalGenerator:
 
-    def generate(self, data, weights, threshold):
+    def generate(
+        self,
+        data,
+        weights,
+        threshold
+    ):
 
-        score = (
-            data["market"] * weights["market"] +
-            data["tech"] * weights["tech"] +
-            data["news"] * weights["news"] +
-            data["inst"] * weights["inst"] +
-            data["future"] * weights["future"]
-        )
+        try:
 
-        if score >= threshold:
+            score = (
+                float(data["market"]) *
+                float(weights["market"]) +
+
+                float(data["tech"]) *
+                float(weights["tech"]) +
+
+                float(data["news"]) *
+                float(weights["news"]) +
+
+                float(data["inst"]) *
+                float(weights["inst"]) +
+
+                float(data["future"]) *
+                float(weights["future"])
+            )
+
+            threshold = float(threshold)
+
+            if score >= threshold:
+
+                return {
+                    "signal": "BUY",
+                    "confidence": round(score, 2)
+                }
 
             return {
-                "signal": "BUY",
-                "confidence": score
+                "signal": "NONE",
+                "confidence": round(score, 2)
             }
 
-        return {
-            "signal": "NONE",
-            "confidence": score
-        }
+        except Exception as e:
+
+            print(
+                "SIGNAL ERROR:",
+                e
+            )
+
+            return {
+                "signal": "NONE",
+                "confidence": 0
+            }

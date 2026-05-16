@@ -1,9 +1,6 @@
 class CapitalManager:
 
-    def cash_ratio(
-        self,
-        regime
-    ):
+    def cash_ratio(self, regime):
 
         if regime == "BULL":
             return 0.10
@@ -13,10 +10,7 @@ class CapitalManager:
 
         return 0.30
 
-    def max_positions(
-        self,
-        regime
-    ):
+    def max_positions(self, regime):
 
         if regime == "BULL":
             return 15

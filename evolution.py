@@ -1,4 +1,5 @@
 import random
+import traceback
 
 from ai.data_ai import DataAI
 from ai.market_scan_ai import MarketScanAI
@@ -9,7 +10,13 @@ from ai.institution_ai import InstitutionAI
 
 from ai.signal_ai import SignalAI
 from ai.strategy_ai import StrategyAI
-from ai.portfolio_ai import PortfolioAI
+import ai.portfolio_ai as p
+
+PortfolioAI = p.PortfolioAI
+print("USING:", p.__file__)
+
+
+
 
 
 def run():
@@ -33,7 +40,9 @@ def run():
 
     strategy_ai = StrategyAI()
 
-    portfolio_ai = PortfolioAI(3000000)
+    portfolio_ai = PortfolioAI(
+        3000000
+    )
 
     # =========================
     # LOAD DATA
@@ -48,6 +57,9 @@ def run():
 
     print("DATA:", len(data_map))
 
+    # =========================
+    # MAX DAYS
+    # =========================
     max_days = min([
         len(df)
         for df in data_map.values()
@@ -71,17 +83,27 @@ def run():
 
         buy_count = 0
 
+        hold_count = len(holdings)
+
+        # 軽量化
         codes = list(data_map.keys())
 
         random.shuffle(codes)
 
-        for code in codes[:300]:
+        # ★ まずは10銘柄だけ
+        scan_codes = codes[:10]
+
+        for code in scan_codes:
 
             try:
 
-                df = data_map[code].iloc[:day].copy()
+                df = (
+                    data_map[code]
+                    .iloc[:day]
+                    .copy()
+                )
 
-                if len(df) < 60:
+                if len(df) < 75:
                     continue
 
                 # =========================
@@ -91,11 +113,41 @@ def run():
 
                 tech = tech_ai.run(df)
 
-                news = news_ai.run(code)
+                news = 0
+
 
                 inst = inst_ai.run(df)
 
                 future = future_ai.run(df)
+
+                # =========================
+                # 数値統一
+                # =========================
+                def normalize_score(x):
+
+                    if x is None:
+                        return 0.0
+
+                    if isinstance(x, dict):
+
+                        if "score" in x:
+                           return float(x["score"])
+
+                        return 0.0
+
+                    try:
+                         return float(x)
+
+                    except:
+                        return 0.0
+
+                        return float(x)
+
+                market = normalize_score(market)
+                tech = normalize_score(tech)
+                news = normalize_score(news)
+                inst = normalize_score(inst)
+                future = normalize_score(future)
 
                 # =========================
                 # STRATEGY
@@ -107,6 +159,11 @@ def run():
                 weights = strategy["weights"]
 
                 threshold = strategy["threshold"]
+
+                # =========================
+                # SCORE MONITOR
+                # =========================
+                
 
                 # =========================
                 # SIGNAL
@@ -124,13 +181,13 @@ def run():
                 )
 
                 print(
-                    f"{code} | "
-                    f"{regime} | "
-                    f"SCORE={round(signal['confidence'],2)} | "
-                    f"TH={threshold} | "
+                    f"SCORE={round(signal['confidence'],1)} "
                     f"{signal['signal']}"
                 )
 
+                # =========================
+                # BUY SIGNAL
+                # =========================
                 if signal["signal"] != "BUY":
 
                     continue
@@ -138,12 +195,15 @@ def run():
                 signal_count += 1
 
                 # =========================
-                # BUY
+                # PRICE
                 # =========================
                 price = float(
                     df["Close"].iloc[-1]
                 )
 
+                # =========================
+                # BUY
+                # =========================
                 result = portfolio_ai.buy(
                     cash,
                     holdings,
@@ -161,11 +221,20 @@ def run():
 
                     buy_count += 1
 
+                    print(
+                        f"BUY: {code} "
+                        f"PRICE={round(price,1)}"
+                    )
+
             except Exception as e:
 
-                print("ERROR:", code, e)
+                 import traceback
 
-                continue
+                 print(f"\nERROR CODE: {code}")
+
+                 traceback.print_exc()
+
+                 continue
 
         # =========================
         # TOTAL
@@ -177,7 +246,8 @@ def run():
             try:
 
                 current_price = float(
-                    data_map[code]["Close"].iloc[day]
+                    data_map[code]["Close"]
+                    .iloc[day]
                 )
 
                 total += (
@@ -190,10 +260,13 @@ def run():
                 continue
 
         print(
-            f"\nDAY {day} | "
-            f"SIGNAL {signal_count} | "
-            f"BUY {buy_count} | "
-            f"TOTAL {int(total)}\n"
+            f"""
+DAY {day} |
+SIGNAL {signal_count} |
+BUY {buy_count} |
+HOLD {hold_count} |
+TOTAL {int(total)}
+"""
         )
 
     # =========================
@@ -206,7 +279,8 @@ def run():
         try:
 
             final_price = float(
-                data_map[code]["Close"].iloc[-1]
+                data_map[code]["Close"]
+                .iloc[-1]
             )
 
             final_total += (
@@ -218,9 +292,17 @@ def run():
 
             continue
 
-    print("\n=== RESULT ===")
+    print("\n=== FINAL RESULT ===")
 
-    print("FINAL:", int(final_total))
+    print(
+        "FINAL:",
+        int(final_total)
+    )
+
+    print(
+        "POSITIONS:",
+        len(holdings)
+    )
 
 
 if __name__ == "__main__":

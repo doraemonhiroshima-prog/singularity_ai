@@ -8,11 +8,11 @@ class AdaptiveWeights:
         if regime == "BULL":
 
             return {
-                "market": 0.15,
-                "tech": 0.40,
-                "news": 0.15,
-                "inst": 0.10,
-                "future": 0.20
+                "market": 0.05,
+                "tech": 0.80,
+                "news": 0.05,
+                "inst": 0.05,
+                "future": 0.05
             }
 
         # =========================
@@ -22,19 +22,19 @@ class AdaptiveWeights:
 
             return {
                 "market": 0.10,
-                "tech": 0.10,
-                "news": 0.10,
-                "inst": 0.45,
-                "future": 0.25
+                "tech": 0.70,
+                "news": 0.05,
+                "inst": 0.10,
+                "future": 0.05
             }
 
         # =========================
         # SIDE
         # =========================
         return {
-            "market": 0.15,
-            "tech": 0.25,
-            "news": 0.20,
-            "inst": 0.20,
-            "future": 0.20
+            "market": 0.05,
+            "tech": 0.80,
+            "news": 0.05,
+            "inst": 0.05,
+            "future": 0.05
         }

@@ -1,82 +1,155 @@
+# core/news/news_collector.py
+
 import requests
 
 
 class NewsCollector:
 
     def __init__(self):
-        self.headers = {"User-Agent": "Mozilla/5.0"}
+
+        self.headers = {
+            "User-Agent": "Mozilla/5.0"
+        }
 
     # =========================
     # Google News
     # =========================
     def google(self, keyword):
+
         try:
-            url = f"https://news.google.com/rss/search?q={keyword}&hl=ja&gl=JP&ceid=JP:ja"
-            return requests.get(url, headers=self.headers, timeout=3).text
+
+            url = (
+                "https://news.google.com/rss/search?"
+                f"q={keyword}&hl=ja&gl=JP&ceid=JP:ja"
+            )
+
+            res = requests.get(
+                url,
+                headers=self.headers,
+                timeout=5
+            )
+
+            return res.text
+
         except:
+
             return ""
 
     # =========================
     # Yahoo Finance
     # =========================
     def yahoo(self, code):
+
         try:
-            url = f"https://finance.yahoo.co.jp/quote/{code}/news"
-            return requests.get(url, headers=self.headers, timeout=3).text
+
+            url = (
+                f"https://finance.yahoo.co.jp/quote/"
+                f"{code}/news"
+            )
+
+            res = requests.get(
+                url,
+                headers=self.headers,
+                timeout=5
+            )
+
+            return res.text
+
         except:
+
             return ""
 
     # =========================
-    # 株探
+    # Kabutan
     # =========================
     def kabutan(self, code):
+
         try:
+
             code_num = code.replace(".T", "")
-            url = f"https://kabutan.jp/stock/news?code={code_num}"
-            return requests.get(url, headers=self.headers, timeout=3).text
+
+            url = (
+                f"https://kabutan.jp/stock/news?"
+                f"code={code_num}"
+            )
+
+            res = requests.get(
+                url,
+                headers=self.headers,
+                timeout=5
+            )
+
+            return res.text
+
         except:
+
             return ""
 
     # =========================
-    # みんかぶ
+    # Minkabu
     # =========================
     def minkabu(self, code):
+
         try:
+
             code_num = code.replace(".T", "")
-            url = f"https://minkabu.jp/stock/{code_num}/news"
-            return requests.get(url, headers=self.headers, timeout=3).text
+
+            url = (
+                f"https://minkabu.jp/stock/"
+                f"{code_num}/news"
+            )
+
+            res = requests.get(
+                url,
+                headers=self.headers,
+                timeout=5
+            )
+
+            return res.text
+
         except:
+
             return ""
 
     # =========================
-    # TDnet
+    # TDNET
     # =========================
     def tdnet(self):
+
         try:
-            url = "https://www.release.tdnet.info/inbs/I_main_00.html"
-            return requests.get(url, headers=self.headers, timeout=3).text
+
+            url = (
+                "https://www.release.tdnet.info/"
+                "inbs/I_main_00.html"
+            )
+
+            res = requests.get(
+                url,
+                headers=self.headers,
+                timeout=5
+            )
+
+            return res.text
+
         except:
+
             return ""
 
     # =========================
-    # Twitter（簡易：将来API）
-    # =========================
-    def twitter(self, keyword):
-        # API無しなので簡易
-        return ""
-
-    # =========================
-    # 全取得
+    # ALL
     # =========================
     def fetch_all(self, code, name):
 
         text = ""
 
         text += self.google(name)
+
         text += self.yahoo(code)
+
         text += self.kabutan(code)
+
         text += self.minkabu(code)
+
         text += self.tdnet()
-        text += self.twitter(name)
 
         return text

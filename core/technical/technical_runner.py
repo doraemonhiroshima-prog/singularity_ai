@@ -11,60 +11,168 @@ class TechnicalAI:
     def __init__(self):
 
         self.indicators = Indicators()
+
         self.breakout = BreakoutDetector()
 
+        # =========================
+        # SELF LEARNING
+        # =========================
+        self.memory = {
+            "breakout_weight": 1.0,
+            "volume_weight": 1.0,
+            "trend_weight": 1.0
+        }
+
+    # =========================
+    # LEARNING
+    # =========================
+    def learn(
+        self,
+        breakout_hit,
+        volume_hit,
+        trend_hit
+    ):
+
+        lr = 0.02
+
+        if breakout_hit:
+            self.memory["breakout_weight"] += lr
+        else:
+            self.memory["breakout_weight"] -= lr
+
+        if volume_hit:
+            self.memory["volume_weight"] += lr
+        else:
+            self.memory["volume_weight"] -= lr
+
+        if trend_hit:
+            self.memory["trend_weight"] += lr
+        else:
+            self.memory["trend_weight"] -= lr
+
+        # LIMIT
+        for k in self.memory:
+
+            self.memory[k] = max(
+                min(self.memory[k], 2.5),
+                0.3
+            )
+
+    # =========================
+    # MAIN
+    # =========================
     def run(self, df):
 
         try:
 
-            indicator_score = self.indicators.calculate(df)
+            if len(df) < 60:
 
+                return {
+                    "score": 10
+                }
+
+            # =========================
+            # INDICATOR
+            # =========================
+            indicator_score = (
+                self.indicators.calculate(df)
+            )
+
+            # =========================
+            # VOLUME
+            # =========================
             volume = volume_score(df)
 
+            # =========================
+            # BREAKOUT
+            # =========================
             breakout = breakout_score(df)
 
-            breakout_detect = self.breakout.detect(df)
+            breakout_detect = (
+                self.breakout.detect(df)
+            )
 
+            # =========================
+            # TREND
+            # =========================
+            close = df["Close"]
+
+            ma5 = close.rolling(5).mean().iloc[-1]
+
+            ma20 = close.rolling(20).mean().iloc[-1]
+
+            trend = 0
+
+            if ma5 > ma20:
+                trend = 60
+            else:
+                trend = 20
+
+            # =========================
+            # WEIGHT
+            # =========================
             total = (
-                indicator_score +
-                volume +
-                breakout +
-                breakout_detect
-            ) / 4
+                indicator_score * 0.25 +
+
+                volume *
+                0.15 *
+                self.memory["volume_weight"] +
+
+                breakout *
+                0.25 *
+                self.memory["breakout_weight"] +
+
+                breakout_detect *
+                0.20 *
+                self.memory["breakout_weight"] +
+
+                trend *
+                0.15 *
+                self.memory["trend_weight"]
+            )
+
+            # =========================
+            # BOOST
+            # =========================
+            if breakout_detect >= 80:
+                total += 20
+
+            if volume >= 30:
+                total += 10
+
+            # MOMENTUM
+            momentum = (
+                close.iloc[-1] -
+                close.iloc[-5]
+            ) / close.iloc[-5]
+
+            if momentum > 0.05:
+                total += 10
+
+            # =========================
+            # NORMALIZE
+            # =========================
+            total = max(
+                min(total, 100),
+                5
+            )
 
             return {
                 "score": round(total, 2),
-                "indicator": indicator_score,
-                "volume": volume,
-                "breakout": breakout
+                "indicator": round(indicator_score, 2),
+                "volume": round(volume, 2),
+                "breakout": round(breakout, 2),
+                "trend": round(trend, 2),
+                "memory": self.memory.copy()
             }
 
         except Exception as e:
 
-            print("TECH ERROR:", e)
+            print(
+                "TECH ERROR:",
+                e
+            )
 
             return {
-                "score": 50
+                "score": 10
             }
-
-    # pipeline_controller互換
-    def process(self, market_data):
-
-        results = []
-
-        for item in market_data:
-
-            try:
-
-                df = item["df"]
-
-                tech = self.run(df)
-
-                item["technical_score"] = tech["score"]
-
-                results.append(item)
-
-            except:
-                continue
-
-        return results

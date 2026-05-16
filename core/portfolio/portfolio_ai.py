@@ -5,6 +5,7 @@ from core.portfolio.capital_manager import CapitalManager
 from core.portfolio.rebalance import RebalanceManager
 from core.portfolio.execution_engine import ExecutionEngine
 
+
 class PortfolioAI:
 
     def __init__(self, cash):
@@ -12,119 +13,172 @@ class PortfolioAI:
         self.initial_cash = cash
 
         self.entry = EntryManager()
-
         self.exit = ExitManager()
-
         self.position = PositionManager()
-
         self.capital = CapitalManager()
-
         self.rebalance = RebalanceManager()
+        self.execution = ExecutionEngine()
+
+        # memory
+        self.memory = {}
+
+    # =========================
+    # EXIT（回転重視）
+    # =========================
+    def sell_check(self, holdings, code, df):
+
+        if code not in holdings:
+            return False, ""
+
+        entry = holdings[code]["price"]
+        current = float(df["Close"].iloc[-1])
+
+        pnl = (current - entry) / entry
+
+        # 利確（早め）
+        if pnl >= 0.04:
+            return True, "TAKE_PROFIT"
+
+        # 損切り
+        if pnl <= -0.04:
+            return True, "STOP_LOSS"
+
+        # =========================
+        # 時間EXIT（超重要）
+        # =========================
+        try:
+            if len(df) > 10:
+                avg = df["Close"].iloc[-5:].mean()
+                if current < avg * 0.985:
+                    return True, "TIME_EXIT"
+        except:
+            pass
+
+        return self.exit.should_exit(df, entry, current)
+
+    # =========================
+    # PRUNING（強制回転）
+    # =========================
+    def loss_pruning(self, holdings, prices):
+
+        to_remove = []
+
+        for code, pos in holdings.items():
+
+            entry = pos["price"]
+            current = prices.get(code, entry)
+
+            pnl = (current - entry) / entry
+
+            self.memory[code] = pnl
+
+            # 即カット
+            if pnl <= -0.05:
+                to_remove.append(code)
+
+        # =========================
+        # 強制回転（重要）
+        # =========================
+        if len(holdings) > 8:
+
+            sorted_pos = sorted(
+                holdings.items(),
+                key=lambda x: self.memory.get(x[0], 0)
+            )
+
+            remove_count = len(holdings) - 8
+
+            for i in range(remove_count):
+                to_remove.append(sorted_pos[i][0])
+
+        for c in set(to_remove):
+            if c in holdings:
+                del holdings[c]
+
+        return holdings
+
+    # =========================
+    # MEMORY UPDATE
+    # =========================
+    def update_memory(self, holdings, prices):
+
+        for code, pos in holdings.items():
+
+            entry = pos["price"]
+            current = prices.get(code, entry)
+
+            pnl = (current - entry) / entry
+
+            self.memory[code] = pnl
 
     # =========================
     # BUY
     # =========================
-    def buy(
-        self,
-        cash,
-        holdings,
-        code,
-        price,
-        confidence,
-        regime
-    ):
+    def buy(self, cash, holdings, code, price, confidence, regime, signal_score=0):
 
-        max_positions = (
-            self.capital.max_positions(
-                regime
-            )
-        )
+        max_positions = self.capital.max_positions(regime)
 
         allowed = self.entry.allow_entry(
             holdings,
             code,
-            max_positions
+            max_positions,
+            confidence,
+            signal_score,
+            self.memory
         )
 
         if not allowed:
+            return {"cash": cash, "holdings": holdings, "bought": False}
 
-            return {
-                "cash": cash,
-                "holdings": holdings,
-                "bought": False
-            }
+        cash_ratio = self.capital.cash_ratio(regime)
+        usable_cash = cash * (1 - cash_ratio)
+
+        penalty = 1 - max(0, -self.memory.get(code, 0))
 
         budget = self.entry.position_size(
-            cash,
+            usable_cash * penalty,
             confidence,
             regime
         )
 
         shares = int(budget / price / 100) * 100
 
-        if shares <= 100:
+        if shares <= 0:
+            return {"cash": cash, "holdings": holdings, "bought": False}
 
-            return {
-                "cash": cash,
-                "holdings": holdings,
-                "bought": False
-            }
+        result = self.execution.buy(cash, price, shares)
 
-        cost = shares * price
-
-        if cost > cash:
-
-            return {
-                "cash": cash,
-                "holdings": holdings,
-                "bought": False
-            }
-
-        style = self.position.style(
-            regime,
-            confidence
-        )
+        if not result["success"]:
+            return {"cash": cash, "holdings": holdings, "bought": False}
 
         holdings[code] = {
             "shares": shares,
-            "price": price,
-            "style": style,
+            "price": result["price"],
             "profit": 0
         }
 
-        cash -= cost
-
-        holdings = self.rebalance.rebalance(
-            holdings,
-            max_positions
-        )
-
         return {
-            "cash": cash,
+            "cash": result["cash"],
             "holdings": holdings,
             "bought": True
         }
 
     # =========================
-    # SELL
+    # EXEC SELL
     # =========================
-    def sell_check(
-        self,
-        holdings,
-        code,
-        df
-    ):
+    def execute_sell(self, cash, holdings, code, price):
 
         if code not in holdings:
+            return {"cash": cash, "holdings": holdings, "sold": False}
 
-            return False, ""
+        shares = holdings[code]["shares"]
 
-        entry = holdings[code]["price"]
+        result = self.execution.sell(cash, price, shares)
 
-        current = df["Close"].iloc[-1]
+        del holdings[code]
 
-        return self.exit.should_exit(
-            df,
-            entry,
-            current
-        )
+        return {
+            "cash": result["cash"],
+            "holdings": holdings,
+            "sold": True
+        }

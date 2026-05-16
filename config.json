@@ -1,8 +1,9 @@
 {
-    "score_threshold": 77,
-    "take_profit": 1.1207498269070888,
-    "stop_loss": 0.9641667176272222,
-    "trailing_stop": 0.06782224417027642,
-    "max_positions": 3,
-    "risk_per_trade": 0.043376416193095076
+  "technical_weight": 0.4099999999999999,
+  "growth_weight": 0.4099999999999999,
+  "cash_ratio": 0.5,
+  "max_positions": 7,
+  "take_profit": 0.1,
+  "stop_loss": -0.05,
+  "score_threshold": 35
 }
