@@ -93,7 +93,7 @@ class CapitalManager:
         # =========================
         if regime == "BULL":
 
-            positions = 18
+            positions =24
 
         elif regime == "CRASH":
 
@@ -101,7 +101,7 @@ class CapitalManager:
 
         else:
 
-            positions = 12
+            positions =18
 
         # =========================
         # CONFIDENCE EXPANSION

@@ -47,12 +47,15 @@ class RebalanceManager:
 
             score = (
 
-                profit * 0.5 +
+                profit * 0.7 +
 
-                confidence * 0.003 +
+                confidence * 0.002 +
 
-                memory * 0.2
+                memory * 0.3
             )
+            if profit < 0:
+                score -= 0.2
+
 
             scored.append(
                 (

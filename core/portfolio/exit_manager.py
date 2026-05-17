@@ -133,7 +133,9 @@ class ExitManager:
                 .iloc[-1]
             )
 
-            if vol_now < vol_avg * 0.35:
+            if pnl < -0.05:
+                if vol_now < vol_avg * 0.25:
+                    return True, "VOLUME_DROP"
 
                 return True, "VOLUME_DROP"
 
