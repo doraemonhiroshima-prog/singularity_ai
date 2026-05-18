@@ -2,7 +2,7 @@ class AutoTuner:
 
     def __init__(self):
 
-        self.base_threshold = 20
+        self.base_threshold = 5
 
     def threshold(
         self,
@@ -62,8 +62,8 @@ class AutoTuner:
         # LIMIT
         # =========================
         threshold = max(
-            min(threshold, 80),
-            15
+            min(threshold, 40),
+            5
         )
 
         return threshold

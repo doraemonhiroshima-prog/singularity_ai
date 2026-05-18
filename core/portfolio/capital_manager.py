@@ -2,144 +2,38 @@ class CapitalManager:
 
     def __init__(self):
 
-        # =========================
-        # LEARNING MEMORY
-        # =========================
-        self.regime_memory = {
+        self.base_max = 18
+        self.dd = 0.0
 
-            "BULL": 1.0,
-            "RANGE": 1.0,
-            "CRASH": 1.0
-        }
+    def update_dd(self, dd):
 
-    # =========================
-    # CASH RATIO
-    # =========================
-    def cash_ratio(
-        self,
-        regime,
-        volatility=0,
-        drawdown=0
-    ):
+        self.dd = dd
 
-        # =========================
-        # BASE
-        # =========================
-        if regime == "BULL":
+    def cash_ratio(self, regime, volatility):
 
-            cash = 0.05
+        if regime == "CRASH":
+            return 0.5
 
-        elif regime == "CRASH":
-
-            cash = 0.50
-
-        else:
-
-            cash = 0.20
-
-        # =========================
-        # VOLATILITY CONTROL
-        # =========================
         if volatility > 0.05:
+            return 0.3
 
-            cash += 0.10
+        return 0.1
 
-        elif volatility > 0.03:
+    def max_positions(self, regime, confidence):
 
-            cash += 0.05
+        max_pos = self.base_max
 
-        # =========================
-        # DRAWDOWN CONTROL
-        # =========================
-        if drawdown > 0.20:
+        # DD制御
+        if self.dd < -0.30:
+            max_pos -= 15
 
-            cash += 0.15
+        elif self.dd < -0.20:
+            max_pos -= 10
 
-        elif drawdown > 0.10:
+        elif self.dd < -0.10:
+            max_pos -= 5
 
-            cash += 0.08
+        elif self.dd > -0.05 and regime == "BULL":
+            max_pos += 2
 
-        # =========================
-        # REGIME LEARNING
-        # =========================
-        memory = self.regime_memory.get(
-            regime,
-            1.0
-        )
-
-        cash *= (2 - memory)
-
-        # =========================
-        # LIMIT
-        # =========================
-        cash = max(
-            min(cash, 0.80),
-            0.02
-        )
-
-        return cash
-
-    # =========================
-    # MAX POSITIONS
-    # =========================
-    def max_positions(
-        self,
-        regime,
-        confidence=0
-    ):
-
-        # =========================
-        # BASE
-        # =========================
-        if regime == "BULL":
-
-            positions =24
-
-        elif regime == "CRASH":
-
-            positions = 6
-
-        else:
-
-            positions =18
-
-        # =========================
-        # CONFIDENCE EXPANSION
-        # =========================
-        if confidence >= 85:
-
-            positions += 2
-
-        elif confidence >= 75:
-
-            positions += 1
-
-        return positions
-
-    # =========================
-    # REGIME LEARNING UPDATE
-    # =========================
-    def update_learning(
-        self,
-        regime,
-        pnl
-    ):
-
-        old = self.regime_memory.get(
-            regime,
-            1.0
-        )
-
-        score = 1 + pnl
-
-        new = (
-            old * 0.9 +
-            score * 0.1
-        )
-
-        new = max(
-            min(new, 1.5),
-            0.5
-        )
-
-        self.regime_memory[regime] = new
+        return max(6, min(max_pos, 40))

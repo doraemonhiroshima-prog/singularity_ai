@@ -1,170 +1,73 @@
+import pandas as pd
+from core.market_scan.pipeline_controller import PipelineController
+
+
 class BacktestEngine:
 
     def __init__(self):
+        self.controller = PipelineController()
 
-        self.logs = []
+        self.initial_cash = 3_000_000
+        self.cash = self.initial_cash
+        self.holdings = {}
 
-        self.equity_curve = []
-
-        self.trade_count = 0
-
-        self.win_count = 0
-
-        self.loss_count = 0
-
-        self.total_profit = 0
-
-        self.total_loss = 0
+        self.history = []
 
     # =========================
-    # BUY LOG
+    # MAIN RUN
     # =========================
-    def buy_log(
-        self,
-        day,
-        code,
-        shares,
-        price
-    ):
+    def run(self, data_map):
 
-        self.logs.append({
+        max_days = min(len(df) for df in data_map.values())
 
-            "type": "BUY",
+        for day in range(100, max_days):
 
-            "day": day,
+            # =========================
+            # SELL / BUY PIPELINE
+            # =========================
+            self.controller.portfolio = self._wrap_portfolio()
 
-            "code": code,
+            result = self.controller.run()
 
-            "shares": shares,
+            self.cash = self.controller.portfolio.cash
+            self.holdings = self.controller.portfolio.positions
 
-            "price": round(price, 2)
-        })
+            # =========================
+            # VALUATION
+            # =========================
+            total = self.cash
 
-    # =========================
-    # SELL LOG
-    # =========================
-    def sell_log(
-        self,
-        day,
-        code,
-        shares,
-        buy_price,
-        sell_price
-    ):
+            for code, pos in self.holdings.items():
 
-        profit = (
-            sell_price - buy_price
-        ) * shares
+                price = data_map[code]["Close"].iloc[day]
+                total += pos["shares"] * price
 
-        pct = (
-            (
-                sell_price -
-                buy_price
-            ) / buy_price
-        ) * 100
+            self.history.append(total)
 
-        self.trade_count += 1
+            print(f"DAY {day} TOTAL {int(total)}")
 
-        if profit > 0:
-
-            self.win_count += 1
-
-            self.total_profit += profit
-
-        else:
-
-            self.loss_count += 1
-
-            self.total_loss += abs(profit)
-
-        self.logs.append({
-
-            "type": "SELL",
-
-            "day": day,
-
-            "code": code,
-
-            "shares": shares,
-
-            "buy": round(buy_price, 2),
-
-            "sell": round(sell_price, 2),
-
-            "profit": int(profit),
-
-            "pct": round(pct, 2)
-        })
+        return self.history
 
     # =========================
-    # EQUITY
+    # WRAP ADAPTER
     # =========================
-    def update_equity(
-        self,
-        total
-    ):
+    def _wrap_portfolio(self):
 
-        self.equity_curve.append(total)
+        class P:
+            def __init__(self, cash, holdings):
+                self.cash = cash
+                self.positions = holdings
 
-    # =========================
-    # RESULT
-    # =========================
-    def result(self):
+            def buy(self, code, price, amount):
+                pass
 
-        winrate = 0
+            def sell(self, code, price):
+                pass
 
-        if self.trade_count > 0:
+            def sell_partial(self, code, price, ratio):
+                pass
 
-            winrate = (
-                self.win_count /
-                self.trade_count
-            ) * 100
+            def update_peak(self, code, price):
+                pass
 
-        pf = 0
-
-        if self.total_loss > 0:
-
-            pf = (
-                self.total_profit /
-                self.total_loss
-            )
-
-        max_equity = 0
-
-        max_dd = 0
-
-        for v in self.equity_curve:
-
-            if v > max_equity:
-
-                max_equity = v
-
-            dd = (
-                max_equity - v
-            ) / max_equity
-
-            if dd > max_dd:
-
-                max_dd = dd
-
-        return {
-
-            "trades": self.trade_count,
-
-            "winrate": round(winrate, 2),
-
-            "pf": round(pf, 2),
-
-            "max_dd": round(max_dd * 100, 2)
-        }
-
-    # =========================
-    # PRINT
-    # =========================
-    def print_logs(self):
-
-        print("\n=== TRADE LOG ===")
-
-        for log in self.logs[-30:]:
-
-            print(log)
+        return P(self.cash, self.holdings)

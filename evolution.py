@@ -12,6 +12,12 @@ from ai.signal_ai import SignalAI
 from ai.strategy_ai import StrategyAI
 
 import ai.portfolio_ai as p
+import random
+import numpy as np
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
 
 PortfolioAI = p.PortfolioAI
 
@@ -92,7 +98,7 @@ def run():
         random.shuffle(codes)
 
         # 高速化
-        scan_codes = codes[:50]
+        scan_codes = codes[:100]
 
         # =========================
         # SELL CHECK
@@ -232,7 +238,14 @@ def run():
                     weights,
                     threshold
                 )
-
+                
+                         
+                print(
+                    "SIG",
+                    signal["signal"],
+                    signal["confidence"],
+                    threshold
+                )    
                 # =========================
                 # PRINT削減
                 # =========================
@@ -315,7 +328,9 @@ def run():
             except:
 
                 continue
-
+        # DD更新
+        dd = portfolio_ai.update_dd(total)
+        portfolio_ai.capital.update_dd(dd)
         print(
             f"""
 DAY {day} |

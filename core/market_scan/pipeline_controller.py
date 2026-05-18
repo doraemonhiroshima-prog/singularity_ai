@@ -1,11 +1,3 @@
-from ai.investment.portfolio import Portfolio
-from core.portfolio.portfolio_ai import PortfolioAI
-from core.investment.executor import Executor
-from core.investment.sell_ai import sell_signal
-import core.investment.config as config
-
-# 既存importはそのまま
-
 class PipelineController:
 
     def __init__(self):
@@ -15,62 +7,57 @@ class PipelineController:
         self.news_ai = NewsAI()
         self.inst_ai = InstitutionAI()
 
-        # ★ 追加
-        self.portfolio = Portfolio(config.INITIAL_CASH)
+        from core.investment.executor import Executor
+        from core.investment.sell_ai import sell_signal
+        import core.investment.config as config
+
+        self.portfolio = None
         self.portfolio_ai = PortfolioAI(config)
-        self.executor = Executor(self.portfolio)
+        self.executor = None
 
     def run(self):
+
+        if self.portfolio is None:
+            return []
 
         market_data = self.market_ai.process()
         tech_data = self.technical_ai.process(market_data)
 
         candidates = []
-
         data_map = {}
 
         for r in tech_data:
 
-            news = self.news_ai.analyze(r["code"], r["name"])
-            inst = self.inst_ai.analyze(r["df"])
+            df = r["df"]
 
             total = (
                 r["market_score"] +
-                r["technical_score"] +
-                news["score"] +
-                inst
+                r["technical_score"]
             )
 
             candidates.append({
                 "code": r["code"],
-                "price": float(r["df"]["Close"].iloc[-1]),
+                "price": float(df["Close"].iloc[-1]),
                 "score": total
             })
 
-            data_map[r["code"]] = r["df"]
+            data_map[r["code"]] = df
 
-        # =========================
         # SELL
-        # =========================
-        sell_decisions = self.portfolio_ai.decide_sell(
+        sell = self.portfolio_ai.decide_sell(
             self.portfolio,
             data_map,
             sell_signal
         )
 
-        self.executor.execute(sell_decisions, data_map)
+        self.executor.execute(sell, data_map)
 
-        # =========================
         # BUY
-        # =========================
-        buy_decisions = self.portfolio_ai.decide_buy(
+        buy = self.portfolio_ai.decide_buy(
             candidates,
             self.portfolio
         )
 
-        self.executor.execute(buy_decisions, data_map)
-
-        print("CASH:", self.portfolio.cash)
-        print("POSITIONS:", list(self.portfolio.positions.keys()))
+        self.executor.execute(buy, data_map)
 
         return candidates
