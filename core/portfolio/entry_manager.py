@@ -1,10 +1,6 @@
 class EntryManager:
 
     def __init__(self):
-
-        # =========================
-        # ENTRY LEARNING
-        # =========================
         self.entry_memory = {}
 
     # =========================
@@ -21,152 +17,85 @@ class EntryManager:
 
         base = 0.05
 
-        # =========================
-        # CONFIDENCE BOOST
-        # =========================
         if confidence >= 90:
-
             base += 0.25
-
         elif confidence >= 80:
-
-            base += 0.22
-
+            base += 0.10
         elif confidence >= 70:
-
-            base += 0.12
-
+            base += 0.07
         elif confidence >= 55:
+            base += 0.03
 
-            base += 0.06
-
-        # =========================
-        # REGIME ADJUSTMENT
-        # =========================
         if regime == "BULL":
-
             base += 0.05
-
         elif regime == "CRASH":
-
             base -= 0.04
-
         elif regime == "RANGE":
-
             base -= 0.02
 
-        # =========================
-        # MEMORY BOOST
-        # =========================
         if memory_score > 0:
+            base += min(memory_score * 0.10, 0.10)
 
-            base += min(
-                memory_score * 0.10,
-                0.10
-            )
-
-        # =========================
-        # VOLATILITY CONTROL
-        # =========================
         if volatility > 0.05:
-
             base -= 0.05
-
         elif volatility > 0.03:
-
             base -= 0.02
 
-        # =========================
-        # LIMIT
-        # =========================
-        base = max(
-            min(base, 0.30),
-            0.02
-        )
+        base = max(min(base, 0.15), 0.02)
 
         return cash * base
 
     # =========================
-    # ALLOW ENTRY
+    # ENTRY CHECK（整理版）
     # =========================
     def allow_entry(
         self,
         holdings,
         code,
-        max_positions=10,
-        confidence=0,
-        signal_score=0,
-        performance_memory=None
+        max_positions,
+        confidence,
+        signal_score,
+        performance_memory,
+        regime
     ):
 
-        # =========================
-        # ALREADY HOLDING
-        # =========================
         if code in holdings:
-
             return False
 
         size = len(holdings)
 
-        # =========================
-        # MEMORY
-        # =========================
         memory_score = 0
-
-        if (
-            performance_memory and
-            code in performance_memory
-        ):
-
-            memory_score = (
-                performance_memory[code]
-            )
+        if performance_memory and code in performance_memory:
+            memory_score = performance_memory[code]
 
         # =========================
-        # FREE SPACE
+        # ① ENTRY ZONE（余裕あり）
         # =========================
-        if size < max_positions * 0.7:
-
+        if size < max_positions * 1.00:
             return True
 
         # =========================
-        # FULL PORTFOLIO
+        # ② NORMAL ZONE（通常制御）
         # =========================
-        if size >= max_positions:
-
+        if size < max_positions:
             return (
-
-                signal_score >= 6 and
-                confidence >= 75 and
-                memory_score >= -0.05
+                signal_score >= 3 and
+                confidence >= 50
             )
 
         # =========================
-        # MID ZONE
+        # ③ OVER LIMIT（厳格フィルター）
         # =========================
         return (
-
-            signal_score >= 7 and
-            confidence >= 60
+            signal_score >= 6 and
+            confidence >= 60 and
+            memory_score >= 0
         )
 
     # =========================
-    # LEARNING UPDATE
+    # LEARNING
     # =========================
-    def update_learning(
-        self,
-        code,
-        pnl
-    ):
+    def update_learning(self, code, pnl):
 
-        old = self.entry_memory.get(
-            code,
-            0
-        )
-
-        new = (
-            old * 0.9 +
-            pnl * 0.1
-        )
-
-        self.entry_memory[code] = new
+        old = self.entry_memory.get(code, 0)
+        self.entry_memory[code] = old * 0.9 + pnl * 0.1

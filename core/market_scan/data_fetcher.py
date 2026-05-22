@@ -1,24 +1,66 @@
 import yfinance as yf
-import time
 
 
 def fetch_data(codes):
 
     data = {}
 
-    for code in codes:
+    try:
 
-        try:
-            df = yf.download(code, period="6mo", interval="1d", progress=False)
+        # =========================
+        # BATCH DOWNLOAD
+        # =========================
+        dfs = yf.download(
+            codes,
+            period="6mo",
+            interval="1d",
+            group_by="ticker",
+            threads=True,
+            progress=False
+        )
 
-            if df is None or df.empty:
-                continue
+        # =========================
+        # SINGLE / MULTI 対応
+        # =========================
+        if len(codes) == 1:
 
-            data[code] = df
+            code = codes[0]
 
-            time.sleep(1.5)  # ★制限対策（超重要）
+            if dfs is not None and not dfs.empty:
+                data[code] = dfs
 
-        except Exception as e:
-            print("DL ERROR:", code, e)
+            return data
+
+        # =========================
+        # MULTI
+        # =========================
+        for code in codes:
+
+            try:
+
+                if code not in dfs:
+                    continue
+
+                df = dfs[code]
+
+                if df is None or df.empty:
+                    continue
+
+                data[code] = df
+
+            except Exception as e:
+
+                print(
+                    "PARSE ERROR:",
+                    code,
+                    e
+                )
+
+    except Exception as e:
+
+        print(
+            "BATCH DL ERROR:",
+            e
+        )
 
     return data

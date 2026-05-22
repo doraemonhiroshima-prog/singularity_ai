@@ -1,17 +1,16 @@
-from core.strategy.market_regime import MarketRegime
+from core.market_scan.market_regime import MarketRegime
 
 
 class MarketScanAI:
 
     def __init__(self):
-
         self.regime = MarketRegime()
 
     def run(self, df):
 
         try:
 
-            regime = self.regime.detect(df)
+            regime = self.regime.analyze(df)
 
             close = df["Close"]
 
@@ -21,26 +20,18 @@ class MarketScanAI:
 
             score = 50
 
-            # 上昇相場
-            if regime == "BULL":
+            if regime["regime"] == "bull":
                 score += 25
 
-            # 暴落
-            elif regime == "CRASH":
+            elif regime["regime"] == "bear":
                 score -= 25
 
-            # MA上
             if current > ma25:
                 score += 15
-
             else:
                 score -= 15
 
-            return max(
-                min(score, 100),
-                0
-            )
+            return max(min(score, 100), 0)
 
         except:
-
             return 50

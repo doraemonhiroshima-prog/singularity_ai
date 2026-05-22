@@ -1,9 +1,0 @@
-{
-  "technical_weight": 0.4099999999999999,
-  "growth_weight": 0.4099999999999999,
-  "cash_ratio": 0.5,
-  "max_positions": 7,
-  "take_profit": 0.1,
-  "stop_loss": -0.05,
-  "score_threshold": 35
-}

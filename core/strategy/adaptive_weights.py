@@ -8,9 +8,9 @@ class AdaptiveWeights:
         if regime == "BULL":
 
             return {
-                "market": 0.05,
-                "tech": 0.80,
-                "news": 0.05,
+                "market": 0.25,
+                "tech": 0.55,
+                "news": 0.10,
                 "inst": 0.05,
                 "future": 0.05
             }

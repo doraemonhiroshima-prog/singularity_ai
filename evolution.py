@@ -15,9 +15,7 @@ import ai.portfolio_ai as p
 import random
 import numpy as np
 
-SEED = 42
-random.seed(SEED)
-np.random.seed(SEED)
+
 
 PortfolioAI = p.PortfolioAI
 

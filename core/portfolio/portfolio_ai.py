@@ -4,21 +4,21 @@ from core.portfolio.position_manager import PositionManager
 from core.portfolio.capital_manager import CapitalManager
 from core.portfolio.rebalance import RebalanceManager
 from core.portfolio.execution_engine import ExecutionEngine
-
+from core.portfolio.exit_manager import ExitManager
 
 class PortfolioAI:
 
     def __init__(self, cash):
 
         self.initial_cash = cash
-
+        
         self.entry = EntryManager()
         self.exit = ExitManager()
         self.position = PositionManager()
         self.capital = CapitalManager()
         self.rebalance = RebalanceManager()
         self.execution = ExecutionEngine()
-
+        self.exit = ExitManager()
         self.memory = {}
 
         self.stats = {
@@ -27,24 +27,31 @@ class PortfolioAI:
             "total_trades": 0
         }
 
+        # =========================
+        # RISK STATE
+        # =========================
         self.peak_value = cash
-        self.current_dd = 0
-        self.dd_limit = -0.20
+        self.current_dd = 0.0
 
     # =========================
-    # DD計算
+    # DD UPDATE
     # =========================
     def update_dd(self, total_value):
 
         if total_value > self.peak_value:
             self.peak_value = total_value
 
-        self.current_dd = (total_value - self.peak_value) / self.peak_value
+        self.current_dd = (
+            total_value - self.peak_value
+        ) / self.peak_value
+
+        # DDをキャピタルに反映
+        self.capital.update_dd(self.current_dd)
 
         return self.current_dd
 
     # =========================
-    # MEMORY
+    # MEMORY UPDATE
     # =========================
     def update_memory(self, code, pnl):
 
@@ -60,42 +67,77 @@ class PortfolioAI:
         self.rebalance.update_learning(code, pnl)
 
     # =========================
+    # PRUNING（重要）
+    # =========================
+    def prune(self, holdings, max_positions):
+
+        if len(holdings) > max_positions * 1.2:
+            return holdings
+
+        # 弱い順に削除
+        sorted_pos = sorted(
+            holdings.items(),
+            key=lambda x: self.memory.get(x[0], 0)
+        )
+
+        remove_count = len(holdings) - max_positions
+
+        for i in range(remove_count):
+            code = sorted_pos[i][0]
+            del holdings[code]
+
+        return holdings
+
+    # =========================
     # BUY
     # =========================
     def buy(
-    self,
-    cash,
-    holdings,
-    code,
-    price,
-    confidence,
-    regime,
-    signal,
-    volatility=0,
-    dd=0.0
+        self,
+        cash,
+        holdings,
+        code,
+        price,
+        confidence,
+        regime,
+        signal,
+        volatility=0
     ):
 
+        # =========================
         # DD更新
-        self.capital.update_dd(dd)
-
-        
-
+        # =========================
         max_positions = self.capital.max_positions(regime, confidence)
 
+        # ★ 強制整理
+        holdings = self.prune(holdings, int(max_positions * 0.9))
+
+        # =========================
+        # ENTRY CHECK
+        # =========================
         allowed = self.entry.allow_entry(
-            holdings, code, max_positions, confidence, signal, self.memory
+            holdings, code, max_positions, confidence, signal, self.memory, regime
         )
 
         if not allowed:
-            return {"cash": cash, "holdings": holdings, "bought": False}
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "bought": False
+            }
 
+        # =========================
+        # CASH CONTROL
+        # =========================
         cash_ratio = self.capital.cash_ratio(regime, volatility)
-
         usable_cash = cash * (1 - cash_ratio)
 
         memory = self.memory.get(code, 0)
 
-        boost = 1 + min(memory, 0.30) if memory > 0 else 1 - min(abs(memory), 0.50)
+        boost = (
+            1 + min(memory, 0.30)
+            if memory > 0
+            else 1 - min(abs(memory), 0.50)
+        )
 
         budget = self.entry.position_size(
             usable_cash * boost,
@@ -112,12 +154,25 @@ class PortfolioAI:
         shares = int(budget / price / 100) * 100
 
         if shares <= 0:
-            return {"cash": cash, "holdings": holdings, "bought": False}
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "bought": False
+            }
 
-        result = self.execution.buy(cash, price, shares, volatility)
+        result = self.execution.buy(
+            cash,
+            price,
+            shares,
+            volatility
+        )
 
         if not result["success"]:
-            return {"cash": cash, "holdings": holdings, "bought": False}
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "bought": False
+            }
 
         holdings[code] = {
             "shares": shares,
@@ -150,21 +205,37 @@ class PortfolioAI:
 
             self.update_memory(code, pnl)
 
-            if pnl >= 2.00:
+            # =========================
+            # 強制利確フィルター
+            # =========================
+            if pnl >= 1.50:
                 return False, ""
 
-            return self.exit.should_exit(df, entry, current, code, confidence)
+            # =========================
+            # EXIT
+            # =========================
+            return self.exit.should_exit(
+                df,
+                entry,
+                current,
+                code,
+                confidence
+            )
 
         except:
             return False, ""
 
     # =========================
-    # SELL
+    # SELL EXECUTION
     # =========================
     def execute_sell(self, cash, holdings, code, current_price, volatility=0):
 
         if code not in holdings:
-            return {"cash": cash, "holdings": holdings, "sold": False}
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "sold": False
+            }
 
         try:
             shares = holdings[code]["shares"]
@@ -181,7 +252,12 @@ class PortfolioAI:
 
             self.update_memory(code, pnl)
 
-            result = self.execution.sell(cash, current_price, shares, volatility)
+            result = self.execution.sell(
+                cash,
+                current_price,
+                shares,
+                volatility
+            )
 
             del holdings[code]
 
@@ -192,8 +268,15 @@ class PortfolioAI:
             }
 
         except:
-            return {"cash": cash, "holdings": holdings, "sold": False}
+            return {
+                "cash": cash,
+                "holdings": holdings,
+                "sold": False
+            }
 
+    # =========================
+    # WIN RATE
+    # =========================
     def win_rate(self):
 
         t = self.stats["total_trades"]
