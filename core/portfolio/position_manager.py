@@ -1,3 +1,5 @@
+     #core/portfolio/position_manager.py
+
 class PositionManager:
 
     def __init__(self):
@@ -93,13 +95,13 @@ class PositionManager:
         # =========================
         # WINNER PYRAMID
         # =========================
-        if pnl > 0.10:
-
-            weight += 0.20
-
-        elif pnl > 0.20:
+        if pnl > 0.20:
 
             weight += 0.40
+
+        elif pnl > 0.10:
+
+            weight += 0.20
 
         return weight
 

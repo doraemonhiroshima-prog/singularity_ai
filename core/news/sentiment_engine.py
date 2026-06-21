@@ -1,128 +1,173 @@
+# core/news/sentiment_engine.py
+
 from .news_collector import NewsCollector
-import re
-import time
+from .relevance_filter import RelevanceFilter
 
 
 class SentimentEngine:
 
     def __init__(self):
+
         self.collector = NewsCollector()
 
+        self.filter = RelevanceFilter()
+
+        # =========================
+        # 材料評価
+        # =========================
+        self.keywords = {
+
+            # 超強材料
+            "TOB": 5,
+            "自社株買い": 4,
+            "増配": 4,
+            "最高益": 4,
+            "上方修正": 4,
+            "大口受注": 4,
+
+            # 強材料
+            "業績予想": 3,
+            "通期上方修正": 3,
+            "提携": 3,
+            "黒字転換": 3,
+
+            # 中材料
+            "生成AI": 2,
+            "新製品": 2,
+
+            # 弱材料
+            "発表": 1,
+
+            # 悪材料
+            "下方修正": -3,
+            "業績悪化": -3,
+            "赤字": -3,
+
+            "減配": -4,
+            "下落": -4,
+            "特別損失": -4,
+            "営業赤字": -4,
+
+            "粉飾決算": -5,
+        }
+
     # =========================
-    # 重複削除
+    # 重複除去
     # =========================
     def _deduplicate(self, texts):
 
         seen = set()
-        unique = []
 
-        for t in texts:
-            key = t[:100]
-            if key not in seen:
-                seen.add(key)
-                unique.append(t)
+        result = []
 
-        return unique
+        for text in texts:
+
+            key = text[:100]
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+
+            result.append(text)
+
+        return result
 
     # =========================
-    # 材料強度
+    # 材料スコア
     # =========================
     def _material_score(self, text):
 
         score = 0
 
-        # 超強
-        if "上方修正" in text:
-            score += 3
-        if "決算" in text:
-            score += 3
-        if "最高益" in text:
-            score += 3
+        text = str(text)
 
-        # 中
-        if "提携" in text:
-            score += 2
-        if "新製品" in text:
-            score += 2
+        for keyword, value in self.keywords.items():
 
-        # 弱
-        if "期待" in text:
-            score += 1
+            if keyword in text:
 
-        # 悪材料
-        if "下方修正" in text:
-            score -= 3
-        if "赤字" in text:
-            score -= 3
-        if "不正" in text:
-            score -= 4
+                score += value
 
         return score
 
     # =========================
-    # 時間重み（仮）
+    # ソース重み
     # =========================
-    def _time_weight(self, text):
+    def _source_weight(self):
 
-        # RSSは時間取れないので簡易
-        # 将来ここ強化
         return 1.0
 
     # =========================
-    # ソース重み
+    # センチメント取得
     # =========================
-    def _source_weight(self, source):
+    def get_sentiment(
+        self,
+        code,
+        name
+    ):
 
-        weights = {
-            "tdnet": 2.5,
-            "kabutan": 1.8,
-            "yahoo": 1.5,
-            "google": 1.2,
-            "minkabu": 1.0
-        }
+        try:
 
-        return weights.get(source, 1.0)
+            news_items = (
+                self.collector.fetch_all(
+                    code,
+                    name
+                )
+            )
 
-    # =========================
-    # メイン
-    # =========================
-    def get_sentiment(self, code, name):
+            news_items = (
+                self._deduplicate(
+                    news_items
+                )
+            )
 
-        texts = []
+            filtered = (
+                self.filter.filter_texts(
+                    news_items,
+                    name
+                )
+            )
 
-        sources = {
-            "google": self.collector.google(name),
-            "yahoo": self.collector.yahoo(code),
-            "kabutan": self.collector.kabutan(code),
-            "minkabu": self.collector.minkabu(code),
-            "tdnet": self.collector.tdnet()
-        }
+            total_score = 0
 
-        # =========================
-        # 分割
-        # =========================
-        for src, text in sources.items():
-            parts = re.split("[\n\r]", text)
-            for p in parts:
-                if len(p) > 20:
-                    texts.append((src, p))
+            for text in filtered:
 
-        # =========================
-        # 重複削除
-        # =========================
-        texts = self._deduplicate([t[1] for t in texts])
+                score = (
+                    self._material_score(
+                        text
+                    )
+                )
 
-        # =========================
-        # スコア計算
-        # =========================
-        score = 0
+                total_score += (
+                    score
+                    *
+                    self._source_weight()
+                )
 
-        for t in texts:
+            print(
+                
+                f"{code} {name} "
+                
+            )
 
-            material = self._material_score(t)
-            time_w = self._time_weight(t)
+            sentiment = max(
+                min(
+                    total_score / 30.0,
+                    1.0
+                ),
+                -1.0
+            )
 
-            score += material * time_w
+            return round(
+                sentiment,
+                4
+            )
 
-        # 正規化
-        return max(min(score / 20, 1), -1)
+        except Exception as e:
+
+            print(
+                "[Sentiment Error]",
+                e
+            )
+
+            return 0.0

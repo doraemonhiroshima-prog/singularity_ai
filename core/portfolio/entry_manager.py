@@ -1,3 +1,6 @@
+   #core/portfolio/entry_manager.py
+
+
 class EntryManager:
 
     def __init__(self):
@@ -73,7 +76,6 @@ class EntryManager:
         # =========================
         if size < max_positions * 1.00:
             return True
-
         # =========================
         # ② NORMAL ZONE（通常制御）
         # =========================

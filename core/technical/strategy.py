@@ -1,3 +1,5 @@
+     #core/technical/strategy.py
+
 def sell_signal(df):
 
     close = df["Close"]

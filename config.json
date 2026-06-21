@@ -1,0 +1,5 @@
+{
+  "score_threshold": 60,
+  "take_profit": 0.15,
+  "stop_loss": 0.05
+}

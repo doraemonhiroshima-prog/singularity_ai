@@ -1,54 +1,66 @@
-import pandas as pd
-import time
-import os
+# core/data_pipeline/run_collection.py
 
 from core.data_pipeline.history_collector import HistoryCollector
+from core.data_pipeline.data_cleaner import clean_df
 
 
-CSV_PATH = "data/stock_list.csv"
+class RunCollection:
 
-SLEEP = 1
-BATCH_SIZE = 50
-BATCH_SLEEP = 10
+    def __init__(self):
 
+        self.market_data = {}
 
-def run():
+        self.collector = HistoryCollector()
 
-    print("=== データ取得開始 ===")
+    def load_market_data(self, codes):
 
-    df_list = pd.read_csv(CSV_PATH)
-    df_list = df_list.drop_duplicates(subset=["code"])
+        cleaned = {}
 
-    collector = HistoryCollector()
+        for code in codes:
 
-    for i, row in df_list.iterrows():
+            try:
 
-        code = row["code"]
+                # =========================
+                # FETCH
+                # =========================
+                df = self.collector.fetch(code)
 
-        try:
-            path = f"data/{code}.csv"
+                if df is None:
+                    continue
 
-            print(f"DL: {code}")
+                # =========================
+                # CLEAN
+                # =========================
+                df = clean_df(df)
 
-            df = collector.fetch(code)
+                if df is None:
+                    continue
 
-            if df is None or len(df) < 200:
-                print(f"SKIP: {code}")
-                continue
+                if len(df) < 100:
+                    continue
 
-            df.to_csv(path, index=False)
+                cleaned[code] = (
+                    df.reset_index(drop=True)
+                )
 
-            time.sleep(SLEEP)
+            except Exception as e:
 
-        except Exception as e:
-            print(f"ERROR: {code} {e}")
+                print(
+                    f"[DATA ERROR] {code}: {e}"
+                )
 
-        if (i + 1) % BATCH_SIZE == 0:
-            print("=== 休憩 ===")
-            time.sleep(BATCH_SLEEP)
+        self.market_data = cleaned
 
-    print("=== 完了 ===")
+        return cleaned
 
+    def build_ai_input(self):
 
-if __name__ == "__main__":
-    run()
+        return {
+            "market_data": self.market_data,
+            "symbols": list(
+                self.market_data.keys()
+            ),
+            "total_symbols": len(
+                self.market_data
+            )
+        }

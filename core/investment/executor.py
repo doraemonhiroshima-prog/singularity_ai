@@ -1,28 +1,102 @@
+# core/investment/executor.py
+
 class Executor:
 
-    def __init__(self, portfolio):
+    # =====================================================
+    # INIT
+    # =====================================================
+    def __init__(
+        self,
+        portfolio
+    ):
+
         self.portfolio = portfolio
 
-    def execute(self, decisions, data_map):
+    # =====================================================
+    # EXECUTE
+    # =====================================================
+    def execute(
+        self,
+        decisions,
+        data_map
+    ):
 
         for d in decisions:
 
-            code = d["code"]
+            try:
 
-            if code not in data_map:
-                continue
+                code = d["code"]
 
-            price = float(data_map[code]["Close"].iloc[-1])
+                if code not in data_map:
 
-            if d["action"] == "BUY":
-                self.portfolio.buy(code, price, d["amount"])
+                    continue
 
-            elif d["action"] == "SELL_ALL":
-                self.portfolio.sell(code, price)
+                price = float(
 
-            elif d["action"] == "SELL_HALF":
-                self.portfolio.sell_partial(code, price, 0.5)
+                    data_map[code]["Close"]
+                    .iloc[-1]
 
-            # peak更新
-            if code in self.portfolio.positions:
-                self.portfolio.update_peak(code, price)
+                )
+
+                # =========================================
+                # BUY
+                # =========================================
+                if d["action"] == "BUY":
+
+                    self.portfolio.buy(
+
+                        code,
+
+                        price,
+
+                        d["amount"]
+
+                    )
+
+                # =========================================
+                # SELL ALL
+                # =========================================
+                elif d["action"] == "SELL_ALL":
+
+                    self.portfolio.sell(
+
+                        code,
+
+                        price
+
+                    )
+
+                # =========================================
+                # SELL HALF
+                # =========================================
+                elif d["action"] == "SELL_HALF":
+
+                    self.portfolio.sell_partial(
+
+                        code,
+
+                        price,
+
+                        0.5
+
+                    )
+
+                # =========================================
+                # UPDATE PEAK
+                # =========================================
+                if code in self.portfolio.positions:
+
+                    self.portfolio.update_peak(
+
+                        code,
+
+                        price
+
+                    )
+
+            except Exception as e:
+
+                print(
+                    "EXECUTOR ERROR:",
+                    e
+                )

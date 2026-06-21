@@ -1,4 +1,4 @@
-# 改良版 core/growth/evaluator.py
+# core/growth/evaluator.py
 
 import os
 import pandas as pd

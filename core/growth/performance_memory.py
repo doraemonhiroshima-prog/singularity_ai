@@ -2,90 +2,131 @@
 
 class PerformanceMemory:
 
- def __init__(self):
+    def __init__(self):
 
-    self.history = []
+        self.history = []
 
-# =========================
-# ADD
-# =========================
-def add(
-    self,
-    code,
-    factors,
-    profit,
-    regime
-):
+        self.blacklist = {}
 
-    self.history.append({
-        "code": code,
-        "factors": factors,
-        "profit": profit,
-        "regime": regime
-    })
+    # =========================================
+    # ADD
+    # =========================================
+    def add(
 
-    # 履歴制限
-    self.history = self.history[-1000:]
+        self,
+        code,
+        factors,
+        profit,
+        regime
+    ):
 
-# =========================
-# WINRATE
-# =========================
-def winrate(self):
+        self.history.append({
 
-    if len(self.history) == 0:
-        return 0.5
+            "code": code,
 
-    wins = len([
-        h for h in self.history
-        if h["profit"] > 0
-    ])
+            "factors": factors,
 
-    return wins / len(self.history)
+            "profit": profit,
 
-# =========================
-# AVG PROFIT
-# =========================
-def avg_profit(self):
+            "regime": regime
+        })
 
-    if len(self.history) == 0:
-        return 0
+        # =====================================
+        # BLACKLIST
+        # =====================================
+        if profit < 0:
 
-    return sum([
-        h["profit"]
-        for h in self.history
-    ]) / len(self.history)
+            self.blacklist[code] = (
+                self.blacklist.get(code, 0)
+                + 1
+            )
 
-# =========================
-# REGIME ANALYSIS
-# =========================
-def regime_stats(self):
+        else:
 
-    stats = {}
+            self.blacklist[code] = 0
 
-    for h in self.history:
-
-        regime = h["regime"]
-
-        if regime not in stats:
-
-            stats[regime] = []
-
-        stats[regime].append(
-            h["profit"]
+        # 履歴制限
+        self.history = (
+            self.history[-1000:]
         )
 
-    result = {}
+    # =========================================
+    # BAD STOCK
+    # =========================================
+    def is_bad_stock(
 
-    for regime, vals in stats.items():
+        self,
+        code
+    ):
 
-        result[regime] = {
+        return (
+            self.blacklist.get(code, 0)
+            >= 5
+        )
 
-            "count": len(vals),
+    # =========================================
+    # WINRATE
+    # =========================================
+    def winrate(self):
 
-            "avg_profit": (
-                sum(vals) / len(vals)
+        if len(self.history) == 0:
+            return 0.5
+
+        wins = len([
+
+            h for h in self.history
+
+            if h["profit"] > 0
+        ])
+
+        return wins / len(self.history)
+
+    # =========================================
+    # AVG PROFIT
+    # =========================================
+    def avg_profit(self):
+
+        if len(self.history) == 0:
+            return 0
+
+        return sum([
+
+            h["profit"]
+
+            for h in self.history
+
+        ]) / len(self.history)
+
+    # =========================================
+    # REGIME ANALYSIS
+    # =========================================
+    def regime_stats(self):
+
+        stats = {}
+
+        for h in self.history:
+
+            regime = h["regime"]
+
+            if regime not in stats:
+
+                stats[regime] = []
+
+            stats[regime].append(
+                h["profit"]
             )
-        }
 
-    return result
+        result = {}
 
+        for regime, vals in stats.items():
+
+            result[regime] = {
+
+                "count": len(vals),
+
+                "avg_profit": (
+                    sum(vals) / len(vals)
+                )
+            }
+
+        return result

@@ -1,47 +1,56 @@
-import glob
-import os
+# ai/data_ai.py
+
 import pandas as pd
 
-from core.data_pipeline.data_cleaner import clean_df
+from core.data_pipeline.run_collection import RunCollection
 
 
 class DataAI:
 
-    def load(self):
+    def __init__(self):
 
-        files = glob.glob("data/*.csv")
+        self.runner = RunCollection()
 
-        print("FILES:", len(files))
+    def run(self, codes):
 
-        data_map = {}
+        market_data = (
+            self.runner.load_market_data(
+                codes
+            )
+        )
 
-        for f in files:
+        stock_info = {}
 
-            try:
+        try:
 
-                name = os.path.basename(f)
+            df = pd.read_csv(
+                "data/stock_list.csv"
+            )
 
-                if (
-                    "stock_list" in name or
-                    "training_data" in name
-                ):
-                    continue
+            for _, row in df.iterrows():
 
-                code = name.replace(".csv", "")
+                code = str(
+                    row["code"]
+                )
 
-                df = pd.read_csv(f)
+                name = str(
+                    row["name"]
+                )
 
-                df = clean_df(df)
+                stock_info[code] = name
 
-                if len(df) < 100:
-                    continue
+        except Exception as e:
 
-                data_map[code] = df.reset_index(drop=True)
+            print(
+                "STOCK INFO ERROR:",
+                e
+            )
 
-            except Exception as e:
+        return {
 
-                print("LOAD ERROR:", f, e)
+            "status": "success",
 
-        print("DATA:", len(data_map))
+            "market_data": market_data,
 
-        return data_map
+            "stock_info": stock_info
+        }

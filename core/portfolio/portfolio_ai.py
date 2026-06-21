@@ -1,10 +1,11 @@
+   #core/portfolio/portfolio_ai.py
+
 from core.portfolio.entry_manager import EntryManager
 from core.portfolio.exit_manager import ExitManager
 from core.portfolio.position_manager import PositionManager
 from core.portfolio.capital_manager import CapitalManager
 from core.portfolio.rebalance import RebalanceManager
 from core.portfolio.execution_engine import ExecutionEngine
-from core.portfolio.exit_manager import ExitManager
 
 class PortfolioAI:
 
@@ -18,7 +19,6 @@ class PortfolioAI:
         self.capital = CapitalManager()
         self.rebalance = RebalanceManager()
         self.execution = ExecutionEngine()
-        self.exit = ExitManager()
         self.memory = {}
 
         self.stats = {
@@ -70,8 +70,8 @@ class PortfolioAI:
     # PRUNING（重要）
     # =========================
     def prune(self, holdings, max_positions):
-
-        if len(holdings) > max_positions * 1.2:
+        
+        if len(holdings)  <= max_positions :
             return holdings
 
         # 弱い順に削除

@@ -12,24 +12,36 @@ class AdaptiveLearning:
         self.path = "learning_result.json"
 
         self.default_weights = {
+
             "market": 0.15,
+
             "tech": 0.40,
+
             "news": 0.10,
+
             "inst": 0.15,
+
             "future": 0.20
         }
 
+        # =========================================
+        # MAX CHANGE LIMIT
+        # =========================================
+        self.max_change = 0.03
+
         self.data = self.load()
 
-    # =========================
+    # =============================================
     # LOAD
-    # =========================
+    # =============================================
     def load(self):
 
         if not os.path.exists(self.path):
 
             return {
+
                 "weights": self.default_weights,
+
                 "history": []
             }
 
@@ -42,13 +54,15 @@ class AdaptiveLearning:
         except:
 
             return {
+
                 "weights": self.default_weights,
+
                 "history": []
             }
 
-    # =========================
+    # =============================================
     # SAVE
-    # =========================
+    # =============================================
     def save(self):
 
         with open(self.path, "w") as f:
@@ -59,17 +73,18 @@ class AdaptiveLearning:
                 indent=4
             )
 
-    # =========================
+    # =============================================
     # CURRENT WEIGHTS
-    # =========================
+    # =============================================
     def weights(self):
 
         return self.data["weights"]
 
-    # =========================
-    # UPDATE RESULT
-    # =========================
+    # =============================================
+    # UPDATE
+    # =============================================
     def update(
+
         self,
         factors,
         profit
@@ -78,7 +93,9 @@ class AdaptiveLearning:
         try:
 
             self.data["history"].append({
+
                 "factors": factors,
+
                 "profit": float(profit)
             })
 
@@ -98,9 +115,9 @@ class AdaptiveLearning:
                 e
             )
 
-    # =========================
+    # =============================================
     # OPTIMIZE
-    # =========================
+    # =============================================
     def optimize(self):
 
         history = self.data["history"]
@@ -109,10 +126,15 @@ class AdaptiveLearning:
             return
 
         scores = {
+
             "market": [],
+
             "tech": [],
+
             "news": [],
+
             "inst": [],
+
             "future": []
         }
 
@@ -142,31 +164,84 @@ class AdaptiveLearning:
             else:
 
                 score = (
+
                     np.mean(vals) * 0.3
+
                 ) + (
+
                     self.default_weights[k] * 100
                 )
 
-                score = max(score, 0.01)
+                score = max(
+                    score,
+                    0.01
+                )
 
             new_weights[k] = score
 
             total += score
 
-        # =========================
+        # =========================================
         # NORMALIZE
-        # =========================
+        # =========================================
         for k in new_weights:
 
             new_weights[k] = (
                 new_weights[k] / total
             )
 
-        self.data["weights"] = new_weights
+        # =========================================
+        # ANTI OVERFIT LIMIT
+        # =========================================
+        current = self.data["weights"]
+
+        limited = {}
+
+        for k in new_weights:
+
+            old = current.get(
+                k,
+                self.default_weights[k]
+            )
+
+            new = new_weights[k]
+
+            diff = new - old
+
+            if diff > self.max_change:
+
+                new = (
+                    old +
+                    self.max_change
+                )
+
+            elif diff < -self.max_change:
+
+                new = (
+                    old -
+                    self.max_change
+                )
+
+            limited[k] = new
+
+        # =========================================
+        # RE NORMALIZE
+        # =========================================
+        total = sum(
+            limited.values()
+        )
+
+        for k in limited:
+
+            limited[k] = (
+                limited[k] / total
+            )
+
+        self.data["weights"] = limited
 
         print("\n=== ADAPTIVE UPDATE ===")
 
-        for k, v in new_weights.items():
+        for k, v in limited.items():
 
             print(
                 k,

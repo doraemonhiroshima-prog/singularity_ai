@@ -1,37 +1,52 @@
-from core.market_scan.market_regime import MarketRegime
+# ai/market_scan_ai.py
+
+from core.market_scan.market_regime import (
+    MarketRegime
+)
+
+from core.market_scan.market_ranker import (
+    MarketRanker
+)
 
 
 class MarketScanAI:
 
     def __init__(self):
-        self.regime = MarketRegime()
 
-    def run(self, df):
+        self.regime_ai = (
+            MarketRegime()
+        )
+
+        self.ranker = (
+            MarketRanker()
+        )
+
+    def run(
+        self,
+        df
+    ):
 
         try:
 
-            regime = self.regime.analyze(df)
+            if len(df) < 80:
 
-            close = df["Close"]
+                return 50
 
-            ma25 = close.rolling(25).mean().iloc[-1]
+            regime = (
+                self.regime_ai
+                .analyze(df)
+            )
 
-            current = close.iloc[-1]
+            score = (
+                self.ranker
+                .score(
+                    df,
+                    regime
+                )
+            )
 
-            score = 50
-
-            if regime["regime"] == "bull":
-                score += 25
-
-            elif regime["regime"] == "bear":
-                score -= 25
-
-            if current > ma25:
-                score += 15
-            else:
-                score -= 15
-
-            return max(min(score, 100), 0)
+            return float(score)
 
         except:
+
             return 50

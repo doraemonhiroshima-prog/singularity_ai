@@ -1,24 +1,123 @@
+# core/institution/order_estimator.py
+
 class OrderEstimator:
 
-    def analyze(self, df):
+    # =====================================================
+    # ESTIMATE
+    # =====================================================
+    def estimate(self, df):
 
-        score = 0
+        try:
 
-        close = df["Close"]
-        volume = df["Volume"]
+            if len(df) < 20:
 
-        # 上昇日割合
-        up = (close.diff() > 0).sum()
-        down = (close.diff() < 0).sum()
+                return {
+                    "score": 50
+                }
 
-        if up > down * 1.2:
-            score += 40
+            close = df["Close"]
 
-        # 上昇×出来高
-        recent_price = close.pct_change().iloc[-5:]
-        recent_vol = volume.iloc[-5:]
+            volume = df["Volume"]
 
-        if recent_price.mean() > 0.01 and recent_vol.mean() > volume.mean():
-            score += 40
+            score = 50
 
-        return score
+            # =================================================
+            # VWAP
+            # =================================================
+            value = (
+                close * volume
+            ).rolling(20).sum()
+
+            vol = (
+                volume
+            ).rolling(20).sum()
+
+            vwap = (
+                value.iloc[-1] /
+                (vol.iloc[-1] + 1e-9)
+            )
+
+            current = float(
+                close.iloc[-1]
+            )
+
+            if current > vwap:
+
+                score += 20
+
+            diff = (
+                current - vwap
+            ) / vwap
+
+            if diff > 0.05:
+
+                score += 10
+
+            # =================================================
+            # BUY PRESSURE
+            # =================================================
+            pressure = 0
+
+            for i in range(1, 11):
+
+                if (
+                    close.iloc[-i] >=
+                    close.iloc[-i - 1]
+                ):
+
+                    pressure += 1
+
+            score += pressure * 2
+
+            # =================================================
+            # VOLUME SUPPORT
+            # =================================================
+            vol_now = float(
+                volume.iloc[-1]
+            )
+
+            vol20 = float(
+                volume
+                .rolling(20)
+                .mean()
+                .iloc[-1]
+            )
+
+            if vol20 > 0:
+
+                ratio = (
+                    vol_now / vol20
+                )
+
+                if ratio > 2:
+
+                    score += 15
+
+                elif ratio > 1.5:
+
+                    score += 10
+
+            score = max(
+                min(score, 100),
+                0
+            )
+
+            return {
+
+                "score": score,
+
+                "vwap": vwap,
+
+                "pressure": pressure
+            }
+
+        except Exception as e:
+
+            print(
+                "ORDER ESTIMATOR ERROR:",
+                e
+            )
+
+            return {
+                "score": 50
+            }

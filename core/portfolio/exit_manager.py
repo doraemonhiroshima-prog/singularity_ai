@@ -1,22 +1,28 @@
+   #core/portfolio/exit_manager.py
+
 class ExitManager:
 
     def __init__(self):
+
         self.exit_memory = {}
 
-    # =========================
+        self.partial_taken = {}
+
+    # ==================================================
     # LEARNING
-    # =========================
+    # ==================================================
     def update_learning(self, code, pnl):
 
         old = self.exit_memory.get(code, 0)
 
-        new = old * 0.9 + pnl * 0.1
+        self.exit_memory[code] = (
+            old * 0.9 +
+            pnl * 0.1
+        )
 
-        self.exit_memory[code] = new
-
-    # =========================
-    # MAIN EXIT LOGIC
-    # =========================
+    # ==================================================
+    # EXIT
+    # ==================================================
     def should_exit(
         self,
         df,
@@ -30,118 +36,65 @@ class ExitManager:
             current_price - entry_price
         ) / entry_price
 
-        memory = self.exit_memory.get(code, 0)
+        memory = self.exit_memory.get(
+            code,
+            0
+        )
 
-        # =========================================================
-        # ① HARD STOP
-        # =========================================================
+        # =========================
+        # HARD STOP
+        # =========================
         hard_stop = -0.20
 
         if confidence >= 85:
             hard_stop = -0.15
 
-        if memory < -0.10:
-            hard_stop -= 0.02
-
         if pnl <= hard_stop:
+
             return True, "HARD_STOP"
 
-        # =========================================================
-        # ② VOLUME DRY
-        # =========================================================
-        try:
+        # =========================
+        # SELL HALF
+        # =========================
+        if pnl >= 0.50:
 
-            vol_now = df["Volume"].iloc[-1]
-
-            vol_avg = (
-                df["Volume"]
-                .rolling(10)
-                .mean()
-                .iloc[-1]
+            done = self.partial_taken.get(
+                code,
+                False
             )
 
-            if pnl < 0:
+            if not done:
 
-                if vol_now < vol_avg * 0.3:
-                    return True, "VOLUME_DRY_EXIT"
+                self.partial_taken[
+                    code
+                ] = True
 
-        except:
-            pass
+                return True, "SELL_HALF"
 
-        # =========================================================
-        # ③ SHORT TREND BREAK
-        # =========================================================
-        try:
+        # =========================
+        # WINNER HOLD
+        # =========================
+        if pnl >= 0.50:
 
-            close = df["Close"]
+            try:
 
-            if len(close) > 5:
-
-                if close.iloc[-1] < close.iloc[-3]:
-
-                    if pnl < 0.05:
-                        return True, "SHORT_TREND_BREAK"
-
-        except:
-            pass
-
-        # =========================================================
-        # ④ SUPER TREND HOLD
-        # =========================================================
-        try:
-
-            if confidence >= 85 and pnl >= 0.20:
-
-                high20 = (
-                    df["High"]
-                    .rolling(20)
-                    .max()
-                    .iloc[-1]
-                )
-
-                vol_now = df["Volume"].iloc[-1]
-
-                vol_avg = (
-                    df["Volume"]
-                    .rolling(20)
+                ma25 = (
+                    df["Close"]
+                    .rolling(25)
                     .mean()
                     .iloc[-1]
                 )
 
-                # 高値維持 + 出来高維持
-                if (
-                    current_price >= high20 * 0.92 and
-                    vol_now >= vol_avg * 1.2
-                ):
-                    return False, "SUPER_TREND_HOLD"
+                if current_price > ma25:
 
-        except:
-            pass
+                    return False, "WINNER_HOLD"
 
-        # =========================================================
-        # ⑤ TAKE PROFIT
-        # =========================================================
-        if pnl >= 0.35:
-            return True, "TAKE_PROFIT_1"
+            except:
+                pass
 
-        if pnl >= 0.60 and confidence < 85:
-            return True, "TAKE_PROFIT_2"
-
-        # =========================================================
-        # ⑥ WINNER HOLD
-        # =========================================================
-        if pnl >= 0.50:
-            return False, "WINNER_HOLD"
-
-        if confidence >= 85 and pnl >= 0.30:
-            return False, "STRONG_HOLD"
-
-        if pnl >= 0.15 and memory > 0:
-            return False, "MOMENTUM_HOLD"
-
-        # =========================================================
-        # ⑦ TRAILING STOP
-        # =========================================================
+        # =========================
+        # SUPER TREND HOLD
+        # =========================
         try:
 
             high20 = (
@@ -151,49 +104,88 @@ class ExitManager:
                 .iloc[-1]
             )
 
-            trailing = 0.85
+            vol_now = (
+                df["Volume"]
+                .iloc[-1]
+            )
 
-            # 強銘柄は粘る
-            if confidence >= 80:
-                trailing = 0.83
+            vol_avg = (
+                df["Volume"]
+                .rolling(20)
+                .mean()
+                .iloc[-1]
+            )
 
-            # 弱銘柄は逃げる
-            if memory < 0:
-                trailing = 0.90
+            if (
 
-            # 含み損だけ早逃げ
-            if pnl < -0.05:
-                trailing += 0.01
+                current_price >
+                high20 * 0.92
 
-            if current_price < high20 * trailing:
+                and
+
+                vol_now >
+                vol_avg * 1.2
+
+            ):
+
+                return False, "SUPER_HOLD"
+
+        except:
+            pass
+
+        # =========================
+        # TRAILING STOP
+        # =========================
+        try:
+
+            high50 = (
+                df["High"]
+                .rolling(50)
+                .max()
+                .iloc[-1]
+            )
+
+            trailing = 0.78
+
+            if confidence >= 85:
+                trailing = 0.72
+
+            if current_price < (
+                high50 * trailing
+            ):
+
                 return True, "TRAILING_STOP"
 
         except:
             pass
 
-        # =========================================================
-        # ⑧ TIME DECAY
-        # =========================================================
+        # =========================
+        # LOSER EXIT
+        # =========================
         try:
 
-            if len(df) > 20:
+            close = df["Close"]
 
-                recent = (
-                    df["Close"]
-                    .iloc[-10:]
-                    .mean()
-                )
+            ma25 = (
+                close
+                .rolling(25)
+                .mean()
+                .iloc[-1]
+            )
 
-                if (
-                    pnl < 0.03 and
-                    current_price < recent * 0.94
-                ):
-                    return True, "TIME_DECAY_EXIT"
+            if (
+
+                pnl < 0
+
+                and
+
+                current_price < ma25
+
+            ):
+
+                return True, "MA25_BREAK"
 
         except:
             pass
 
-        # =========================================================
-        # ⑨ HOLD
-        # =========================================================
         return False, ""

@@ -1,3 +1,5 @@
+    #core/technical/breakout_detector.py
+
 class BreakoutDetector:
 
     def detect(self, df):

@@ -1,3 +1,5 @@
+     #core/portfolio/capital_manager.py
+
 class CapitalManager:
 
     def __init__(self):

@@ -1,3 +1,5 @@
+     #core/siignal/signals.py
+
 class SignalGenerator:
 
     def generate(

@@ -1,6 +1,9 @@
 # core/news/news_collector.py
 
 import requests
+import feedparser
+
+from bs4 import BeautifulSoup
 
 
 class NewsCollector:
@@ -8,37 +11,52 @@ class NewsCollector:
     def __init__(self):
 
         self.headers = {
-            "User-Agent": "Mozilla/5.0"
+            "User-Agent":
+            "Mozilla/5.0"
         }
 
+        # TDNETキャッシュ
+        self._tdnet_cache = None
+
     # =========================
-    # Google News
+    # Google News RSS
     # =========================
     def google(self, keyword):
+
+        results = []
 
         try:
 
             url = (
                 "https://news.google.com/rss/search?"
-                f"q={keyword}&hl=ja&gl=JP&ceid=JP:ja"
+                f"q={keyword}"
+                "&hl=ja&gl=JP&ceid=JP:ja"
             )
 
-            res = requests.get(
-                url,
-                headers=self.headers,
-                timeout=5
-            )
+            feed = feedparser.parse(url)
 
-            return res.text
+            for entry in feed.entries[:20]:
 
-        except:
+                title = (
+                    entry.title
+                    .replace("\n", " ")
+                    .strip()
+                )
 
-            return ""
+                if title:
+                    results.append(title)
+
+        except Exception:
+            pass
+
+        return results
 
     # =========================
     # Yahoo Finance
     # =========================
     def yahoo(self, code):
+
+        results = []
 
         try:
 
@@ -50,49 +68,93 @@ class NewsCollector:
             res = requests.get(
                 url,
                 headers=self.headers,
-                timeout=5
+                timeout=3
             )
 
-            return res.text
+            soup = BeautifulSoup(
+                res.text,
+                "html.parser"
+            )
 
-        except:
+            texts = soup.get_text(
+                "\n",
+                strip=True
+            )
 
-            return ""
+            for line in texts.split("\n"):
+
+                line = line.strip()
+
+                if len(line) < 15:
+                    continue
+
+                results.append(line)
+
+        except Exception:
+            pass
+
+        return results[:30]
 
     # =========================
     # Kabutan
     # =========================
     def kabutan(self, code):
 
+        results = []
+
         try:
 
-            code_num = code.replace(".T", "")
+            code_num = (
+                code.replace(".T", "")
+            )
 
             url = (
-                f"https://kabutan.jp/stock/news?"
+                "https://kabutan.jp/stock/news?"
                 f"code={code_num}"
             )
 
             res = requests.get(
                 url,
                 headers=self.headers,
-                timeout=5
+                timeout=3
             )
 
-            return res.text
+            soup = BeautifulSoup(
+                res.text,
+                "html.parser"
+            )
 
-        except:
+            texts = soup.get_text(
+                "\n",
+                strip=True
+            )
 
-            return ""
+            for line in texts.split("\n"):
+
+                line = line.strip()
+
+                if len(line) < 15:
+                    continue
+
+                results.append(line)
+
+        except Exception:
+            pass
+
+        return results[:30]
 
     # =========================
     # Minkabu
     # =========================
     def minkabu(self, code):
 
+        results = []
+
         try:
 
-            code_num = code.replace(".T", "")
+            code_num = (
+                code.replace(".T", "")
+            )
 
             url = (
                 f"https://minkabu.jp/stock/"
@@ -102,19 +164,43 @@ class NewsCollector:
             res = requests.get(
                 url,
                 headers=self.headers,
-                timeout=5
+                timeout=3
             )
 
-            return res.text
+            soup = BeautifulSoup(
+                res.text,
+                "html.parser"
+            )
 
-        except:
+            texts = soup.get_text(
+                "\n",
+                strip=True
+            )
 
-            return ""
+            for line in texts.split("\n"):
+
+                line = line.strip()
+
+                if len(line) < 15:
+                    continue
+
+                results.append(line)
+
+        except Exception:
+            pass
+
+        return results[:30]
 
     # =========================
     # TDNET
     # =========================
     def tdnet(self):
+
+        # キャッシュ利用
+        if self._tdnet_cache is not None:
+            return self._tdnet_cache
+
+        results = []
 
         try:
 
@@ -126,30 +212,93 @@ class NewsCollector:
             res = requests.get(
                 url,
                 headers=self.headers,
-                timeout=5
+                timeout=3
             )
 
-            return res.text
+            soup = BeautifulSoup(
+                res.text,
+                "html.parser"
+            )
 
-        except:
+            texts = soup.get_text(
+                "\n",
+                strip=True
+            )
 
-            return ""
+            for line in texts.split("\n"):
+
+                line = line.strip()
+
+                if len(line) < 15:
+                    continue
+
+                results.append(line)
+
+        except Exception:
+            pass
+
+        self._tdnet_cache = results[:50]
+
+        return self._tdnet_cache
 
     # =========================
-    # ALL
+    # 重複除去
     # =========================
-    def fetch_all(self, code, name):
+    def _deduplicate(
+        self,
+        items
+    ):
 
-        text = ""
+        seen = set()
 
-        text += self.google(name)
+        result = []
 
-        text += self.yahoo(code)
+        for item in items:
 
-        text += self.kabutan(code)
+            key = item.strip()
 
-        text += self.minkabu(code)
+            if key in seen:
+                continue
 
-        text += self.tdnet()
+            seen.add(key)
 
-        return text
+            result.append(item)
+
+        return result
+
+    # =========================
+    # ALL NEWS
+    # =========================
+    def fetch_all(
+        self,
+        code,
+        name
+    ):
+
+        news = []
+
+        news.extend(
+            self.google(name)
+        )
+
+        news.extend(
+            self.yahoo(code)
+        )
+
+        news.extend(
+            self.kabutan(code)
+        )
+
+        news.extend(
+            self.minkabu(code)
+        )
+
+        news.extend(
+            self.tdnet()
+        )
+
+        news = self._deduplicate(
+            news
+        )
+
+        return news

@@ -1,61 +1,249 @@
+# core/future/train_ai.py
+
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
 import joblib
+
+from sklearn.ensemble import RandomForestClassifier
 
 
 class TrainAI:
 
+    # =====================================================
+    # INIT
+    # =====================================================
     def __init__(self):
-        self.model = RandomForestClassifier(n_estimators=100)
 
+        self.model = RandomForestClassifier(
+
+            n_estimators=200,
+
+            max_depth=8,
+
+            random_state=42
+        )
+
+    # =====================================================
+    # LOAD
+    # =====================================================
     def load_data(self):
 
         try:
-            df = pd.read_csv("learning_history.csv")  # ←自動化OK
 
-            # 必要列だけ
-            df = df[["Price", "Volume", "Change", "News"]]
+            df = pd.read_csv(
+                "learning_history.csv"
+            )
 
             df = df.dropna()
 
             return df
 
         except Exception as e:
-            print("LOAD ERROR:", e)
+
+            print(
+                "LOAD ERROR:",
+                e
+            )
+
             return None
 
-    def create_label(self, df):
+    # =====================================================
+    # FEATURE ENGINEERING
+    # =====================================================
+    def create_features(
+        self,
+        df
+    ):
 
-        # 未来リターン（次の値）
-        df["future"] = df["Price"].shift(-5)
+        try:
 
-        # 上昇したか（分類）
-        df["target"] = (df["future"] > df["Price"]).astype(int)
+            # =============================================
+            # RETURN
+            # =============================================
+            df["return_5"] = (
+                df["Price"]
+                .pct_change(5)
+            )
 
-        df = df.dropna()
+            df["return_20"] = (
+                df["Price"]
+                .pct_change(20)
+            )
 
-        return df
+            # =============================================
+            # MA
+            # =============================================
+            df["ma5"] = (
+                df["Price"]
+                .rolling(5)
+                .mean()
+            )
 
+            df["ma20"] = (
+                df["Price"]
+                .rolling(20)
+                .mean()
+            )
+
+            df["ma50"] = (
+                df["Price"]
+                .rolling(50)
+                .mean()
+            )
+
+            # =============================================
+            # MA DIFF
+            # =============================================
+            df["ma_diff"] = (
+
+                df["ma5"] -
+                df["ma20"]
+
+            ) / df["ma20"]
+
+            # =============================================
+            # VOLATILITY
+            # =============================================
+            df["volatility"] = (
+
+                df["Price"]
+                .pct_change()
+                .rolling(20)
+                .std()
+
+            )
+
+            # =============================================
+            # VOLUME POWER
+            # =============================================
+            df["vol_ratio"] = (
+
+                df["Volume"] /
+
+                df["Volume"]
+                .rolling(20)
+                .mean()
+
+            )
+
+            # =============================================
+            # FUTURE RETURN
+            # =============================================
+            df["future_return"] = (
+
+                df["Price"]
+                .shift(-5) -
+
+                df["Price"]
+
+            ) / df["Price"]
+
+            # =============================================
+            # TARGET
+            # =============================================
+            df["target"] = (
+                df["future_return"] > 0.03
+            ).astype(int)
+
+            df = df.dropna()
+
+            return df
+
+        except Exception as e:
+
+            print(
+                "FEATURE ERROR:",
+                e
+            )
+
+            return None
+
+    # =====================================================
+    # TRAIN
+    # =====================================================
     def train(self):
 
-        df = self.load_data()
+        try:
 
-        if df is None or len(df) < 100:
-            print("データ不足")
-            return
+            df = self.load_data()
 
-        df = self.create_label(df)
+            if df is None:
 
-        X = df[["Price", "Volume", "Change", "News"]]
-        y = df["target"]
+                return
 
-        self.model.fit(X, y)
+            df = self.create_features(df)
 
-        joblib.dump(self.model, "model.pkl")
+            if df is None:
 
-        print("✅ MODEL TRAINED & SAVED")
+                return
+
+            if len(df) < 200:
+
+                print("DATA SHORT")
+
+                return
+
+            # =============================================
+            # FEATURES
+            # =============================================
+            features = [
+
+                "Price",
+
+                "Volume",
+
+                "Change",
+
+                "News",
+
+                "return_5",
+
+                "return_20",
+
+                "ma_diff",
+
+                "volatility",
+
+                "vol_ratio"
+            ]
+
+            X = df[features]
+
+            y = df["target"]
+
+            # =============================================
+            # TRAIN
+            # =============================================
+            self.model.fit(X, y)
+
+            # =============================================
+            # SAVE
+            # =============================================
+            joblib.dump(
+                self.model,
+                "model.pkl"
+            )
+
+            print(
+                "MODEL TRAINED"
+            )
+
+            print(
+                "ROWS:",
+                len(df)
+            )
+
+        except Exception as e:
+
+            print(
+                "TRAIN ERROR:",
+                e
+            )
 
 
-if __name__ == "__main__":\
+# =========================================================
+# RUN
+# =========================================================
+if __name__ == "__main__":
+
     TrainAI().train()
