@@ -103,7 +103,7 @@ class WalkForwardEngine:
 
         self.test_years = 10
 
-        self.start_day = 100
+        self.start_day = 240
         
         
 
@@ -159,6 +159,7 @@ class WalkForwardEngine:
         self.exit_manager = (
             ExitManager()
         )
+        
         # =================================================
         # GROWTH
         # =================================================
@@ -333,7 +334,7 @@ class WalkForwardEngine:
             return None
 
         return df.iloc[
-            : current_index + 1
+            : current_index 
         ].copy()
 
 
@@ -480,36 +481,47 @@ class WalkForwardEngine:
 
     def build_signal(
         self,
-        scores
+        scores,
+        df
     ):
 
         strategy = (
-             self.strategy_ai.build()
+            self.strategy_ai.build(
+                df
+            )        
+        )
+
+
+        print(
+            "WEIGHTS:",
+            strategy["weights"]
+        )
+
+        print(
+            "THRESHOLD:",
+            strategy["threshold"]
         )
 
         signal = (
             self.signal_ai.run(
+
                 {
-                    "market":
-                        scores["market"],
-
-                    "tech":
-                        scores["tech"],
-
-                    "news":
-                        scores["news"],
-
-                    "inst":
-                        scores["inst"],
-
-                    "future":
-                        scores["future"]
+                    "market": scores["market"],
+                    "tech": scores["tech"],
+                    "news": scores["news"],
+                    "inst": scores["inst"],
+                    "future": scores["future"]
                 },
 
                 strategy["weights"],
 
                 strategy["threshold"]
             )
+        )
+
+        print(
+            "RAW SIGNAL:",
+             signal
         )
 
         return signal, strategy
@@ -530,25 +542,58 @@ class WalkForwardEngine:
                 df
             )
 
+            print(
+                "SCORES:",
+                code,
+                scores
+            )
+
+            print(
+                "BEFORE BUILD SIGNAL:",
+                code
+            )
+
             signal, strategy = (
                 self.build_signal(
-                    scores
+                    scores,
+                    df
                 )
             )
+
             print(
+                "AFTER BUILD SIGNAL:",
+                code
+            )
+
+            print(
+                "SIGNAL RESULT:",
                 code,
                 signal
             )
 
-            if signal["signal"] != "BUY":
-                if self.debug:
-                    print(
-                        code,
-                        signal
-                    )
+            print(
+                "SIGNAL TYPE:",
+                signal["signal"]
+            )
 
-            return None
-    
+            print(
+                "CHECKING SIGNAL:",
+                signal["signal"]
+            )
+
+            if signal["signal"] != "BUY":
+
+                print(
+                    "NO SIGNAL:",
+                    code
+                )
+
+                return None
+
+            print(
+                "BUY SIGNAL:",
+                code
+            )
 
             close = df["Close"]
 
@@ -562,6 +607,7 @@ class WalkForwardEngine:
                     0
                 )
             )
+
 
             # =============================================
             # MOMENTUM
@@ -644,21 +690,180 @@ class WalkForwardEngine:
             }
         except Exception as e:
 
-            if self.debug:
+            print(
+                "EVALUATE ERROR:",
+                code,
+                e
+            )
 
-                print(
-                    code,
-                    e
-                )
-
-                traceback.print_exc()
+            traceback.print_exc()
 
             return None
+# =====================================================
+# DAILY LOOP
+# =====================================================
+
+    def process_day(
+        self,
+        day,
+        cash,
+        holdings,
+        trade_logs,
+        equity_curve,
+        dd_curve,
+        peak
+    ):
+
+        print(
+            "PROCESS_DAY",
+            day
+        )
+
+        # =============================================
+        # BUILD DAY DATA
+        # =============================================
+
+        day_data = {}
+
+        for code, df in list(
+            self.filtered_map.items()
+        )[:5]:
+
+            try:
+
+                if day >= len(df):
+                    continue
+
+                sliced = self.slice_data(
+                    df,
+                    day
+                )
+
+                if sliced is None:
+                    continue
+
+                day_data[code] = sliced
+
+            except:
+                continue
+
+        print(
+            "DAY_DATA:",
+            len(day_data)
+        )
+
+        print(
+            "AFTER DAY_DATA"
+        )
+        cash, holdings, trade_logs = (
+            self.process_sell_side(
+                day_data,
+                cash,
+                holdings,
+                trade_logs
+            )
+        )
+
+        print("END SELL")
+
+        candidates = self.build_candidates(
+            day_data
+        )
+
+        # =============================================
+        # BUY
+        # =============================================
+
+        cash, holdings, trade_logs = (
+            self.process_buy_side(
+                candidates,
+                cash,
+                holdings,
+                trade_logs
+            )
+        )
+
+        print(
+            "AFTER BUY SIDE"
+        )
+
+        # =============================================
+        # TOTAL VALUE
+        # =============================================
+
+        total = cash
+
+        print(
+            "SELL HOLDINGS:",
+            list(holdings.keys())
+        )
+
+        print(
+            "DAY DATA:",
+            list(day_data.keys())
+        )
+
+        for code, pos in holdings.items():
+
+            try:
+
+                if code not in day_data:
+
+                    print(
+                        "NO DAY DATA:",
+                        code
+                    )
+
+                    continue
+
+                current_price = float(
+                    day_data[code]["Close"].iloc[-1]
+                )
+
+                shares = pos.get(
+                    "shares",
+                    0
+                )
+
+                total += (
+                    shares * current_price
+                )
+
+            except:
+                continue
+
+        print(
+            "TOTAL VALUE:",
+            total
+        )
+        dd = self.portfolio_ai.update_dd(total)
+        self.portfolio_ai.capital.update_dd(dd)
+        
+        equity_curve.append(total)
+
+        peak = max(
+            peak,
+            total
+        )
+
+        dd = (
+            peak - total
+        ) / peak
+
+        dd_curve.append(dd)
+
+        return (
+            cash,
+            holdings,
+            trade_logs,
+            equity_curve,
+            dd_curve,
+            peak
+        )
 
 # =====================================================
 # SELL LOGIC
 # =====================================================
-
     def process_sell_side(
         self,
         day_data,
@@ -666,6 +871,8 @@ class WalkForwardEngine:
         holdings,
         trade_logs
     ):
+
+        print("START SELL")
 
         remove_codes = []
 
@@ -675,51 +882,67 @@ class WalkForwardEngine:
 
             try:
 
+                print(
+                    "CHECKING EXIT:",
+                    code
+                )
+
+                print(
+                    "ENTRY:",
+                    pos
+                )
+
                 if code not in day_data:
+
+                    print(
+                        "NO DAY DATA:",
+                        code
+                    )
+
                     continue
 
                 df = day_data[code]
 
                 current_price = float(
-                    df["Close"]
-                    .iloc[-1]
+                    df["Close"].iloc[-1]
+                )
+
+                print(
+                    "BEFORE SHOULD EXIT",
+                    code
                 )
 
                 should_exit, reason = (
 
-                    self.exit_manager
-                    .should_exit(
+                    self.portfolio_ai.sell_check(
 
-                        df=df,
+                        holdings,
 
-                        entry_price=
-                            pos["entry"],
+                        code,
 
-                        current_price=
-                            current_price,
-
-                        code=code,
-
-                        confidence=
-                            pos.get(
-                                "confidence",
-                                50
-                            )
+                        df
                     )
+                )
+
+                print(
+                    "AFTER SHOULD EXIT",
+                    code,
+                    should_exit,
+                    reason
                 )
 
                 if not should_exit:
                     continue
 
                 result = (
-
+ 
                     self.portfolio_ai
                     .execute_sell(
 
                         cash,
-
+  
                         holdings,
-
+ 
                         code,
 
                         current_price
@@ -728,148 +951,82 @@ class WalkForwardEngine:
 
                 cash = result["cash"]
 
-                holdings = (
-                    result["holdings"]
-                )
-
+                holdings = result["holdings"]
+ 
                 profit = (
-
-                    current_price
-
+ 
+                     current_price
                     -
-
                     pos["entry"]
-
+ 
                 ) / pos["entry"]
+ 
+                print(
+                    "SELL:",
+                    code,
+                    "ENTRY:",
+                    pos["entry"],
+                    "EXIT:",
+                    current_price,
+                    "PROFIT:",
+                    profit
+                )
 
                 self.winrate_learning.update(
                     profit
                 )
-
-                try:
-
-                    self.performance_memory.add(
-
-                        code=code,
-
-                        profit=profit,
-
-                        regime=pos.get(
-                            "regime",
-                            "SIDE"
-                        )
-                    )
-
-                except:
-                    pass
-
-                try:
-
-                    self.adaptive_learning.update(
-
-                        code=code,
-
-                        profit=profit
-                    )
-
-                except:
-                    pass
-
+ 
+                print(
+                    "WINRATE UPDATE:",
+                    profit
+                )
+ 
                 trade_logs.append({
-
-                    "type":
-                        "SELL",
-
-                    "code":
-                        code,
-
-                    "price":
-                        current_price,
-
-                    "profit":
-                        profit,
-
-                    "reason":
-                        reason
+   
+                    "type": "SELL",
+  
+                    "code": code,
+ 
+                    "price": current_price,
+ 
+                    "profit": profit,
+ 
+                    "reason": reason
                 })
+ 
+                print(
+                    "SELL:",
+                    code,
+                    "PROFIT:",
+                    round(
+                        profit * 100,
+                        2
+                    ),
+                    "%"
+                )
 
                 remove_codes.append(
                     code
                 )
 
-            except:
-
+            except Exception as e:
+ 
+                print(
+                    "SELL ERROR:",
+                    code,
+                    e
+                )
+ 
                 continue
-
+ 
         return (
             cash,
             holdings,
             trade_logs
         )
 
-
-# =====================================================
+# =============================================
 # BUY CANDIDATES
-# =====================================================
-
-    def build_candidates(
-        self,
-        day_data
-    ):
-        candidates.sort(
-    key=lambda x: x["score"],
-    reverse=True
-    )
-
-        print(
-            "CANDIDATES:",
-            len(candidates)
-        )
-
-        return candidates
-    
-
-        candidates = []
-
-        for code, df in (
-            day_data.items()
-        ):
-
-            try:
-
-                result = (
-                    self.evaluate_code(
-                        code,
-                        df
-                    )
-                )
-
-                if result is None:
-                    continue
-
-                candidates.append(
-                    result
-                )
-
-            except:
-
-                continue
-        print(
-            "CANDIDATES:",
-            len(candidates)
-        )
-        
-        candidates.sort(
-
-            key=lambda x:
-                x["score"],
-
-            reverse=True
-        )
-
-        return candidates
-# =====================================================
-# BUY EXECUTION
 # =====================================================
 
     def process_buy_side(
@@ -888,6 +1045,11 @@ class WalkForwardEngine:
 
                 if code in holdings:
                     continue
+                print(
+                    "TRY BUY:",
+                    code,
+                    c["price"]
+                )
 
                 result = (
 
@@ -908,51 +1070,36 @@ class WalkForwardEngine:
                         c["confidence"]
                     )
                 )
+                
+                cash = result["cash"] 
+                holdings = result["holdings"]
 
-                cash = result["cash"]
+                print(
+                    "BUY RESULT:",
+                    result
+                )
+                print(
+                    "CASH AFTER BUY:",
+                    cash
+                )
+                print(
+                    "HOLDINGS AFTER BUY:",
+                    len(holdings)
+                )
+                
+               
+            except Exception as e:
 
-                holdings = (
-                    result["holdings"]
+                print(
+                    "BUY ERROR:",
+                    code,
+                    e
                 )
 
-                if code in holdings:
-
-                    holdings[code][
-                        "entry"
-                    ] = c["price"]
-
-                    holdings[code][
-                        "confidence"
-                    ] = (
-                        c["confidence"]
-                    )
-
-                    holdings[code][
-                        "regime"
-                    ] = (
-                        c["regime"]
-                    )
-
-                if result["bought"]:
-
-                    trade_logs.append({
-
-                        "type":
-                            "BUY",
-
-                        "code":
-                            code,
-
-                        "price":
-                            c["price"],
-
-                        "score":
-                            c["score"]
-                    })
-
-            except:
+                traceback.print_exc()
 
                 continue
+
 
         return (
             cash,
@@ -960,222 +1107,89 @@ class WalkForwardEngine:
             trade_logs
         )
 # =====================================================
-# DAILY LOOP
-# =====================================================
-    
-    def process_day(
-        self,
-        day,
-        cash,
-        holdings,
-        trade_logs,
-        equity_curve,
-        dd_curve,
-        peak
-    ):
-        print(
-        "PROCESS_DAY",
-        day
-    )
-# =============================================
-# BUILD DAY DATA
-# =============================================
-
-    day_data = {}
-
-    for code, df in (
-        self.filtered_map.items()
-    ):
-
-        try:
-
-            if day >= len(df):
-                continue
-
-            sliced = self.slice_data(
-                df,
-                day
-            )
-
-            if sliced is None:
-                continue
-
-            day_data[code] = sliced
-
-        except:
-            continue
-
-    print(
-        "DAY_DATA:",
-        len(day_data)
-    )
-
-    print(
-        "AFTER DAY_DATA"
-    )
-
-# =============================================
-# SELL
-# =============================================
-
-    cash, holdings, trade_logs = (
-        self.process_sell_side(
-            day_data,
-            cash,
-            holdings,
-            trade_logs
-        )
-    )
-
-# =============================================
 # BUY CANDIDATES
-# =============================================
+# =====================================================
 
-    candidates = (
-        self.build_candidates(
-            day_data
-        )
-    )
+    def build_candidates(
+        self,
+        day_data
+    ):
 
-    print(
-        "CANDIDATES:",
-        len(candidates)
-    )
-
-    if day % 10 == 0:
- 
         print(
-            "CANDIDATES:",
-            len(candidates)
-        )
-# =============================================
-# ADAPTIVE FILTER
-# =============================================
-
-        try:
-
-            threshold = (
-
-                self.auto_tuner
-                .threshold(
-
-                    self.winrate_learning
-                    .rate(),
-
-                    len(candidates)
-                )
-            )
-
-            candidates = [
-
-                c
-
-                for c in candidates
-
-                if c["score"]
-                >= threshold
-            ]
-
-        except:
-            pass
-
-# =============================================
-# TOP RANK
-# =============================================
-
-        candidates = sorted(
-
-            candidates,
-
-            key=lambda x:
-                x["score"],
-
-            reverse=True
+            "START BUILD_CANDIDATES"
         )
 
-# =============================================
-# BUY
-# =============================================
+        candidates = []
 
-        cash, holdings, trade_logs = (
-
-            self.process_buy_side(
-
-                candidates,
-
-                cash,
-
-                holdings,
-
-                trade_logs
-            )
-        )
-
-# =============================================
-# TOTAL VALUE
-# =============================================
-
-        total = cash
-
-        for code, pos in (
-            holdings.items()
-        ):
+        for code, df in day_data.items():
 
             try:
 
-                if code not in day_data:
-                    continue
-
-                current_price = float(
-
-                    day_data[code]
-
-                    ["Close"]
-
-                    .iloc[-1]
+                result = self.evaluate_code(
+                    code,
+                    df
                 )
 
-                total += (
+                if result is None:
 
-                    pos["shares"]
+                    print(
+                       "NO SIGNAL:",
+                       code
+                    )
 
-                    *
+                    continue
 
-                    current_price
+                print(
+                    "ADD CANDIDATE:",
+                    code
+                )
+
+                candidates.append(result)
+
+                
+
+            except Exception as e:
+
+                print(
+                    "EVALUATE ERROR:",
+                    code,
+                    e
+                )
+
+                traceback.print_exc()
+
+                continue
+
+        print(
+            "BUILD FINISHED:",
+            len(candidates)
+        )
+
+    # 上位10件だけ表示
+        for c in candidates[:10]:
+
+            try:
+
+                print(
+                    "SIG",
+                    c["code"],
+                    round(
+                        c["score"],
+                        2
+                    )
                 )
 
             except:
-                continue
+                pass
 
-        equity_curve.append(
-            total
+        candidates.sort(
+
+            key=lambda x:
+            x["confidence"],
+
+            reverse=True
         )
-
-        peak = max(
-            peak,
-            total
-        )
-
-        dd = (
-            peak - total
-        ) / peak
-
-        dd_curve.append(dd)
-
-        return (
-
-            cash,
-
-            holdings,
-
-            trade_logs,
-
-            equity_curve,
-
-            dd_curve,
-
-            peak
-        )
+        return candidates
 # =====================================================
 # PERFORMANCE LEARNING
 # =====================================================

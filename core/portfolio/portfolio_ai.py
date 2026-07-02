@@ -177,6 +177,7 @@ class PortfolioAI:
         holdings[code] = {
             "shares": shares,
             "price": result["price"],
+            "entry": result["price"],
             "confidence": confidence,
             "regime": regime
         }

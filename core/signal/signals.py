@@ -1,5 +1,3 @@
-     #core/siignal/signals.py
-
 class SignalGenerator:
 
     def generate(
@@ -13,24 +11,40 @@ class SignalGenerator:
 
             score = (
                 float(data["market"]) *
-                float(weights["market"]) +
+                float(weights["market"])
+
+                +
 
                 float(data["tech"]) *
-                float(weights["tech"]) +
+                float(weights["tech"])
+
+                +
 
                 float(data["news"]) *
-                float(weights["news"]) +
+                float(weights["news"])
+
+                +
 
                 float(data["inst"]) *
-                float(weights["inst"]) +
+                float(weights["inst"])
+
+                +
 
                 float(data["future"]) *
                 float(weights["future"])
             )
 
-            threshold = float(threshold)
+            print(
+                "SIGNAL SCORE:",
+                round(score, 2),
+                "THRESHOLD:",
+                threshold
+            )
 
-            if score >= threshold:
+            # 一時的にかなり緩くする
+            if score >= 30:
+
+                print("BUY GENERATED")
 
                 return {
                     "signal": "BUY",
