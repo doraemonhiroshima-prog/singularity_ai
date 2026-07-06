@@ -36,6 +36,13 @@ class ExitManager:
             current_price - entry_price
         ) / entry_price
 
+        print(
+            "EXIT CHECK:",
+            code,
+            "ENTRY:", entry_price,
+            "CURRENT:", current_price,
+            "PNL:", round(pnl, 4)
+        )
         memory = self.exit_memory.get(
             code,
             0
@@ -45,6 +52,13 @@ class ExitManager:
         # HARD STOP
         # =========================
         hard_stop = -0.20
+
+        print(
+            "HARD STOP:",
+            hard_stop,
+            "CONF:",
+            confidence
+        )
 
         if confidence >= 85:
             hard_stop = -0.15
@@ -188,4 +202,8 @@ class ExitManager:
         except:
             pass
 
+        print(
+            "EXIT RESULT: FALSE",
+            code
+        )
         return False, ""

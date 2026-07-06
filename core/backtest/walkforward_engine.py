@@ -12,6 +12,7 @@ import math
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import evolution
 
 from ai.market_scan_ai import MarketScanAI
 from ai.technical_ai import TechnicalAI
@@ -202,6 +203,7 @@ class WalkForwardEngine:
             f"DATA LOADED : "
             f"{len(self.data_map)} SYMBOLS"
         )
+       
 # =====================================================
 # LOAD DATA
 # =====================================================
@@ -755,6 +757,18 @@ class WalkForwardEngine:
         print(
             "AFTER DAY_DATA"
         )
+        print("DAY:", day)
+
+        for code, df in day_data.items():
+
+            print(
+                code,
+                "LAST CLOSE:",
+                float(df["Close"].iloc[-1]),
+                "ROWS:",
+                len(df)
+            )
+
         cash, holdings, trade_logs = (
             self.process_sell_side(
                 day_data,
@@ -1016,7 +1030,7 @@ class WalkForwardEngine:
                     code,
                     e
                 )
- 
+                traceback.print_exc()
                 continue
  
         return (
@@ -2122,70 +2136,23 @@ class WalkForwardEngine:
     def run_for_evolution(
         self  
     ):
+        print("===================")
+        print("RUN EVOLUTION")
+        print("===================")
 
-        result = (
-            self.run()
-        )
+        result = evolution.run()
+        print("===== RESULT =====")
 
-        report = (
+        for k, v in result.items():
+            print(k, ":", v)
 
-            self.build_report(
- 
-                result[
-                    "result"
-                ],
- 
-                result[
-                    "equity_curve"
-                ],
- 
-                result[
-                    "dd_curve"
-                ],
- 
-                result[
-                    "trades"
-                ]
-            )
-        )
+        print("==================")
+        print("===================")
+        print("EVOLUTION END")
+        print("===================")
+        return result
 
-        return {
-  
-            "acc1":
-                report[
-                    "winrate"
-                ],
-
-            "acc5":
-                report[
-                    "winrate"
-                ],
-
-            "acc10":
-                report[
-                    "winrate"
-                ],
-
-            "profit":
-                report[
-                    "cagr"
-                ],
-
-            "dd":
-                report[
-                    "max_dd"
-                ],
-
-            "sharpe":
-                report[
-                    "sharpe"
-                ],
-
-            "pf":
-                report[
-                    "pf"
-                ]
-        }
+        
 # =====================================================
 # MAIN
 # =====================================================

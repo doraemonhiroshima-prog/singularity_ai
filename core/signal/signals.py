@@ -1,3 +1,6 @@
+    # core/signal/signals.py
+
+
 class SignalGenerator:
 
     def generate(
