@@ -1,187 +1,163 @@
 # core/growth/evaluator.py
 
-import os
-import pandas as pd
 import numpy as np
+
 
 class Evaluator:
 
+    def evaluate(self, results):
 
- def evaluate(self, results):
+        hit_1 = 0
+        hit_5 = 0
+        hit_10 = 0
 
-    hit_1 = 0
-    hit_5 = 0
-    hit_10 = 0
+        total = 0
 
-    total = 0
+        profits = []
 
-    profits = []
+        equity = 1000000
 
-    equity = 1000000
+        peak = equity
 
-    peak = equity
+        max_dd = 0
 
-    max_dd = 0
+        wins = 0
 
-    wins = 0
+        losses = 0
 
-    losses = 0
+        # =========================
+        # ACTUAL TRADE RESULTS
+        # =========================
+        for r in results:
 
-    for r in results:
+            try:
 
-        try:
+                ret = float(
+                    r.get("profit", 0)
+                )
+                entry_day = int(
+                    r.get("entry_day", 0)
+                )
 
-            path = f"data/{r['code']}.csv"
+                exit_day = int(
+                    r.get("exit_day", 0)
+                )
+                profits.append(ret)
 
-            if not os.path.exists(path):
+                if ret > 0:
+
+                    wins += 1
+
+                else:
+
+                    losses += 1
+
+                total += 1
+
+            except:
+
                 continue
 
-            df = pd.read_csv(path)
+        # =========================
+        # METRICS
+        # =========================
 
-            if len(df) < 15:
-                continue
+        # 現段階では実際の売買結果を
+        # 評価するため、1D/5D/10Dは未使用
+        acc1 = 0
+        acc5 = 0
+        acc10 = 0
 
-            close = df["Close"]
+        for r in results:
 
-            base = float(close.iloc[-11])
-
-            p1 = float(close.iloc[-10])
-
-            p5 = float(close.iloc[-6])
-
-            p10 = float(close.iloc[-1])
-
-            # =========================
-            # HIT
-            # =========================
-            if p1 > base:
-                hit_1 += 1
-
-            if p5 > base:
-                hit_5 += 1
-
-            if p10 > base:
-                hit_10 += 1
-
-            # =========================
-            # RETURN
-            # =========================
-            ret = (
-                p5 - base
-            ) / base
-
-            profits.append(ret)
-
-            if ret > 0:
-
-                wins += 1
-
-            else:
-
-                losses += 1
-
-            equity *= (1 + ret)
-
-            peak = max(
-                peak,
-                equity
+            entry_day = int(
+                r.get("entry_day", 0)
             )
 
-            dd = (
-                peak - equity
-            ) / peak
-
-            max_dd = max(
-                max_dd,
-                dd
+            exit_day = int(
+                r.get("exit_day", 0)
             )
 
-            total += 1
+            days = exit_day - entry_day
 
-        except:
+            if days >= 1:
+                acc1 += 1
 
-            continue
+            if days >= 5:
+                acc5 += 1
 
-    # =========================
-    # METRICS
-    # =========================
-    acc1 = hit_1 / total if total else 0
+            if days >= 10:
+                acc10 += 1
+        avg_profit = (
+            np.mean(profits)
+            if profits else 0
+        )
 
-    acc5 = hit_5 / total if total else 0
+        std = (
+            np.std(profits)
+            if profits else 0
+        )
 
-    acc10 = hit_10 / total if total else 0
+        sharpe = (
+            avg_profit / std
+            if std > 0 else 0
+        )
 
-    avg_profit = (
-        np.mean(profits)
-        if profits else 0
-    )
+        pf = (
+            wins / losses
+            if losses > 0 else wins
+        )
 
-    std = (
-        np.std(profits)
-        if profits else 0
-    )
+        print("\n=== EVALUATION ===")
 
-    sharpe = (
-        avg_profit / std
-        if std > 0 else 0
-    )
+        print(
+            "1D WIN:",
+            round(acc1, 3)
+        )
 
-    pf = (
-        wins / losses
-        if losses > 0 else wins
-    )
+        print(
+            "5D WIN:",
+            round(acc5, 3)
+        )
 
-    print("\n=== EVALUATION ===")
+        print(
+            "10D WIN:",
+            round(acc10, 3)
+        )
 
-    print(
-        "1D WIN:",
-        round(acc1, 3)
-    )
+        print(
+            "AVG PROFIT:",
+            round(avg_profit, 4)
+        )
 
-    print(
-        "5D WIN:",
-        round(acc5, 3)
-    )
+        print(
+            "MAX DD:",
+            round(max_dd, 4)
+        )
 
-    print(
-        "10D WIN:",
-        round(acc10, 3)
-    )
+        print(
+            "SHARPE:",
+            round(sharpe, 3)
+        )
 
-    print(
-        "AVG PROFIT:",
-        round(avg_profit, 4)
-    )
+        print(
+            "PF:",
+            round(pf, 3)
+        )
 
-    print(
-        "MAX DD:",
-        round(max_dd, 4)
-    )
+        return {
 
-    print(
-        "SHARPE:",
-        round(sharpe, 3)
-    )
+            "acc1": acc1,
 
-    print(
-        "PF:",
-        round(pf, 3)
-    )
+            "acc5": acc5,
 
-    return {
+            "acc10": acc10,
 
-        "acc1": acc1,
+            "profit": avg_profit,
 
-        "acc5": acc5,
+            "dd": max_dd,
 
-        "acc10": acc10,
+            "sharpe": sharpe,
 
-        "profit": avg_profit,
-
-        "dd": max_dd,
-
-        "sharpe": sharpe,
-
-        "pf": pf
-    }
-
+            "pf": pf
+        }

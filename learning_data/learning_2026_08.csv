@@ -1,0 +1,273 @@
+code,profit,factors,regime,entry_day,exit_day,entry,exit
+4063.T,-0.0288927037931673,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",,,,,
+8035.T,-0.0792209113145587,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",,,,,
+7203.T,-0.0103446682831762,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",,,,,
+2914.T,-0.0337076682514057,"{'score': 87.9371149266628, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 55.0, 'order_score': 84.0}",,,,,
+7203.T,-0.0376432005122954,"{'score': 72.8085287650223, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",,,,,
+8058.T,-0.0770639008801986,"{'score': 72.45745872645935, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",,,,,
+4063.T,-0.0182927063680839,"{'score': 72.65806116464353, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",,,,,
+6501.T,-0.0543735086140804,"{'score': 72.70821177418956, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",,,,,
+2914.T,-0.0441990469772786,"{'score': 81.00334569851614, 'institution_hold': True, 'flow_score': 80.0, 'pressure_score': 90.0, 'order_score': 90.0}",,,,,
+2914.T,-0.0871796229814246,"{'score': 52.70903346130709, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",,,,,
+8058.T,-0.0939717054412865,"{'score': 52.959869892909595, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",,,,,
+8035.T,-0.0669691691006941,"{'score': 54.608298789770885, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",,,,,
+8058.T,-0.0386026855977,"{'score': 72.2003884083231, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 90.0, 'order_score': 94.0}",,,,,
+7203.T,-0.0467289629264846,"{'score': 99.29987641553356, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",,,,,
+8306.T,-0.0200000638979677,"{'score': 97.34121889983315, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",,,,,
+6501.T,-0.0232289053478866,"{'score': 99.34627369963108, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",,,,,
+7203.T,-0.0506708517759774,"{'score': 54.5157318195595, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",,,,,
+4063.T,-0.028213139698046,"{'score': 54.76573970784621, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 100.0}",,,,,
+8035.T,-0.0601855458711287,"{'score': 99.34977268313729, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",,,,,
+4063.T,-0.0288925597062146,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",,,,,
+8035.T,-0.0792206994221791,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",,,,,
+7203.T,-0.0103446682831762,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",,,,,
+2914.T,-0.0337076715197086,"{'score': 87.9371149266628, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 55.0, 'order_score': 84.0}",,,,,
+7203.T,-0.037643197325417,"{'score': 72.8085287650223, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",,,,,
+8058.T,-0.0770642810760679,"{'score': 72.45745872645935, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",,,,,
+4063.T,-0.0182929087031247,"{'score': 72.65806116464353, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",,,,,
+6501.T,-0.054373604093716,"{'score': 72.70821177418956, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",,,,,
+2914.T,-0.0441989051182878,"{'score': 81.00334569851614, 'institution_hold': True, 'flow_score': 80.0, 'pressure_score': 90.0, 'order_score': 90.0}",,,,,
+2914.T,-0.087179721215469,"{'score': 52.70903346130709, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",,,,,
+8058.T,-0.0939717170990379,"{'score': 52.959869892909595, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",,,,,
+8035.T,-0.066969659939095,"{'score': 54.608298789770885, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",,,,,
+7203.T,-0.0467286594629201,"{'score': 99.29987641553356, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",,,,,
+8306.T,-0.0200000653839718,"{'score': 97.34197900987162, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",,,,,
+9432.T,-0.0398274853125567,"{'score': 52.60786965069198, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",,,,,
+6501.T,-0.0443178427273082,"{'score': 99.49976591643947, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 100.0}",,,,,
+7203.T,-0.0044707154268151,"{'score': 54.51375257678524, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",,,,,
+4063.T,-0.0882355211946899,"{'score': 52.307029094801344, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 86.0}",,,,,
+8035.T,-0.0458285686175523,"{'score': 52.307029094801344, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 86.0}",,,,,
+4063.T,-0.0288929147938751,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",,,,,
+8035.T,-0.0792206994221791,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",,,,,
+7203.T,-0.0103445781754996,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",,,,,
+2914.T,-0.0601093046218722,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",,,,,
+7203.T,-0.0376432756117815,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",,,,,
+8058.T,-0.07706433537292,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",,,,,
+4063.T,-0.0182927725793412,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",,,,,
+6501.T,-0.0543738060331423,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",,,,,
+2914.T,-0.08717919646014,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",,,,,
+8058.T,-0.0939718178394801,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",,,,,
+8035.T,-0.0669695426853668,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",,,,,
+7203.T,-0.0420561760463283,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",,,,,
+8306.T,-0.0200001411699496,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",,,,,
+6501.T,-0.0232287128435785,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",,,,,
+7203.T,-0.0044715547502932,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",,,,,
+4063.T,-0.0099170517873104,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",,,,,
+4063.T,-0.0288922128259687,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+8035.T,-0.0792208485603395,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,,,,
+7203.T,-0.010344844808153,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,,,,
+2914.T,-0.060109228020538,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,,,,
+7203.T,-0.0376435264052351,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,,,,
+8058.T,-0.0770643847229628,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,,,,
+4063.T,-0.0182925727117996,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,,,,
+6501.T,-0.0543735086140804,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,,,,
+2914.T,-0.0871792583597294,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,,,,
+8058.T,-0.0939715310150787,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,,,,
+8035.T,-0.0669691603714129,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,,,,
+7203.T,-0.0420559411068894,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,,,,
+8306.T,-0.0199999940560016,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,,,,
+6501.T,-0.0232287105545945,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,,,,
+7203.T,-0.0044710194239163,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+4063.T,-0.009916559321112,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,,,,
+4063.T,-0.0288924217748874,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+8035.T,-0.0792209172219887,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,,,,
+7203.T,-0.010344931225391,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,,,,
+2914.T,-0.0601091008780645,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,,,,
+7203.T,-0.037643031192013,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,,,,
+8058.T,-0.0770642810760679,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,,,,
+4063.T,-0.0182925727117996,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,,,,
+6501.T,-0.0543734131344256,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,,,,
+2914.T,-0.0871794617937085,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,,,,
+8058.T,-0.0939720097522863,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,,,,
+8035.T,-0.0669694210669355,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,,,,
+7203.T,-0.0420559444954287,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,,,,
+8306.T,-0.0200001367119207,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,,,,
+6501.T,-0.0232292949343558,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,,,,
+7203.T,-0.0044711729600994,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+4063.T,-0.0099172610475946,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,,,,
+4063.T,-0.0288922817916619,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+8035.T,-0.0792208249306433,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,,,,
+7203.T,-0.0103450213330669,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,,,,
+2914.T,-0.0601089476754033,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,,,,
+7203.T,-0.037643119039026,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,,,,
+8058.T,-0.0770645871878347,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,,,,
+4063.T,-0.0182926389230703,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,,,,
+6501.T,-0.0543734021542898,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,,,,
+2914.T,-0.0871797831150102,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,,,,
+8058.T,-0.0939714244456805,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,,,,
+8035.T,-0.0669692299099381,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,,,,
+7203.T,-0.0420560250676202,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,,,,
+8306.T,-0.0199998469420318,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,,,,
+6501.T,-0.0232287105545945,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,,,,
+7203.T,-0.0044704871725892,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+4063.T,-0.0099171912941763,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,,,,
+4063.T,-0.028892634827514,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+8035.T,-0.0792206366679189,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,,,,
+7203.T,-0.0103449330706178,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,,,,
+2914.T,-0.060109376879836,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,,,,
+7203.T,-0.0376436110653476,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,,,,
+8058.T,-0.0770642810760679,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,,,,
+4063.T,-0.0182925751792857,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,,,,
+6501.T,-0.0543734076443571,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,,,,
+2914.T,-0.0871798213674322,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,,,,
+8058.T,-0.0939714302745402,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,,,,
+8035.T,-0.0669694123376225,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,,,,
+7203.T,-0.0420562566185003,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,,,,
+8306.T,-0.0200000683559807,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,,,,
+6501.T,-0.023228809095742,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,,,,
+7203.T,-0.0044707915115338,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+4063.T,-0.0099161387042005,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,,,,
+4063.T,-0.028891997721473,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+8035.T,-0.0792205680062333,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,,,,
+7203.T,-0.0103448420403364,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,,,,
+2914.T,-0.0601094447944138,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,,,,
+7203.T,-0.0376435327790465,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,,,,
+8058.T,-0.0770641526951896,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,,,,
+4063.T,-0.0182925040330432,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,,,,
+6501.T,-0.0543733121646921,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,,,,
+2914.T,-0.0871794499702003,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,,,,
+8058.T,-0.0939718973541095,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,,,,
+8035.T,-0.0669694167022787,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,,,,
+7203.T,-0.042056179434886,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,,,,
+8306.T,-0.0199997726420472,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,,,,
+6501.T,-0.0232285180502289,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,,,,
+7203.T,-0.0044704107461664,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,,,,
+4063.T,-0.0099170510886331,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,,,,
+4063.T,-0.0288925617580931,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,245.0,248.0,859.4378051757812,834.6064453125
+8035.T,-0.0792207680838395,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,241.0,250.0,1637.0098876953125,1507.32470703125
+7203.T,-0.0103445763303357,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,245.0,251.0,684.3651733398438,677.2857055664062
+2914.T,-0.0601091644493104,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,245.0,259.0,844.68408203125,793.9108276367188
+7203.T,-0.0376433634587928,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,259.0,271.0,720.943359375,693.8046264648438
+8058.T,-0.0770637280958882,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,263.0,272.0,475.4223327636719,438.7845153808594
+4063.T,-0.0182929699792903,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,264.0,273.0,904.9620361328124,888.4075927734375
+6501.T,-0.0543735086140804,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,264.0,273.0,604.4896850585938,571.6214599609375
+2914.T,-0.0871796652276877,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,287.0,290.0,900.0731811523438,821.6051025390625
+8058.T,-0.0939714864736785,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,287.0,291.0,491.996826171875,445.7631530761719
+8035.T,-0.0669694862408161,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,290.0,293.0,1872.994384765625,1747.5609130859375
+7203.T,-0.0420564177628443,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,295.0,303.0,757.5215454101562,725.6629028320312
+8306.T,-0.0199996998280401,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,316.0,327.0,821.46923828125,805.0401000976562
+6501.T,-0.0232285180502289,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,328.0,341.0,619.3873901367188,604.9999389648438
+7203.T,-0.0044708679379332,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,341.0,353.0,798.613525390625,795.0430297851562
+4063.T,-0.0099171905954893,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,316.0,362.0,866.33544921875,857.7438354492188
+4063.T,-0.0288925597062146,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,245.0,248.0,859.4378662109375,834.6065063476562
+8035.T,-0.0792209231294197,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,241.0,250.0,1637.009765625,1507.3243408203125
+7203.T,-0.0103445772529176,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,245.0,251.0,684.3651123046875,677.28564453125
+2914.T,-0.0601093046218722,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,245.0,259.0,844.6841430664062,793.9107666015625
+7203.T,-0.0376436925385408,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,259.0,271.0,720.9435424804688,693.8045654296875
+8058.T,-0.0770641477484081,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,263.0,272.0,475.4225158691406,438.7844848632813
+4063.T,-0.0182927063680839,"{'score': 72.6579906901683, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 98.0}",BULL,264.0,273.0,904.9617309570312,888.4075317382812
+6501.T,-0.054373604093716,"{'score': 72.70814145790733, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 99.0}",SIDE,264.0,273.0,604.48974609375,571.6214599609375
+2914.T,-0.0871793084358222,"{'score': 52.70903337812412, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,287.0,290.0,900.0733642578125,821.6055908203125
+8058.T,-0.0939719477243114,"{'score': 52.9598698020245, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,287.0,291.0,491.99700927734375,445.7630920410156
+8035.T,-0.066969295083823,"{'score': 54.608298713340226, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,290.0,293.0,1872.9942626953125,1747.5611572265625
+7203.T,-0.0420560250676202,"{'score': 99.29987641667195, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,295.0,303.0,757.5213623046875,725.6630249023438
+8306.T,-0.0200003625838438,"{'score': 97.34197901030521, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 65.0, 'order_score': 82.0}",BEAR,316.0,327.0,821.469482421875,805.039794921875
+6501.T,-0.023228809095742,"{'score': 99.34642697527593, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,328.0,341.0,619.3875122070312,604.9998779296875
+7203.T,-0.0044710968754215,"{'score': 54.515660074478006, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,341.0,353.0,798.6135864257812,795.0429077148438
+4063.T,-0.0099171912941763,"{'score': 52.60786965026658, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,316.0,362.0,866.3353881835938,857.7437744140625
+4063.T,-0.0288922858953804,"{'score': 72.58115355290182, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,245.0,248.0,859.4375610351562,834.6064453125
+8035.T,-0.0792207739912593,"{'score': 53.30387654771435, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 94.0}",BULL,241.0,250.0,1637.009765625,1507.3245849609375
+7203.T,-0.0103448457307589,"{'score': 53.974976471468835, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 85.0, 'order_score': 92.0}",BULL,245.0,251.0,684.3650512695312,677.285400390625
+2914.T,-0.0601095936537275,"{'score': 90.51623071058036, 'institution_hold': True, 'flow_score': 90.0, 'pressure_score': 90.0, 'order_score': 100.0}",BEAR,245.0,259.0,844.6841430664062,793.9105224609375
+2914.T,-0.0331492628939227,"{'score': 52.20663378051708, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 84.0}",SIDE,264.0,269.0,835.4526977539062,807.758056640625
+7203.T,-0.037643197325417,"{'score': 72.80844299338538, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 100.0, 'order_score': 96.0}",SIDE,259.0,271.0,720.9432983398438,693.8046875
+8058.T,-0.0770644637537819,"{'score': 72.4573876192122, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 95.0, 'order_score': 94.0}",BULL,263.0,272.0,475.4225463867188,438.7843627929688
+4063.T,-0.0813129244985542,"{'score': 81.50173409044368, 'institution_hold': True, 'flow_score': 80.0, 'pressure_score': 90.0, 'order_score': 100.0}",BULL,269.0,273.0,967.040283203125,888.4074096679688
+2914.T,-0.0871793261710558,"{'score': 52.70902882341168, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 60.0, 'order_score': 94.0}",BULL,287.0,290.0,900.0731811523438,821.6054077148438
+8058.T,-0.0939717170990379,"{'score': 52.95986482557942, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 65.0, 'order_score': 94.0}",BULL,287.0,291.0,491.9969177246094,445.76312255859375
+8035.T,-0.0669695947652356,"{'score': 54.60829452835279, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 97.0}",BULL,290.0,293.0,1872.9949951171875,1747.561279296875
+8058.T,-0.0386031258267651,"{'score': 72.20038820883904, 'institution_hold': False, 'flow_score': 70.0, 'pressure_score': 90.0, 'order_score': 94.0}",SIDE,302.0,304.0,474.55023193359375,456.2311096191406
+7203.T,-0.0467291971128737,"{'score': 99.29987647900576, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 96.0}",BULL,295.0,305.0,757.5216064453125,722.1232299804688
+8306.T,0.0,"{'score': 98.84618933494589, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 100.0, 'order_score': 77.0}",BEAR,315.0,327.0,805.0401611328125,805.0401611328125
+6501.T,-0.0232290016000123,"{'score': 99.3478273767891, 'institution_hold': True, 'flow_score': 100.0, 'pressure_score': 90.0, 'order_score': 97.0}",SIDE,328.0,341.0,619.3876342773438,604.9998779296875
+7203.T,-0.0044707147434537,"{'score': 54.51505431861909, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 95.0, 'order_score': 95.0}",BULL,341.0,353.0,798.6135864257812,795.043212890625
+4063.T,-0.0099169806365179,"{'score': 52.60861541664403, 'institution_hold': False, 'flow_score': 50.0, 'pressure_score': 70.0, 'order_score': 82.0}",BEAR,316.0,362.0,866.3353271484375,857.743896484375
+4063.T,-0.0288922148778231,{},NORMAL,245.0,248.0,859.4375610351562,834.6065063476562
+8035.T,-0.0792202815446155,{},NORMAL,241.0,250.0,1637.0091552734375,1507.3248291015625
+7203.T,-0.0103448438855473,{},NORMAL,245.0,251.0,684.3651733398438,677.2855224609375
+2914.T,-0.0601095127089817,{},NORMAL,245.0,259.0,844.6842651367188,793.9107055664062
+2914.T,-0.0331491874157751,{},NORMAL,264.0,269.0,835.4527587890625,807.7581787109375
+7203.T,-0.0376429465318719,{},NORMAL,259.0,271.0,720.9432373046875,693.8048095703125
+8058.T,-0.0770642810760679,{},NORMAL,263.0,272.0,475.4224853515625,438.7843933105469
+4063.T,-0.08131222869815,{},NORMAL,269.0,273.0,967.03955078125,888.4074096679688
+2914.T,-0.0871798568381033,{},NORMAL,287.0,290.0,900.0733032226562,821.6050415039062
+8058.T,-0.0939719768687685,{},NORMAL,287.0,291.0,491.9968566894531,445.762939453125
+8035.T,-0.0669694862408161,{},NORMAL,290.0,293.0,1872.994384765625,1747.5609130859375
+7203.T,-0.0420560216790743,{},NORMAL,295.0,303.0,757.5214233398438,725.6630859375
+8058.T,-0.0386029353839833,{},NORMAL,302.0,304.0,474.5502014160156,456.2311706542969
+8306.T,-0.0200002169559387,{},NORMAL,316.0,327.0,821.4693603515625,805.039794921875
+9432.T,-0.0398277395858856,{},NORMAL,316.0,327.0,28.8096866607666,27.662261962890625
+6501.T,-0.0443183247951091,{},NORMAL,329.0,341.0,633.0557250976562,604.999755859375
+7203.T,-0.0044710968754215,{},NORMAL,341.0,353.0,798.6135864257812,795.0429077148438
+4063.T,-0.0841951188613665,{},NORMAL,329.0,362.0,936.60107421875,857.7438354492188
+8035.T,-0.0601849118359831,{},NORMAL,358.0,362.0,1844.18017578125,1733.1883544921875
+4063.T,-0.060559210182807,{},NORMAL,240.0,248.0,888.40771484375,834.6064453125
+8035.T,-0.0792211918684834,{},NORMAL,241.0,250.0,1637.0103759765625,1507.324462890625
+2914.T,-0.0444445995314576,{},NORMAL,243.0,259.0,830.8367919921875,793.9105834960938
+7203.T,-0.0376427021119578,{},NORMAL,259.0,271.0,720.9430541992188,693.8048095703125
+8058.T,-0.0770643896697582,{},NORMAL,263.0,272.0,475.422607421875,438.7844543457031
+4063.T,-0.0182925040330432,{},NORMAL,264.0,273.0,904.9617309570312,888.40771484375
+6501.T,-0.0543736095838038,{},NORMAL,264.0,273.0,604.4896850585938,571.6213989257812
+2914.T,-0.0871794499702003,{},NORMAL,284.0,290.0,900.0733032226562,821.6054077148438
+8035.T,-0.0795205792958477,{},NORMAL,285.0,291.0,1951.655517578125,1796.458740234375
+8058.T,-0.093971666728798,{},NORMAL,287.0,291.0,491.9968566894531,445.7630920410156
+7203.T,-0.0420564211514215,{},NORMAL,295.0,303.0,757.521484375,725.662841796875
+8306.T,-0.0200002154699231,{},NORMAL,316.0,327.0,821.4694213867188,805.0398559570312
+9432.T,-0.0398273581758417,{},NORMAL,316.0,327.0,28.809675216674805,27.662261962890625
+6501.T,-0.0443179348680185,{},NORMAL,329.0,341.0,633.0557861328125,605.0000610351562
+7203.T,-0.0132941094661616,{},NORMAL,329.0,353.0,805.7547607421875,795.04296875
+4063.T,-0.084194863681456,{},NORMAL,329.0,362.0,936.6010131835938,857.7440185546875
+8035.T,-0.0458287733073749,{},NORMAL,351.0,362.0,1816.4324951171875,1733.1876220703125
+4063.T,-0.0288923487054816,{},NORMAL,245.0,248.0,859.4378051757812,834.6066284179688
+8035.T,-0.0792204816223369,{},NORMAL,241.0,250.0,1637.0096435546875,1507.324951171875
+7203.T,-0.0103446655154063,{},NORMAL,245.0,251.0,684.3651733398438,677.28564453125
+2914.T,-0.0601093133086254,{},NORMAL,245.0,259.0,844.6840209960938,793.91064453125
+7203.T,-0.037643112665283,{},NORMAL,259.0,271.0,720.9432983398438,693.8047485351562
+8058.T,-0.077064641484637,{},NORMAL,263.0,272.0,475.4226379394531,438.7843627929688
+4063.T,-0.0182926426243129,{},NORMAL,264.0,273.0,904.9615478515624,888.4074096679688
+6501.T,-0.0543732111949586,{},NORMAL,264.0,273.0,604.4896240234375,571.62158203125
+2914.T,-0.0871795355167949,{},NORMAL,287.0,290.0,900.0731201171875,821.6051635742188
+8035.T,-0.0408632197783333,{},NORMAL,290.0,291.0,1872.995361328125,1796.458740234375
+8058.T,-0.0939717054412865,{},NORMAL,287.0,291.0,491.9969787597656,445.76318359375
+7203.T,-0.0420560920856056,{},NORMAL,295.0,303.0,757.5216064453125,725.6632080078125
+8058.T,-0.0386028067671245,{},NORMAL,302.0,304.0,474.5502014160156,456.2312316894531
+8306.T,-0.0199999182700291,{},NORMAL,316.0,327.0,821.4694213867188,805.0401000976562
+9432.T,-0.0398275515176897,{},NORMAL,316.0,327.0,28.80967903137207,27.662260055541992
+6501.T,-0.0443181276951203,{},NORMAL,329.0,341.0,633.0557861328125,604.9999389648438
+7203.T,-0.0044711726183838,{},NORMAL,341.0,353.0,798.6137084960938,795.04296875
+4063.T,-0.0841949940147684,{},NORMAL,329.0,362.0,936.6010131835938,857.743896484375
+8035.T,-0.0458287579081492,{},NORMAL,351.0,362.0,1816.43310546875,1733.188232421875
+4063.T,-0.0605588791556059,{},NORMAL,240.0,248.0,888.4075317382812,834.6065673828125
+8035.T,-0.0792208426529141,{},NORMAL,241.0,250.0,1637.0098876953125,1507.3245849609375
+2914.T,-0.0444442354850849,{},NORMAL,243.0,259.0,830.8367309570312,793.9108276367188
+7203.T,-0.0376432005122954,{},NORMAL,259.0,271.0,720.9432373046875,693.8046264648438
+8058.T,-0.0770643254793355,{},NORMAL,263.0,272.0,475.422607421875,438.7844848632813
+4063.T,-0.0182927725793412,{},NORMAL,264.0,273.0,904.9617919921876,888.4075317382812
+6501.T,-0.0543734021542898,{},NORMAL,264.0,273.0,604.48974609375,571.62158203125
+2914.T,-0.087179635668854,{},NORMAL,284.0,290.0,900.073486328125,821.6054077148438
+8035.T,-0.0795200362672956,{},NORMAL,285.0,291.0,1951.655029296875,1796.4593505859375
+8058.T,-0.0939717170990379,{},NORMAL,287.0,291.0,491.9969177246094,445.76312255859375
+7203.T,-0.0420560216790743,{},NORMAL,295.0,303.0,757.5214233398438,725.6630859375
+8306.T,-0.0200002882838758,{},NORMAL,316.0,327.0,821.469482421875,805.0398559570312
+9432.T,-0.0398278031541968,{},NORMAL,316.0,327.0,28.809688568115234,27.662261962890625
+6501.T,-0.0443183247951091,{},NORMAL,329.0,341.0,633.0557250976562,604.999755859375
+7203.T,-0.0132941872292539,{},NORMAL,329.0,353.0,805.754638671875,795.0427856445312
+4063.T,-0.084194999501475,{},NORMAL,329.0,362.0,936.6009521484376,857.7438354492188
+8035.T,-0.0458286999443623,{},NORMAL,351.0,362.0,1816.4327392578125,1733.18798828125
+4063.T,-0.06055901655911521,{},NORMAL,240.0,248.0,888.4075317382812,834.6064453125
+8035.T,-0.07922099769849991,{},NORMAL,241.0,250.0,1637.009765625,1507.32421875
+2914.T,-0.04444416202281019,{},NORMAL,243.0,259.0,830.8367309570312,793.910888671875
+7203.T,-0.03764344811891971,{},NORMAL,259.0,271.0,720.943359375,693.8045654296875
+8058.T,-0.07706401442076545,{},NORMAL,263.0,272.0,475.42254638671875,438.7845764160156
+4063.T,-0.01829283879058967,{},NORMAL,264.0,273.0,904.9618530273438,888.4075317382812
+6501.T,-0.05437350312400292,{},NORMAL,264.0,273.0,604.48974609375,571.6215209960938
+2914.T,-0.08717964749238513,{},NORMAL,284.0,290.0,900.0733642578125,821.6052856445312
+8035.T,-0.07952063189534327,{},NORMAL,285.0,291.0,1951.65576171875,1796.4588623046875
+8058.T,-0.09397123836168675,{},NORMAL,287.0,291.0,491.996826171875,445.7632751464844
+7203.T,-0.04205601490198436,{},NORMAL,295.0,303.0,757.5215454101562,725.6632080078125
+8306.T,-0.01999999405600168,{},NORMAL,316.0,327.0,821.4693603515625,805.0399780273438
+9432.T,-0.039827291970699986,{},NORMAL,316.0,327.0,28.809675216674805,27.662263870239258
+6501.T,-0.04431832052222207,{},NORMAL,329.0,341.0,633.0557861328125,604.9998168945312
+7203.T,-0.013294110473177828,{},NORMAL,329.0,353.0,805.7546997070312,795.0429077148438
+4063.T,-0.084194863681456,{},NORMAL,329.0,362.0,936.6010131835938,857.7440185546875
+8035.T,-0.04582844037054844,{},NORMAL,351.0,362.0,1816.432373046875,1733.1881103515625

@@ -37,17 +37,12 @@ class SignalGenerator:
                 float(weights["future"])
             )
 
-            print(
-                "SIGNAL SCORE:",
-                round(score, 2),
-                "THRESHOLD:",
-                threshold
-            )
+            
 
             # 一時的にかなり緩くする
             if score >= 30:
 
-                print("BUY GENERATED")
+                
 
                 return {
                     "signal": "BUY",

@@ -1,32 +1,124 @@
 # core/news/news_collector.py
 
+import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 import requests
 import feedparser
-
 from bs4 import BeautifulSoup
 
 
 class NewsCollector:
+    """
+    Ω SINGULARITY AI News Collector V1
 
-    def __init__(self):
+    役割:
+      - ニュース取得
+      - 整形
+      - 重複除去
+      - キャッシュ
+      - 並列取得
 
+    分析は行わない。
+    SentimentEngine / ThemeDetector / NewsAI が利用する
+    list[str] 形式を返す。
+    """
+
+    def __init__(self, cache_ttl=600, timeout=5):
         self.headers = {
-            "User-Agent":
-            "Mozilla/5.0"
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0.0.0 Safari/537.36"
+            )
         }
 
-        # TDNETキャッシュ
-        self._tdnet_cache = None
+        self.cache_ttl = cache_ttl
+        self.timeout = timeout
+
+        self._cache = {}
+        self._lock = threading.Lock()
 
     # =========================
-    # Google News RSS
+    # CACHE
+    # =========================
+    def _get_cache(self, key):
+        with self._lock:
+            if key not in self._cache:
+                return None
+
+            timestamp, data = self._cache[key]
+
+            if time.time() - timestamp < self.cache_ttl:
+                return data
+
+            del self._cache[key]
+            return None
+
+    def _set_cache(self, key, data):
+        with self._lock:
+            self._cache[key] = (time.time(), data)
+
+    # =========================
+    # HTTP GET
+    # =========================
+    def _safe_get(self, url, timeout=None):
+        timeout = timeout or self.timeout
+
+        for _ in range(2):
+            try:
+                res = requests.get(
+                    url,
+                    headers=self.headers,
+                    timeout=timeout
+                )
+
+                if res.status_code == 200:
+                    return res
+
+            except Exception:
+                continue
+
+        return None
+
+    # =========================
+    # CLEAN TEXT
+    # =========================
+    def _clean_text(self, text):
+        text = str(text).replace("\n", " ").replace("\r", " ").strip()
+
+        if len(text) < 15:
+            return ""
+
+        noise_words = [
+            "ログイン",
+            "会員登録",
+            "広告",
+            "PR",
+            "続きを読む",
+            "おすすめ",
+            "ランキング"
+        ]
+
+        if any(word in text for word in noise_words):
+            return ""
+
+        return text
+
+    # =========================
+    # GOOGLE RSS
     # =========================
     def google(self, keyword):
+        cache_key = f"google:{keyword}"
+        cached = self._get_cache(cache_key)
+
+        if cached is not None:
+            return cached
 
         results = []
 
         try:
-
             url = (
                 "https://news.google.com/rss/search?"
                 f"q={keyword}"
@@ -36,12 +128,7 @@ class NewsCollector:
             feed = feedparser.parse(url)
 
             for entry in feed.entries[:20]:
-
-                title = (
-                    entry.title
-                    .replace("\n", " ")
-                    .strip()
-                )
+                title = self._clean_text(entry.title)
 
                 if title:
                     results.append(title)
@@ -49,256 +136,205 @@ class NewsCollector:
         except Exception:
             pass
 
+        self._set_cache(cache_key, results)
         return results
 
     # =========================
-    # Yahoo Finance
+    # YAHOO FINANCE
     # =========================
     def yahoo(self, code):
+        cache_key = f"yahoo:{code}"
+        cached = self._get_cache(cache_key)
+
+        if cached is not None:
+            return cached
 
         results = []
 
         try:
+            url = f"https://finance.yahoo.co.jp/quote/{code}/news"
 
-            url = (
-                f"https://finance.yahoo.co.jp/quote/"
-                f"{code}/news"
-            )
+            res = self._safe_get(url)
 
-            res = requests.get(
-                url,
-                headers=self.headers,
-                timeout=3
-            )
+            if res is not None:
+                soup = BeautifulSoup(res.text, "html.parser")
 
-            soup = BeautifulSoup(
-                res.text,
-                "html.parser"
-            )
+                texts = soup.get_text("\n", strip=True)
 
-            texts = soup.get_text(
-                "\n",
-                strip=True
-            )
+                for line in texts.split("\n"):
+                    line = self._clean_text(line)
 
-            for line in texts.split("\n"):
-
-                line = line.strip()
-
-                if len(line) < 15:
-                    continue
-
-                results.append(line)
+                    if line:
+                        results.append(line)
 
         except Exception:
             pass
 
-        return results[:30]
+        results = results[:30]
+        self._set_cache(cache_key, results)
+        return results
 
     # =========================
-    # Kabutan
+    # KABUTAN
     # =========================
     def kabutan(self, code):
+        cache_key = f"kabutan:{code}"
+        cached = self._get_cache(cache_key)
+
+        if cached is not None:
+            return cached
 
         results = []
 
         try:
+            code_num = code.replace(".T", "")
 
-            code_num = (
-                code.replace(".T", "")
-            )
+            url = f"https://kabutan.jp/stock/news?code={code_num}"
 
-            url = (
-                "https://kabutan.jp/stock/news?"
-                f"code={code_num}"
-            )
+            res = self._safe_get(url)
 
-            res = requests.get(
-                url,
-                headers=self.headers,
-                timeout=3
-            )
+            if res is not None:
+                soup = BeautifulSoup(res.text, "html.parser")
 
-            soup = BeautifulSoup(
-                res.text,
-                "html.parser"
-            )
+                texts = soup.get_text("\n", strip=True)
 
-            texts = soup.get_text(
-                "\n",
-                strip=True
-            )
+                for line in texts.split("\n"):
+                    line = self._clean_text(line)
 
-            for line in texts.split("\n"):
-
-                line = line.strip()
-
-                if len(line) < 15:
-                    continue
-
-                results.append(line)
+                    if line:
+                        results.append(line)
 
         except Exception:
             pass
 
-        return results[:30]
+        results = results[:30]
+        self._set_cache(cache_key, results)
+        return results
 
     # =========================
-    # Minkabu
+    # MINKABU
     # =========================
     def minkabu(self, code):
+        cache_key = f"minkabu:{code}"
+        cached = self._get_cache(cache_key)
+
+        if cached is not None:
+            return cached
 
         results = []
 
         try:
+            code_num = code.replace(".T", "")
 
-            code_num = (
-                code.replace(".T", "")
-            )
+            url = f"https://minkabu.jp/stock/{code_num}/news"
 
-            url = (
-                f"https://minkabu.jp/stock/"
-                f"{code_num}/news"
-            )
+            res = self._safe_get(url)
 
-            res = requests.get(
-                url,
-                headers=self.headers,
-                timeout=3
-            )
+            if res is not None:
+                soup = BeautifulSoup(res.text, "html.parser")
 
-            soup = BeautifulSoup(
-                res.text,
-                "html.parser"
-            )
+                texts = soup.get_text("\n", strip=True)
 
-            texts = soup.get_text(
-                "\n",
-                strip=True
-            )
+                for line in texts.split("\n"):
+                    line = self._clean_text(line)
 
-            for line in texts.split("\n"):
-
-                line = line.strip()
-
-                if len(line) < 15:
-                    continue
-
-                results.append(line)
+                    if line:
+                        results.append(line)
 
         except Exception:
             pass
 
-        return results[:30]
+        results = results[:30]
+        self._set_cache(cache_key, results)
+        return results
 
     # =========================
     # TDNET
     # =========================
     def tdnet(self):
+        cache_key = "tdnet"
+        cached = self._get_cache(cache_key)
 
-        # キャッシュ利用
-        if self._tdnet_cache is not None:
-            return self._tdnet_cache
+        if cached is not None:
+            return cached
 
         results = []
 
         try:
+            url = "https://www.release.tdnet.info/inbs/I_main_00.html"
 
-            url = (
-                "https://www.release.tdnet.info/"
-                "inbs/I_main_00.html"
-            )
+            res = self._safe_get(url)
 
-            res = requests.get(
-                url,
-                headers=self.headers,
-                timeout=3
-            )
+            if res is not None:
+                soup = BeautifulSoup(res.text, "html.parser")
 
-            soup = BeautifulSoup(
-                res.text,
-                "html.parser"
-            )
+                texts = soup.get_text("\n", strip=True)
 
-            texts = soup.get_text(
-                "\n",
-                strip=True
-            )
+                for line in texts.split("\n"):
+                    line = self._clean_text(line)
 
-            for line in texts.split("\n"):
-
-                line = line.strip()
-
-                if len(line) < 15:
-                    continue
-
-                results.append(line)
+                    if line:
+                        results.append(line)
 
         except Exception:
             pass
 
-        self._tdnet_cache = results[:50]
-
-        return self._tdnet_cache
+        results = results[:50]
+        self._set_cache(cache_key, results)
+        return results
 
     # =========================
-    # 重複除去
+    # DEDUPLICATE
     # =========================
-    def _deduplicate(
-        self,
-        items
-    ):
-
+    def _deduplicate(self, items):
         seen = set()
-
         result = []
 
         for item in items:
-
             key = item.strip()
 
             if key in seen:
                 continue
 
             seen.add(key)
-
             result.append(item)
 
         return result
 
     # =========================
-    # ALL NEWS
-    # =========================
-    def fetch_all(
-        self,
-        code,
-        name
-    ):
-
+# FETCH ALL
+# =========================
+    def fetch_all(self, code, name):
         news = []
 
-        news.extend(
-            self.google(name)
-        )
+        tasks = {
+            "google": lambda: self.google(name),
+            "yahoo": lambda: self.yahoo(code),
+            "kabutan": lambda: self.kabutan(code),
+            "minkabu": lambda: self.minkabu(code),
+            "tdnet": self.tdnet
+        }
 
-        news.extend(
-            self.yahoo(code)
-        )
+        with ThreadPoolExecutor(max_workers=5) as executor:
 
-        news.extend(
-            self.kabutan(code)
-        )
+            future_map = {
+                executor.submit(func): key
+                for key, func in tasks.items()
+            }
 
-        news.extend(
-            self.minkabu(code)
-        )
+            for future in as_completed(future_map):
 
-        news.extend(
-            self.tdnet()
-        )
+                source = future_map[future]
 
-        news = self._deduplicate(
-            news
-        )
+                try:
+                    result = future.result()
+
+                    if result:
+                        news.extend(result)
+
+                except Exception as e:
+                    print(f"[{source}] ERROR : {e}")
+
+        news = self._deduplicate(news)
 
         return news

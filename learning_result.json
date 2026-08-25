@@ -1,2460 +1,12 @@
 {
     "weights": {
-        "market": 0.16520776295843512,
-        "tech": 0.439021714951296,
-        "news": 0.010948117798022489,
-        "inst": 0.16531227278285338,
-        "future": 0.21951013150939297
+        "market": 0.1660951676433679,
+        "tech": 0.4377254840145128,
+        "news": 0.010850369903318743,
+        "inst": 0.1664662364315442,
+        "future": 0.2188627420072564
     },
     "history": [
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.01026574733454783
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.02909088979895498
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04217671920486978
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05405410131437868
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.0145453781056355
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.17135545943085764
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03207971833515301
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 95.0,
-                "future": 50
-            },
-            "profit": 0.10670536676615315
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07964631184819093
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.1437125748502994
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03753376813861156
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.023041613341790074
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.08901811279077303
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04926106367476989
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03333333333333333
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03511239024731977
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.006276287048382725
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.007042226846244351
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07824423075302317
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07035172579087196
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.01874981487451113
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03148850661431409
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05555555555555555
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.09004739336492891
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06521739130434782
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.016551756206644376
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.37518356085047483
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06549133107706832
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.046448147143116444
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.014925329613102471
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.12345679012345678
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07692307692307693
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04952076677316294
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.005167953238493872
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.21264371562436324
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.030883754379184107
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.0
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.028268533376581854
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.008327427390915607
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.3956521707172757
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.06910551398270685
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11203319171373947
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.029459710630009444
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04548185106356061
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0721153023505797
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.36199645527620056
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.02027012048940575
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06269586733659505
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.029891304347826088
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.061855607482752754
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.10495627346481962
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.10434792018656751
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.036019140440196745
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.014285815641414344
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07492797505759939
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09958504814883644
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.056016597510373446
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0721312828903062
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 1.0017668783506006
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03896103599871306
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11036789297658862
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.14488627013876326
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.0183226766836005
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.023880495853648452
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0496551939657509
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09441209295927153
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09785202863961814
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.4166668386280235
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06282727178991436
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0612725557389575
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.15457413249211358
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04564310289192132
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03594779769147354
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.0017714736556430919
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05804110298493607
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.20648976399830896
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06505771248688352
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.016366449789509345
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.09221902017291066
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09081419624217119
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07209313824319594
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06733784412581943
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05258943270656265
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11869036054349381
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11111110260781669
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0008739345583524802
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.008333515972892582
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04347819023461446
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.018598611611236042
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 1.1486486475962
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.1717171770537561
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.012820516823279308
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03441669092166326
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04953560600931718
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09803928195314442
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.07954545454545454
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.3542854779994122
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.006482906979441493
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.1073528425106389
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.19047615848112565
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.032591900233472595
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.1253012959836383
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03860283071501539
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.044545473035588624
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06719371028093978
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.041884888348961466
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.019607726745366205
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.014784855185685754
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.003970468127745341
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.02704708018283655
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07102055626837414
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.1509433962264151
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.025295831569328343
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05281168997435978
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.034106592694199085
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.6493506493506493
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05121042562662349
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11855670103092783
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.10250227656588741
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.019538032512663978
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07215629156157789
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.002919647541608345
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.012722757300951884
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06363639453094799
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.043010742586052184
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.019858190658244682
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.00804289544235925
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03520086913523309
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.057455538436767296
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.044902934362771256
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03795512731943196
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.024000090560277028
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.005474419769114528
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11454678126082507
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.00369907942907448
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.15479873288226226
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06418918918918919
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.024242429731154057
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07692287783320852
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04198703240260407
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04013772728115994
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.028085644241163273
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.024009326148495377
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.057388993588413525
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.12956818599011113
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.053465361399467795
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.00807928409432002
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.1089696122970403
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.6025641025641025
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07268169605259348
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05419840450338489
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03275531229465317
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0036443766835888174
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.16666666666666666
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.054347836634978476
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.01206055639662542
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.05080213903743316
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.030384115389651453
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0715327907361036
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07228915662650602
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06666672084643976
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.059291356681255035
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.041044595717135764
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.033438237608182535
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.017730461082627803
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03220969593967837
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04858300800711565
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.006767938172308232
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.07254901960784314
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05889729734826043
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.3956043325185204
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.031587209663436595
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0009789537086125192
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.043478256053597175
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05986388049988772
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.13076934025429215
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.010971864602869608
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.1219511947415158
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.056818181818181816
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.01739125106474951
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.02986789201608271
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.057623049219687875
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0219781161671039
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.35951657022909156
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.12105243432439003
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09142226897610603
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.060402807686653855
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.366197228116999
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0813647592755298
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.013422746164277478
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.10761903759006185
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05340478376230143
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.5859375457626939
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.12763446321908253
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07361961608604566
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.16666667792350048
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04675173053977041
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05573748235500867
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.02845555811408608
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04353192074307285
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.030892478456744733
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.46082332258359754
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.050671334585060034
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.01863385197402958
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.06571947645208225
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.07839994157221819
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.0
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.01520918425253751
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.11204481792717087
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.1000002386110678
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04732350718453199
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.018446735654729443
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.012048128970807636
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.013105373998481327
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.049019550746981756
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.010141860273485443
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.006739624181611246
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04538665484043138
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04122153743435201
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.384375
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0324051575654422
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.12060303813356366
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.053012124164968685
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03214285803116581
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.03431367517619187
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.02222225795054566
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0033557662501077622
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.20365173165883105
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.21954680354675485
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.045454545454545456
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0087105582666992
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.7542532991555861
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.010847471182849578
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.006024318689226196
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.025444424304506545
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.02281340772835084
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.003484416422918521
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.032751264913694726
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03136764009218945
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.00996658790119988
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.10576938644274682
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.08505747126436781
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 85.0,
-                "future": 50
-            },
-            "profit": -0.028538251243936833
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.04768916660962387
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.09355692850838482
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.13592222338489168
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.013437849944008958
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.028571444767428678
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.029535886972633655
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.08529409200596239
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.01960788614616262
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.012718481854134033
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 95.0,
-                "future": 50
-            },
-            "profit": -0.014792930080307309
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 85.0,
-                "future": 50
-            },
-            "profit": 0.04032883697638467
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03787860162919729
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.01935483870967742
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.005188150170097077
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.0017723790305610209
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.08132976351031371
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.10717095774811289
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 98.83,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.021505376344086023
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.05084748193953656
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04720258891035539
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.03333320448412984
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.14986079412551584
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": 0.19088720552486757
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.006369577139730328
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 96.94,
-                "inst": 95.0,
-                "future": 50
-            },
-            "profit": -0.035117020247743685
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.04049577424640975
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.08253339706121882
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.020207951390337316
-        },
-        {
-            "factors": {
-                "market": 90.0,
-                "tech": 100.0,
-                "inst": 100.0,
-                "future": 50
-            },
-            "profit": -0.014002791828358802
-        },
         {
             "factors": {
                 "market": 90.0,
@@ -2706,6 +258,2192 @@
                 "future": 50
             },
             "profit": 0.0262725090398748
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892703793167388
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922091131455873
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.01034466828317623
+        },
+        {
+            "factors": {
+                "score": 87.9371149266628,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 55.0,
+                "order_score": 84.0
+            },
+            "profit": -0.03370766825140576
+        },
+        {
+            "factors": {
+                "score": 72.8085287650223,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.037643200512295444
+        },
+        {
+            "factors": {
+                "score": 72.45745872645935,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706390088019861
+        },
+        {
+            "factors": {
+                "score": 72.65806116464353,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292706368083993
+        },
+        {
+            "factors": {
+                "score": 72.70821177418956,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.05437350861408049
+        },
+        {
+            "factors": {
+                "score": 81.00334569851614,
+                "institution_hold": true,
+                "flow_score": 80.0,
+                "pressure_score": 90.0,
+                "order_score": 90.0
+            },
+            "profit": -0.04419904697727865
+        },
+        {
+            "factors": {
+                "score": 52.70903346130709,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717962298142463
+        },
+        {
+            "factors": {
+                "score": 52.959869892909595,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397170544128658
+        },
+        {
+            "factors": {
+                "score": 54.608298789770885,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696916910069418
+        },
+        {
+            "factors": {
+                "score": 72.2003884083231,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 90.0,
+                "order_score": 94.0
+            },
+            "profit": -0.03860268559770002
+        },
+        {
+            "factors": {
+                "score": 99.29987641553356,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04672896292648465
+        },
+        {
+            "factors": {
+                "score": 97.34121889983315,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.020000063897967726
+        },
+        {
+            "factors": {
+                "score": 99.34627369963108,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228905347886675
+        },
+        {
+            "factors": {
+                "score": 54.5157318195595,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.050670851775977424
+        },
+        {
+            "factors": {
+                "score": 54.76573970784621,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 100.0
+            },
+            "profit": -0.028213139698046008
+        },
+        {
+            "factors": {
+                "score": 99.34977268313729,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06018554587112877
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892559706214672
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922069942217912
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.01034466828317623
+        },
+        {
+            "factors": {
+                "score": 87.9371149266628,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 55.0,
+                "order_score": 84.0
+            },
+            "profit": -0.03370767151970864
+        },
+        {
+            "factors": {
+                "score": 72.8085287650223,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.037643197325417044
+        },
+        {
+            "factors": {
+                "score": 72.45745872645935,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706428107606798
+        },
+        {
+            "factors": {
+                "score": 72.65806116464353,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292908703124788
+        },
+        {
+            "factors": {
+                "score": 72.70821177418956,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.05437360409371605
+        },
+        {
+            "factors": {
+                "score": 81.00334569851614,
+                "institution_hold": true,
+                "flow_score": 80.0,
+                "pressure_score": 90.0,
+                "order_score": 90.0
+            },
+            "profit": -0.044198905118287814
+        },
+        {
+            "factors": {
+                "score": 52.70903346130709,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717972121546903
+        },
+        {
+            "factors": {
+                "score": 52.959869892909595,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397171709903791
+        },
+        {
+            "factors": {
+                "score": 54.608298789770885,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696965993909502
+        },
+        {
+            "factors": {
+                "score": 99.29987641553356,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.046728659462920145
+        },
+        {
+            "factors": {
+                "score": 97.34197900987162,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.02000006538397183
+        },
+        {
+            "factors": {
+                "score": 52.60786965069198,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.03982748531255675
+        },
+        {
+            "factors": {
+                "score": 99.49976591643947,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.044317842727308224
+        },
+        {
+            "factors": {
+                "score": 54.51375257678524,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004470715426815106
+        },
+        {
+            "factors": {
+                "score": 52.307029094801344,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 86.0
+            },
+            "profit": -0.08823552119468996
+        },
+        {
+            "factors": {
+                "score": 52.307029094801344,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 86.0
+            },
+            "profit": -0.04582856861755233
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892914793875162
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922069942217912
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344578175499662
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.06010930462187227
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764327561178154
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706433537292008
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292772579341296
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.0543738060331423
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717919646014002
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397181783948017
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696954268536688
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04205617604632835
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.02000014116994967
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228712843578525
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004471554750293229
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.009917051787310404
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.02889221282596879
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922084856033951
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344844808153085
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.06010922802053802
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764352640523511
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706438472296281
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292572711799612
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.05437350861408049
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717925835972946
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.0939715310150787
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696916037141291
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.0420559411068894
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.01999999405600168
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228710554594505
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.00447101942391632
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.00991655932111205
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892421774887458
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922091722198878
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344931225391056
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.060109100878064516
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764303119201309
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706428107606798
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292572711799612
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.054373413134425654
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717946179370858
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397200975228633
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696942106693553
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04205594449542874
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.020000136711920788
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023229294934355847
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004471172960099464
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.009917261047594625
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.02889228179166193
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922082493064332
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010345021333066967
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.060108947675403326
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764311903902604
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706458718783474
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292638923070398
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.0543734021542898
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717978311501029
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397142444568059
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696922990993816
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04205602506762021
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.019999846942031822
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228710554594505
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004470487172589205
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.00991719129417638
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892634827514013
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922063666791893
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344933070617898
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.06010937687983609
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764361106534762
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706428107606798
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292575179285744
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.05437340764435717
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717982136743228
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397143027454027
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696941233762256
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.042056256618500355
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.02000006835598071
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228809095742087
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004470791511533814
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.00991613870420056
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028891997721473016
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922056800623338
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344842040336439
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.060109444794413824
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764353277904655
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706415269518964
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.0182925040330432
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.054373312164692135
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717944997020032
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397189735410956
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696941670227875
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04205617943488608
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.01999977264204727
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228518050228995
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004470410746166451
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.009917051088633128
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892561758093106
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.0792207680838395
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344576330335793
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.06010916444931046
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764336345879287
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706372809588823
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292969979290342
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.05437350861408049
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717966522768772
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397148647367855
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696948624081618
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04205641776284435
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.019999699828040104
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228518050228995
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004470867937933204
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.009917190595489374
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892559706214672
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07922092312941971
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344577252917646
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.06010930462187227
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.03764369253854088
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706414774840815
+        },
+        {
+            "factors": {
+                "score": 72.6579906901683,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 98.0
+            },
+            "profit": -0.018292706368083993
+        },
+        {
+            "factors": {
+                "score": 72.70814145790733,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 99.0
+            },
+            "profit": -0.05437360409371605
+        },
+        {
+            "factors": {
+                "score": 52.70903337812412,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717930843582222
+        },
+        {
+            "factors": {
+                "score": 52.9598698020245,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397194772431146
+        },
+        {
+            "factors": {
+                "score": 54.608298713340226,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696929508382307
+        },
+        {
+            "factors": {
+                "score": 99.29987641667195,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04205602506762021
+        },
+        {
+            "factors": {
+                "score": 97.34197901030521,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 65.0,
+                "order_score": 82.0
+            },
+            "profit": -0.0200003625838438
+        },
+        {
+            "factors": {
+                "score": 99.34642697527593,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.023228809095742087
+        },
+        {
+            "factors": {
+                "score": 54.515660074478006,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004471096875421539
+        },
+        {
+            "factors": {
+                "score": 52.60786965026658,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.00991719129417638
+        },
+        {
+            "factors": {
+                "score": 72.58115355290182,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.028892285895380485
+        },
+        {
+            "factors": {
+                "score": 53.30387654771435,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 94.0
+            },
+            "profit": -0.0792207739912593
+        },
+        {
+            "factors": {
+                "score": 53.974976471468835,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 85.0,
+                "order_score": 92.0
+            },
+            "profit": -0.010344845730758964
+        },
+        {
+            "factors": {
+                "score": 90.51623071058036,
+                "institution_hold": true,
+                "flow_score": 90.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.060109593653727554
+        },
+        {
+            "factors": {
+                "score": 52.20663378051708,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 84.0
+            },
+            "profit": -0.03314926289392278
+        },
+        {
+            "factors": {
+                "score": 72.80844299338538,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 100.0,
+                "order_score": 96.0
+            },
+            "profit": -0.037643197325417044
+        },
+        {
+            "factors": {
+                "score": 72.4573876192122,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 95.0,
+                "order_score": 94.0
+            },
+            "profit": -0.07706446375378194
+        },
+        {
+            "factors": {
+                "score": 81.50173409044368,
+                "institution_hold": true,
+                "flow_score": 80.0,
+                "pressure_score": 90.0,
+                "order_score": 100.0
+            },
+            "profit": -0.08131292449855428
+        },
+        {
+            "factors": {
+                "score": 52.70902882341168,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 60.0,
+                "order_score": 94.0
+            },
+            "profit": -0.08717932617105584
+        },
+        {
+            "factors": {
+                "score": 52.95986482557942,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 65.0,
+                "order_score": 94.0
+            },
+            "profit": -0.09397171709903791
+        },
+        {
+            "factors": {
+                "score": 54.60829452835279,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 97.0
+            },
+            "profit": -0.06696959476523562
+        },
+        {
+            "factors": {
+                "score": 72.20038820883904,
+                "institution_hold": false,
+                "flow_score": 70.0,
+                "pressure_score": 90.0,
+                "order_score": 94.0
+            },
+            "profit": -0.03860312582676519
+        },
+        {
+            "factors": {
+                "score": 99.29987647900576,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 96.0
+            },
+            "profit": -0.04672919711287371
+        },
+        {
+            "factors": {
+                "score": 98.84618933494589,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 100.0,
+                "order_score": 77.0
+            },
+            "profit": 0.0
+        },
+        {
+            "factors": {
+                "score": 99.3478273767891,
+                "institution_hold": true,
+                "flow_score": 100.0,
+                "pressure_score": 90.0,
+                "order_score": 97.0
+            },
+            "profit": -0.0232290016000123
+        },
+        {
+            "factors": {
+                "score": 54.51505431861909,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 95.0,
+                "order_score": 95.0
+            },
+            "profit": -0.004470714743453793
+        },
+        {
+            "factors": {
+                "score": 52.60861541664403,
+                "institution_hold": false,
+                "flow_score": 50.0,
+                "pressure_score": 70.0,
+                "order_score": 82.0
+            },
+            "profit": -0.009916980636517952
+        },
+        {
+            "factors": {},
+            "profit": -0.02889221487782317
+        },
+        {
+            "factors": {},
+            "profit": -0.07922028154461555
+        },
+        {
+            "factors": {},
+            "profit": -0.010344843885547373
+        },
+        {
+            "factors": {},
+            "profit": -0.060109512708981745
+        },
+        {
+            "factors": {},
+            "profit": -0.033149187415775126
+        },
+        {
+            "factors": {},
+            "profit": -0.03764294653187192
+        },
+        {
+            "factors": {},
+            "profit": -0.07706428107606798
+        },
+        {
+            "factors": {},
+            "profit": -0.08131222869815001
+        },
+        {
+            "factors": {},
+            "profit": -0.08717985683810339
+        },
+        {
+            "factors": {},
+            "profit": -0.09397197686876856
+        },
+        {
+            "factors": {},
+            "profit": -0.06696948624081618
+        },
+        {
+            "factors": {},
+            "profit": -0.04205602167907438
+        },
+        {
+            "factors": {},
+            "profit": -0.03860293538398338
+        },
+        {
+            "factors": {},
+            "profit": -0.020000216955938774
+        },
+        {
+            "factors": {},
+            "profit": -0.03982773958588568
+        },
+        {
+            "factors": {},
+            "profit": -0.04431832479510913
+        },
+        {
+            "factors": {},
+            "profit": -0.004471096875421539
+        },
+        {
+            "factors": {},
+            "profit": -0.08419511886136655
+        },
+        {
+            "factors": {},
+            "profit": -0.060184911835983186
+        },
+        {
+            "factors": {},
+            "profit": -0.060559210182807084
+        },
+        {
+            "factors": {},
+            "profit": -0.07922119186848346
+        },
+        {
+            "factors": {},
+            "profit": -0.04444459953145764
+        },
+        {
+            "factors": {},
+            "profit": -0.03764270211195782
+        },
+        {
+            "factors": {},
+            "profit": -0.07706438966975825
+        },
+        {
+            "factors": {},
+            "profit": -0.0182925040330432
+        },
+        {
+            "factors": {},
+            "profit": -0.05437360958380381
+        },
+        {
+            "factors": {},
+            "profit": -0.08717944997020032
+        },
+        {
+            "factors": {},
+            "profit": -0.07952057929584772
+        },
+        {
+            "factors": {},
+            "profit": -0.09397166672879805
+        },
+        {
+            "factors": {},
+            "profit": -0.04205642115142155
+        },
+        {
+            "factors": {},
+            "profit": -0.020000215469923185
+        },
+        {
+            "factors": {},
+            "profit": -0.039827358175841786
+        },
+        {
+            "factors": {},
+            "profit": -0.04431793486801853
+        },
+        {
+            "factors": {},
+            "profit": -0.013294109466161613
+        },
+        {
+            "factors": {},
+            "profit": -0.084194863681456
+        },
+        {
+            "factors": {},
+            "profit": -0.04582877330737493
+        },
+        {
+            "factors": {},
+            "profit": -0.028892348705481682
+        },
+        {
+            "factors": {},
+            "profit": -0.07922048162233696
+        },
+        {
+            "factors": {},
+            "profit": -0.01034466551540632
+        },
+        {
+            "factors": {},
+            "profit": -0.06010931330862544
+        },
+        {
+            "factors": {},
+            "profit": -0.037643112665283036
+        },
+        {
+            "factors": {},
+            "profit": -0.07706464148463708
+        },
+        {
+            "factors": {},
+            "profit": -0.018292642624312988
+        },
+        {
+            "factors": {},
+            "profit": -0.05437321119495862
+        },
+        {
+            "factors": {},
+            "profit": -0.0871795355167949
+        },
+        {
+            "factors": {},
+            "profit": -0.04086321977833332
+        },
+        {
+            "factors": {},
+            "profit": -0.09397170544128658
+        },
+        {
+            "factors": {},
+            "profit": -0.04205609208560567
+        },
+        {
+            "factors": {},
+            "profit": -0.03860280676712458
+        },
+        {
+            "factors": {},
+            "profit": -0.019999918270029136
+        },
+        {
+            "factors": {},
+            "profit": -0.03982755151768978
+        },
+        {
+            "factors": {},
+            "profit": -0.0443181276951203
+        },
+        {
+            "factors": {},
+            "profit": -0.0044711726183838925
+        },
+        {
+            "factors": {},
+            "profit": -0.08419499401476846
+        },
+        {
+            "factors": {},
+            "profit": -0.045828757908149206
+        },
+        {
+            "factors": {},
+            "profit": -0.06055887915560597
+        },
+        {
+            "factors": {},
+            "profit": -0.07922084265291414
+        },
+        {
+            "factors": {},
+            "profit": -0.04444423548508499
+        },
+        {
+            "factors": {},
+            "profit": -0.037643200512295444
+        },
+        {
+            "factors": {},
+            "profit": -0.07706432547933556
+        },
+        {
+            "factors": {},
+            "profit": -0.018292772579341296
+        },
+        {
+            "factors": {},
+            "profit": -0.0543734021542898
+        },
+        {
+            "factors": {},
+            "profit": -0.08717963566885407
+        },
+        {
+            "factors": {},
+            "profit": -0.07952003626729567
+        },
+        {
+            "factors": {},
+            "profit": -0.09397171709903791
+        },
+        {
+            "factors": {},
+            "profit": -0.04205602167907438
+        },
+        {
+            "factors": {},
+            "profit": -0.020000288283875806
+        },
+        {
+            "factors": {},
+            "profit": -0.039827803154196866
+        },
+        {
+            "factors": {},
+            "profit": -0.04431832479510913
+        },
+        {
+            "factors": {},
+            "profit": -0.013294187229253924
+        },
+        {
+            "factors": {},
+            "profit": -0.08419499950147505
+        },
+        {
+            "factors": {},
+            "profit": -0.045828699944362374
+        },
+        {
+            "factors": {},
+            "profit": -0.06055901655911521
+        },
+        {
+            "factors": {},
+            "profit": -0.07922099769849991
+        },
+        {
+            "factors": {},
+            "profit": -0.04444416202281019
+        },
+        {
+            "factors": {},
+            "profit": -0.03764344811891971
+        },
+        {
+            "factors": {},
+            "profit": -0.07706401442076545
+        },
+        {
+            "factors": {},
+            "profit": -0.01829283879058967
+        },
+        {
+            "factors": {},
+            "profit": -0.05437350312400292
+        },
+        {
+            "factors": {},
+            "profit": -0.08717964749238513
+        },
+        {
+            "factors": {},
+            "profit": -0.07952063189534327
+        },
+        {
+            "factors": {},
+            "profit": -0.09397123836168675
+        },
+        {
+            "factors": {},
+            "profit": -0.04205601490198436
+        },
+        {
+            "factors": {},
+            "profit": -0.01999999405600168
+        },
+        {
+            "factors": {},
+            "profit": -0.039827291970699986
+        },
+        {
+            "factors": {},
+            "profit": -0.04431832052222207
+        },
+        {
+            "factors": {},
+            "profit": -0.013294110473177828
+        },
+        {
+            "factors": {},
+            "profit": -0.084194863681456
+        },
+        {
+            "factors": {},
+            "profit": -0.04582844037054844
         }
     ]
 }

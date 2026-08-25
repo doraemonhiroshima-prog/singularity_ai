@@ -144,11 +144,7 @@ class SentimentEngine:
                     self._source_weight()
                 )
 
-            print(
-                
-                f"{code} {name} "
-                
-            )
+            
 
             sentiment = max(
                 min(

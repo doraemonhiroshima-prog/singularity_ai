@@ -5,9 +5,7 @@ class RiskManager:
     def __init__(self):
 
         self.base_risk = 0.03
-
         self.max_positions = 5
-
         self.max_drawdown = 0.25
 
     # =====================================================
@@ -15,7 +13,9 @@ class RiskManager:
     # =====================================================
     def check(
         self,
-        portfolio,
+        holdings,
+        cash,
+        current_dd,
         signal
     ):
 
@@ -24,44 +24,30 @@ class RiskManager:
             # =========================
             # POSITION LIMIT
             # =========================
-            if len(
-                portfolio.positions
-            ) >= self.max_positions:
-
+            if len(holdings) >= self.max_positions:
                 return False
 
             # =========================
             # CASH
             # =========================
-            if portfolio.cash <= 0:
-
+            if cash <= 0:
                 return False
 
             # =========================
             # SIGNAL
             # =========================
-            if signal.get(
-                "signal"
-            ) != "BUY":
-
+            if signal.get("signal") != "BUY":
                 return False
 
             # =========================
             # DD FILTER
             # =========================
-            current_dd = getattr(
-                portfolio,
-                "drawdown",
-                0
-            )
-
             if current_dd >= self.max_drawdown:
-
                 return False
 
             return True
 
-        except:
+        except Exception:
 
             return False
 
@@ -70,8 +56,9 @@ class RiskManager:
     # =====================================================
     def position_size(
         self,
-        portfolio,
+        cash,
         price,
+        current_dd=0,
         confidence=50,
         volatility=0.03
     ):
@@ -82,55 +69,38 @@ class RiskManager:
             # CONFIDENCE
             # =========================
             if confidence >= 85:
-
                 risk = 0.07
 
             elif confidence >= 70:
-
                 risk = 0.05
 
             elif confidence >= 60:
-
                 risk = 0.04
 
             else:
-
                 risk = 0.02
 
             # =========================
-            # VOLATILITY REDUCE
+            # VOLATILITY
             # =========================
             if volatility > 0.08:
-
                 risk *= 0.5
 
             # =========================
-            # DD REDUCE
+            # DD
             # =========================
-            dd = getattr(
-                portfolio,
-                "drawdown",
-                0
-            )
-
-            if dd > 0.15:
-
+            if current_dd > 0.15:
                 risk *= 0.5
 
             # =========================
             # CASH
             # =========================
-            risk_cash = (
-                portfolio.cash *
-                risk
-            )
+            risk_cash = cash * risk
 
-            qty = int(
-                risk_cash / price
-            )
+            qty = int(risk_cash / price)
 
             return max(qty, 1)
 
-        except:
+        except Exception:
 
             return 1

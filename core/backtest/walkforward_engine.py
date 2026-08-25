@@ -77,7 +77,31 @@ class WalkForwardEngine:
         # =================================================
 
         self.debug = False
+        # =================================================
+        # TEST MODE
+        # =================================================
 
+        self.test_mode = True
+
+        self.test_codes = [
+
+            "7203.T",  # トヨタ自動車
+            "6758.T",  # ソニーグループ
+            "9432.T",  # NTT
+            "8306.T",  # 三菱UFJFG
+            "6501.T",  # 日立製作所
+
+            "4063.T",  # 信越化学工業
+            "8035.T",  # 東京エレクトロン
+            "8058.T",  # 三菱商事
+            "2914.T",  # 日本たばこ産業（JT）
+            "4502.T",  # 武田薬品工業
+
+        ]
+
+        # 営業日ベース（約252日/年）
+        self.test_years = 10
+        self.test_days = self.test_years * 252
         # =================================================
         # AI FLAGS
         # =================================================
@@ -365,19 +389,19 @@ class WalkForwardEngine:
         )
 
         df["VOL5"] = (
-            close.pct_change()
+            close.pct_change(fill_method=None)
             .rolling(5)
             .std()
         )
 
         df["VOL20"] = (
-            close.pct_change()
+            close.pct_change(fill_method=None)
             .rolling(20)
             .std()
         )
 
         df["VOL60"] = (
-            close.pct_change()
+            close.pct_change(fill_method=None)
             .rolling(60)
             .std()
         )
@@ -494,15 +518,14 @@ class WalkForwardEngine:
         )
 
 
-        print(
-            "WEIGHTS:",
-            strategy["weights"]
-        )
+        #print(
+        #    "WEIGHTS:",
+        #    strategy["weights"]
+        #)
 
-        print(
-            "THRESHOLD:",
-            strategy["threshold"]
-        )
+        #print(
+        #    "THRESHOLD:",
+        ##)
 
         signal = (
             self.signal_ai.run(
@@ -521,10 +544,10 @@ class WalkForwardEngine:
             )
         )
 
-        print(
-            "RAW SIGNAL:",
-             signal
-        )
+        #print(
+        #    "RAW SIGNAL:",
+        #     signal
+        #)
 
         return signal, strategy
 # =====================================================
@@ -544,16 +567,16 @@ class WalkForwardEngine:
                 df
             )
 
-            print(
-                "SCORES:",
-                code,
-                scores
-            )
+            #print(
+            #    "SCORES:",
+            #    code,
+            #    scores
+            #)
 
-            print(
-                "BEFORE BUILD SIGNAL:",
-                code
-            )
+            #print(
+            #    "BEFORE BUILD SIGNAL:",
+            #    code
+            #)
 
             signal, strategy = (
                 self.build_signal(
@@ -562,26 +585,26 @@ class WalkForwardEngine:
                 )
             )
 
-            print(
-                "AFTER BUILD SIGNAL:",
-                code
-            )
+            #print(
+            #    "AFTER BUILD SIGNAL:",
+            #    code
+            #)
 
-            print(
-                "SIGNAL RESULT:",
-                code,
-                signal
-            )
+            #print(
+            #    "SIGNAL RESULT:",
+            #    code,
+            #    signal
+            #)
 
-            print(
-                "SIGNAL TYPE:",
-                signal["signal"]
-            )
+            #print(
+            #    "SIGNAL TYPE:",
+            #    signal["signal"]
+            #)
 
-            print(
-                "CHECKING SIGNAL:",
-                signal["signal"]
-            )
+            #print(
+            #    "CHECKING SIGNAL:",
+            #    signal["signal"]
+            #)
 
             if signal["signal"] != "BUY":
 
@@ -592,10 +615,10 @@ class WalkForwardEngine:
 
                 return None
 
-            print(
-                "BUY SIGNAL:",
-                code
-            )
+            #print(
+            #    "BUY SIGNAL:",
+#                code
+#            )
 
             close = df["Close"]
 
@@ -727,9 +750,7 @@ class WalkForwardEngine:
 
         day_data = {}
 
-        for code, df in list(
-            self.filtered_map.items()
-        )[:5]:
+        for code, df in self.filtered_map.items():
 
             try:
 
@@ -800,22 +821,24 @@ class WalkForwardEngine:
         print(
             "AFTER BUY SIDE"
         )
-
+        print(final_total)
+        print(cash)
+        print(holdings)
         # =============================================
         # TOTAL VALUE
         # =============================================
 
         total = cash
 
-        print(
-            "SELL HOLDINGS:",
-            list(holdings.keys())
-        )
+        #print(
+        #    "SELL HOLDINGS:",
+        #    list(holdings.keys())
+        #)
 
-        print(
-            "DAY DATA:",
-            list(day_data.keys())
-        )
+        #print(
+        #    "DAY DATA:",
+        #    list(day_data.keys())
+        #)
 
         for code, pos in holdings.items():
 
@@ -886,7 +909,7 @@ class WalkForwardEngine:
         trade_logs
     ):
 
-        print("START SELL")
+    #    print("START SELL")
 
         remove_codes = []
 
@@ -896,22 +919,22 @@ class WalkForwardEngine:
 
             try:
 
-                print(
-                    "CHECKING EXIT:",
-                    code
-                )
+            #    print(
+            #        "CHECKING EXIT:",
+            #        code
+            #    )
 
-                print(
-                    "ENTRY:",
-                    pos
-                )
+            #    print(
+            #        "ENTRY:",
+            #        pos
+            #    )
 
                 if code not in day_data:
 
-                    print(
-                        "NO DAY DATA:",
-                        code
-                    )
+            #        print(
+            #            "NO DAY DATA:",
+            #            code
+            #        )
 
                     continue
 
@@ -921,10 +944,10 @@ class WalkForwardEngine:
                     df["Close"].iloc[-1]
                 )
 
-                print(
-                    "BEFORE SHOULD EXIT",
-                    code
-                )
+            #    print(
+            #        "BEFORE SHOULD EXIT",
+            #        code
+            #    )
 
                 should_exit, reason = (
 
@@ -938,12 +961,12 @@ class WalkForwardEngine:
                     )
                 )
 
-                print(
-                    "AFTER SHOULD EXIT",
-                    code,
-                    should_exit,
-                    reason
-                )
+            #    print(
+            #        "AFTER SHOULD EXIT",
+            #        code,
+            #        should_exit,
+            #        reason
+            #    )
 
                 if not should_exit:
                     continue
@@ -975,25 +998,25 @@ class WalkForwardEngine:
  
                 ) / pos["entry"]
  
-                print(
-                    "SELL:",
-                    code,
-                    "ENTRY:",
-                    pos["entry"],
-                    "EXIT:",
-                    current_price,
-                    "PROFIT:",
-                    profit
-                )
+            #    print(
+            #        "SELL:",
+            #        code,
+            #        "ENTRY:",
+            #        pos["entry"],
+            #        "EXIT:",
+            #        current_price,
+            #        "PROFIT:",
+            #        profit
+            #    )
 
                 self.winrate_learning.update(
                     profit
                 )
  
-                print(
-                    "WINRATE UPDATE:",
-                    profit
-                )
+            #    print(
+            #        "WINRATE UPDATE:",
+            #        profit
+            #    )
  
                 trade_logs.append({
    
@@ -1008,16 +1031,16 @@ class WalkForwardEngine:
                     "reason": reason
                 })
  
-                print(
-                    "SELL:",
-                    code,
-                    "PROFIT:",
-                    round(
-                        profit * 100,
-                        2
-                    ),
-                    "%"
-                )
+            #    print(
+            #        "SELL:",
+            #        code,
+            #        "PROFIT:",
+            #        round(
+            #            profit * 100,
+            #            2
+            #        ),
+            #        "%"
+            #    )
 
                 remove_codes.append(
                     code
@@ -1025,11 +1048,11 @@ class WalkForwardEngine:
 
             except Exception as e:
  
-                print(
-                    "SELL ERROR:",
-                    code,
-                    e
-                )
+            #    print(
+            #        "SELL ERROR:",
+            #        code,
+            #        e
+            #    )
                 traceback.print_exc()
                 continue
  
@@ -1059,11 +1082,11 @@ class WalkForwardEngine:
 
                 if code in holdings:
                     continue
-                print(
-                    "TRY BUY:",
-                    code,
-                    c["price"]
-                )
+            #    print(
+            #        "TRY BUY:",
+            #        code,
+            #        c["price"]
+            #    )
 
                 result = (
 
@@ -1088,27 +1111,27 @@ class WalkForwardEngine:
                 cash = result["cash"] 
                 holdings = result["holdings"]
 
-                print(
-                    "BUY RESULT:",
-                    result
-                )
-                print(
-                    "CASH AFTER BUY:",
-                    cash
-                )
-                print(
-                    "HOLDINGS AFTER BUY:",
-                    len(holdings)
-                )
+            #    print(
+            #        "BUY RESULT:",
+            #        result
+            #    )
+            #    print(
+            #        "CASH AFTER BUY:",
+            #        cash
+            #    )
+            #    print(
+            #        "HOLDINGS AFTER BUY:",
+            #        len(holdings)
+            #    )
                 
                
             except Exception as e:
 
-                print(
-                    "BUY ERROR:",
-                    code,
-                    e
-                )
+            #    print(
+            #        "BUY ERROR:",
+            #        code,
+            #        e
+            #    )
 
                 traceback.print_exc()
 
@@ -1129,9 +1152,9 @@ class WalkForwardEngine:
         day_data
     ):
 
-        print(
-            "START BUILD_CANDIDATES"
-        )
+    #    print(
+    #        "START BUILD_CANDIDATES"
+    #    )
 
         candidates = []
 
@@ -1498,19 +1521,43 @@ class WalkForwardEngine:
         self.filtered_map = (
             filtered_map
         )
+        self.start_year = start_year
+        self.end_year = end_year
 
+        sample_df = next(iter(filtered_map.values()))
+
+        self.start_date = sample_df["Date"].iloc[0]
+        self.end_date = sample_df["Date"].iloc[-1]
+# ==========================================
+# TEST CODE FILTER
+# ==========================================
+
+        if self.test_mode:
+
+            self.filtered_map = {
+ 
+                code: df
+  
+                for code, df in self.filtered_map.items()
+  
+                if code in self.test_codes
+   
+            }
+  
+            print(
+  
+                "TEST CODES:",
+   
+                list(self.filtered_map.keys())
+  
+            )
 # =================================================
 # MAX DAYS
 # =================================================
 
         max_days = min(
-
             len(df)
-
-            for df in (
-                filtered_map
-                .values()
-            )
+            for df in self.filtered_map.values()
         )
 
         print(
@@ -1522,10 +1569,14 @@ class WalkForwardEngine:
             "MAX DAYS :",
             max_days
         )
+        print("SELF_FILTERED_MAP :", len(self.filtered_map))
 
+        for code, df in self.filtered_map.items():
+            print(code, len(df))
 # =================================================
 # PORTFOLIO
-# =================================================
+# ===================================
+# ==============
 
         cash = (
             self.initial_cash
@@ -1540,20 +1591,29 @@ class WalkForwardEngine:
         dd_curve = []
 
         peak = cash
-        
-        
-        print("START_DAY =", self.start_day)
-        
-        print("MAX_DAYS =", max_days)
+         
 # =================================================
 # MAIN LOOP
 # =================================================
+
+        end_day = max_days
+
+        if self.test_mode:
+
+                end_day = min(
+
+                max_days,     
+
+                self.start_day + self.test_days
+
+            )  
 
         for day in range(
 
             self.start_day,
 
-            max_days
+            end_day
+
         ):
 
             try:
@@ -1621,7 +1681,7 @@ class WalkForwardEngine:
                 ):
  
                     try:
-    
+     
                         self.update_learning(
                             trade_logs
                         )
@@ -1692,7 +1752,13 @@ class WalkForwardEngine:
                 trade_logs
             )
         )
- 
+        self.start_year = start_year
+        self.end_year = end_year
+
+        sample_df = next(iter(filtered_map.values()))
+
+        self.start_date = sample_df["Date"].iloc[0]
+        self.end_date = sample_df["Date"].iloc[-1]
         return {
  
             "result":
@@ -1749,34 +1815,9 @@ class WalkForwardEngine:
                 years[-1]
             )
 
-        start_idx = random.randint(
- 
-            0,
- 
-            len(years)
- 
-            -
- 
-            self.test_years
- 
-            -
- 
-            1
-        )
+        start_year = 2005
+        end_year = 2015
 
-        start_year = (
-            years[start_idx]
-        )
- 
-        end_year = (
- 
-            start_year
- 
-            +
- 
-            self.test_years
-        ) 
- 
         return (
             start_year,
             end_year
@@ -2047,11 +2088,26 @@ class WalkForwardEngine:
 
             dd_curve
         )
+        print("\n===== BACKTEST PERIOD =====")
+        print(
+            "YEAR :",
+            self.start_year,
+            "~",
+            self.end_year
+        )
+        print(
+            "START :",
+            self.start_date.strftime("%Y-%m-%d")
+        )
+        print(
+            "END :",
+            self.end_date.strftime("%Y-%m-%d")
+        )
 
         print(
             "\n===================="
         )
-
+        
         print(
             "FINAL:",
             int(
@@ -2105,6 +2161,7 @@ class WalkForwardEngine:
         print(
             "===================="
         )
+        
 
         return {
 
@@ -2136,22 +2193,33 @@ class WalkForwardEngine:
     def run_for_evolution(
         self  
     ):
-        print("===================")
+        print("===================" \
+        "")
         print("RUN EVOLUTION")
         print("===================")
+        
+        if not hasattr(self, "filtered_map"):
+            self.run()
 
-        result = evolution.run()
+        result = evolution.run(
+            data_map=self.filtered_map
+        )   
+        
         print("===== RESULT =====")
 
         for k, v in result.items():
+
+            if k == "holdings":
+                continue
+
             print(k, ":", v)
 
         print("==================")
         print("===================")
-        print("EVOLUTION END")
+        print("WALK FORWARD V2 END")
         print("===================")
+        
         return result
-
         
 # =====================================================
 # MAIN
@@ -2159,12 +2227,10 @@ class WalkForwardEngine:
 
 if __name__ == "__main__":
 
-    print(
-        "\nSTART WALK FORWARD V2\n"
-    )
+    print("\nSTART WALK FORWARD V2\n")
 
     engine = WalkForwardEngine()
 
-    result = (
-        engine.run_for_evolution()
-    )
+    engine.run()               # ← これでfiltered_mapが作られる
+
+    engine.run_for_evolution() # ← その後にevolution
